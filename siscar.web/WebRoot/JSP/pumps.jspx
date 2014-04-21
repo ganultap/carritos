@@ -1,0 +1,112 @@
+<ui:composition template="../inc-templates/main-template.jspx"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:gw="/gw_core.tld">
+	<!-- params for page titles-->
+	<ui:param name="pageTitle" value="#{lbl['label.tituloSurtidor']}" />
+	<ui:param name="contentHeader" value="#{lbl['label.tituloSurtidor']}" />
+	<ui:define name="content">
+	<script language="JavaScript" src="../js/controlDecimales.js"
+			type="text/javascript"></script>
+		<ui:decorate template="../inc-templates/content-template.jspx">
+			<!-- header content here  -->
+			<ui:define name="pageName">
+			</ui:define>
+			<!-- insert content here -->
+			<ui:define name="pageContent">
+				<center>
+					<ice:form>
+						<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+
+						<ice:panelGrid columns="3" styleClass="siscarTitle">
+							<ice:graphicImage value="../images/t5a.gif" />
+							<ice:outputText style="font-size: 220%;"
+								value=" #{contentHeader}" />
+							<ice:graphicImage value="../images/t5c.gif" />
+						</ice:panelGrid>
+						<br />
+						<ice:panelGrid columns="2"
+							style="border:1px solid blue; text-align:left;">
+							
+							<ice:outputText value="#{lbl['label.nombreSurtidor']}" />
+							<ice:selectOneMenu value="#{pumpsPage.idPump}"								
+								partialSubmit="true"
+								binding="#{pumpsPage.selectPumps}" style="width: 142px; "
+								valueChangeListener="#{pumpsPage.listener_Pumps}">
+								<f:selectItems value="#{selectItemPumpsPage.items}" />
+							</ice:selectOneMenu>
+
+							<ice:outputText value="#{lbl['label.nuevoNombreSurt']}" />
+							<ice:inputText value="#{pumpsPage.pumNombre}"
+								styleClass="siscarNotNull"
+								binding="#{pumpsPage.txtNombreSurti}" style="width: 142px; "
+								maxlength="20" />
+
+							<ice:outputText value="#{lbl['label.nombreTanque']}" />
+							<ice:selectOneMenu value="#{pumpsPage.idTanque}"
+								styleClass="siscarNotNull"
+								partialSubmit="true"
+								binding="#{pumpsPage.selectTanque}" style="width: 142px; "
+								valueChangeListener="#{pumpsPage.listener_FuelTank}">
+								<f:selectItems value="#{selectItemFuelTanksPage.items}" />
+							</ice:selectOneMenu>
+
+							<ice:outputText value="#{lbl['label.tipoCombustible']}" />
+							<ice:inputText value="#{pumpsPage.tipoCombustibleNombre}"
+								binding="#{pumpsPage.txtFuelTypes}" style="width: 142px; "
+								disabled="true">
+							</ice:inputText>
+
+							<ice:outputText value="#{lbl['label.capacidadMax']}" />
+							<ice:inputText value="#{pumpsPage.capacidad}"
+								binding="#{pumpsPage.txtCapacidadMax}" style="width: 178px; "
+								disabled="true" onkeypress="decimales(this);">
+								<f:convertNumber pattern="0.00" maxFractionDigits="2" />
+							</ice:inputText>
+							
+						</ice:panelGrid>
+
+						<ice:column></ice:column>
+						<ice:panelGrid columns="5">
+
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+
+								<ice:commandButton value="#{lbl['label.crear']}"
+									actionListener="#{pumpsPage.action_crearPumpsPage}"
+									disabled="#{pumpsPage.disCrear}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+
+								<ice:commandButton value="#{lbl['label.modificar']}"
+									actionListener="#{pumpsPage.action_modificarPumpsPage}"
+									disabled="false">
+								</ice:commandButton>
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+
+								<ice:commandButton value="#{lbl['label.eliminar']}"
+									actionListener="#{pumpsPage.action_eliminarPumpsPage}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+
+								<ice:commandButton value="#{lbl['label.limpiar']}"
+									actionListener="#{pumpsPage.action_limpiarFormaPumpsPage}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+						</ice:panelGrid>
+						<ice:messages />
+					</ice:form>
+				</center>
+			</ui:define>
+		</ui:decorate>
+	</ui:define>
+</ui:composition>

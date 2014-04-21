@@ -1,0 +1,442 @@
+<ui:composition template="../inc-templates/main-template.jspx"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:gw="/gw_core.tld">
+	<!-- params for page titles-->
+	<ui:param name="pageTitle" value="#{lbl['label.tituloPolicies']}" />
+	<ui:param name="contentHeader" value="#{lbl['label.tituloPolicies']}" />
+	<ui:define name="content">
+		<script language="JavaScript" src="../js/controlDecimales.js"
+			type="text/javascript">
+			</script>
+		<ui:decorate template="../inc-templates/content-template.jspx">
+			<!-- header content here  -->
+			<ui:define name="pageName">
+			</ui:define>
+			<!-- insert content here -->
+			<ui:define name="pageContent">
+				<center>
+					<ice:form partialSubmit="true" id="frmPoliciesCRUD">
+						<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+
+						<ice:panelGrid columns="3" styleClass="siscarTitle">
+							<ice:graphicImage value="../images/t5a.gif" />
+							<ice:outputText style="font-size: 220%;"
+								value=" #{contentHeader}" />
+							<ice:graphicImage value="../images/t5c.gif" />
+						</ice:panelGrid>
+						<br />
+						<ice:panelGrid columns="1" style="border:1px solid blue; ">
+							<ice:panelGrid columns="2" style="text-align:left;">
+								<ice:outputText value="#{lbl['label.tipoPoliza']}"
+									style="text-align:left;"></ice:outputText>
+								<ice:selectOneMenu value="#{policiesPage.idTipoPoliza}"
+									binding="#{policiesPage.selectSeguro}" partialSubmit="true"
+									valueChangeListener="#{policiesPage.listener_tipoPoliza }"
+									styleClass="siscarNotNull" style="width: 145px;">
+									<f:selectItems
+										value="#{selectItemPolicyTypePage.listPoliciesTypes}" />
+								</ice:selectOneMenu>
+
+								<ice:outputText value="#{lbl['label.numeroPoliza']}"
+									style="text-align:left;" />
+								<ice:inputText id="txtNumeroplst" style="width: 145px; "
+									styleClass="siscarNotNull"
+									binding="#{policiesPage.txtNumeroPoliza}" maxlength="38"
+									readonly="#{policiesPage.boNumeroPoliza }">
+								</ice:inputText>
+								<ice:outputText value="#{lbl['label.nuevoNumPoli']}"
+									style="text-align:left;" />
+								<ice:inputText id="txtNuevoNumeroplst" style="width: 145px;"
+									binding="#{policiesPage.txtNuevoNumeroPoliza}" maxlength="38"
+									readonly="#{policiesPage.roNuevoNumPoliza }">
+								</ice:inputText>
+								<ice:outputText value="#{lbl['label.fechaIniPoli']}"
+									style="text-align:left;" />
+								<ice:selectInputDate value="#{policiesPage.plcFechaInicio}"
+									styleClass="siscarNotNull" renderAsPopup="true"
+									binding="#{policiesPage.txtFechaIni}"
+									valueChangeListener="#{policiesPage.listener_fechaIni}"
+									rendered="true" required="true">
+									<f:convertDateTime pattern="dd-MMM-yyyy" timeZone="GMT-5" />
+								</ice:selectInputDate>
+								<ice:outputText value="#{lbl['label.fechaFinPoli']}"
+									style="text-align:left;" />
+								<ice:selectInputDate value="#{policiesPage.plcFechaTerminacion}"
+									styleClass="siscarNotNull" renderAsPopup="true"
+									binding="#{policiesPage.txtFechaFin}" rendered="true"
+									disabled="true">
+									<f:convertDateTime pattern="dd-MMM-yyyy" timeZone="GMT-5" />
+								</ice:selectInputDate>
+								<ice:outputText value="#{lbl['label.documento1']}"
+									style="text-align:left;" />
+								<ice:panelGrid columns="2">
+									<ice:inputText id="txtDoc1" binding="#{policiesPage.txtDoc1}"
+										style="width: 143px; aling: left;" styleClass="siscarNotNull"
+										value="#{policiesPage.plsDocumento1}" maxlength="40"
+										readonly="false" />
+									<ice:commandButton type="button"
+										image="../images/search_icon.gif"
+										actionListener="#{policiesPage.action_showAuxiliares }"
+										alt="#{lbl['label.seeNit']}" />
+								</ice:panelGrid>
+								<ice:outputText value="#{lbl['label.documento2']}"
+									style="text-align:left;" />
+								<ice:inputText id="txtDoc2" binding="#{policiesPage.txtDoc2}"
+									style="width: 145px; aling: left;"
+									value="#{policiesPage.plsDocumento2}" maxlenght="40" />
+
+							</ice:panelGrid>
+
+							<ice:panelGrid columns="2" style="text-align:left; "
+								visible="#{policiesPage.showPlacaVHC}">
+
+								<ice:outputText value="#{lbl['label.placa']}" />
+								<ice:inputText id="txtPlacaVehiculos" styleClass="siscarNotNull"
+									style="width: 170px; align: left;"
+									value="#{policiesPage.placaVehiculo}"
+									binding="#{policiesPage.txtPlacaVehiculo}" partialSubmit="true">
+								</ice:inputText>
+
+								<ice:outputText value="#{lbl['label.valorAsegurado']}" />
+								<ice:inputText id="txtValorAseg"
+									style="width: 170px; text-align: right; "
+									binding="#{policiesPage.txtValorAseg}"
+									value="#{policiesPage.plsValorAseg}" partialSubmit="true"
+									maxlength="12" onkeypress="decimales(this);">
+									<f:convertNumber pattern="0.00" maxFractionDigits="2"
+										minFractionDigits="2" />
+								</ice:inputText>
+
+								<ice:outputText value="#{lbl['label.valorPrima']}" />
+								<ice:inputText id="txtValorPrima" styleClass="siscarNotNull"
+									style="width: 170px; text-align: right; "
+									binding="#{policiesPage.txtValorPrima}"
+									valueChangeListener="#{policiesPage.listener_valorPrima}"
+									value="#{policiesPage.plsValorPrima}" partialSubmit="true"
+									maxlength="12" onkeypress="decimales(this);">
+									<f:convertNumber pattern="0.00" maxFractionDigits="2"
+										minFractionDigits="2" />
+								</ice:inputText>
+
+								<ice:outputText value="#{lbl['label.valorContrib']}" />
+								<ice:inputText id="txtValorContrib" styleClass="siscarNotNull"
+									style="width: 170px; text-align: right; "
+									binding="#{policiesPage.txtValorContrib}"
+									value="#{policiesPage.plsValorContribucion}"
+									valueChangeListener="#{policiesPage.listener_valorContrib}"
+									partialSubmit="true" maxlength="12"
+									onkeypress="decimales(this);">
+									<f:convertNumber pattern="0.00" maxFractionDigits="2"
+										minFractionDigits="2" />
+								</ice:inputText>
+
+								<ice:outputText value="#{lbl['label.valorTotal']}" />
+								<ice:inputText value="#{policiesPage.plsValorTotal}"
+									id="txtValTotal" binding="#{policiesPage.txtValorTotal}"
+									partialSubmit="true" readonly="true"
+									style="width: 170px; text-align: right; "
+									onkeypress="decimales(this);">
+									<f:convertNumber pattern="0.00" maxFractionDigits="2" />
+								</ice:inputText>
+
+							</ice:panelGrid>
+
+						</ice:panelGrid>
+						<br />
+						<ice:panelGrid columns="5">
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+
+								<ice:commandButton value="#{lbl['label.crear']}"
+									actionListener="#{policiesPage.action_crearPoliza}"
+									disabled="#{policiesPage.disableCrear}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+
+								<ice:commandButton value="#{lbl['label.modificar']}"
+									actionListener="#{policiesPage.action_modificarPoliza}"
+									disabled="#{policiesPage.disablemodificar }">
+								</ice:commandButton>
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.consultar']}"
+									actionListener="#{policiesPage.action_consultarPoliza}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.reemplazar']}"
+									actionListener="#{policiesPage.action_reemplazarPoliza}"
+									disabled="#{policiesPage.disableReemplazar}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.limpiar']}"
+									actionListener="#{policiesPage.action_limpiarForma}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+						</ice:panelGrid>
+						<ice:messages />
+						<ice:panelGrid columns="1"
+							visible="#{policiesPage.showTablaPolizas}">
+							<center>
+								<ice:dataTable id="tablaPolizas" border="0"
+									value="#{policiesPage.listaPolizas}" rows="10"
+									binding="#{policiesPage.tblPolizas}" var="item">
+									<f:facet name="header">
+										<center>
+											<ice:outputText value="#{lbl['label.tituloPolicies']}: " />
+											<ice:outputText value="#{policiesPage.nombreTipoPoliza}" />
+										</center>
+									</f:facet>
+									<ice:column id="column1">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.numeroPoliza']}" />
+										</f:facet>
+										<ice:outputText value="#{item.plsNumero}" />
+									</ice:column>
+									<ice:column id="column2">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.fechaIniPoli']}" />
+										</f:facet>
+										<ice:outputText value="#{item.plsFechainicioCobertura}">
+											<f:convertDateTime pattern="dd-MMM-yyyy" />
+										</ice:outputText>
+									</ice:column>
+									<ice:column id="column3">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.fechaFinPoli']}" />
+										</f:facet>
+										<ice:outputText value="#{item.plsFechafinCobertura}">
+											<f:convertDateTime pattern="dd-MMM-yyyy" />
+										</ice:outputText>
+									</ice:column>
+									<ice:column id="column15">
+										<f:facet name="header">
+											<center>
+												<ice:outputText value="#{lbl['label.seleccionar'] }" />
+											</center>
+										</f:facet>
+										<ice:commandButton value="" image="../images/activate.png"
+											actionListener="#{policiesPage.action_cargarPoliza}"
+											alt="#{lbl['label.seleccionar'] }" />
+									</ice:column>
+									<ice:column id="column16">
+										<f:facet name="header">
+											<center>
+												<ice:outputText value="#{lbl['label.detallar'] }" />
+											</center>
+										</f:facet>
+										<ice:commandButton value="" image="../images/d4ic.PNG"
+											actionListener="#{policiesPage.cargarVehiculosPoliza}"
+											alt="#{lbl['label.detallarpoliAlt']}" />
+									</ice:column>
+								</ice:dataTable>
+								<ice:dataPaginator for="tablaPolizas" paginator="true"
+									fastStep="1" paginatorMaxPages="5" rendered="true">
+									<f:facet name="previous">
+										<ice:graphicImage url="../images/arrow-fr.gif"
+											style="border:none; " title="#{lbl['label.paginaAnterior']}" />
+									</f:facet>
+									<f:facet name="next">
+										<ice:graphicImage url="../images/arrow-ff.gif"
+											style="border:none; " title="#{lbl['label.paginaSiguiente']}" />
+									</f:facet>
+								</ice:dataPaginator>
+							</center>
+						</ice:panelGrid>
+						<br />
+						<ice:panelGrid columns="1"
+							visible="#{policiesPage.showTableSoats}">
+							<center>
+								<ice:dataTable id="tablaSoatsInac" border="0"
+									value="#{policiesPage.listaSoatsInactivos}" rows="10"
+									binding="#{policiesPage.tblInactiveSoats}" var="item">
+									<f:facet name="header">
+										<center>
+											<ice:outputText value="#{lbl['label.soatsInactivos']}"></ice:outputText>
+										</center>
+									</f:facet>
+									<ice:column id="column1">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.numeroPoliza']}" />
+										</f:facet>
+										<ice:outputText value="#{item.plsNumero}" />
+									</ice:column>
+									<ice:column id="column2">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.fechaIniPoli']}" />
+										</f:facet>
+										<ice:outputText value="#{item.plsFechainicioCobertura}">
+											<f:convertDateTime pattern="dd-MMM-yyyy" />
+										</ice:outputText>
+									</ice:column>
+									<ice:column id="column3">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.fechaFinPoli']}" />
+										</f:facet>
+										<ice:outputText value="#{item.plsFechafinCobertura}">
+											<f:convertDateTime pattern="dd-MMM-yyyy" />
+										</ice:outputText>
+									</ice:column>
+								</ice:dataTable>
+								<ice:dataPaginator id="dataScroll1" for="tablaSoatsInac"
+									paginator="true" fastStep="1" paginatorMaxPages="5">
+									<f:facet name="previous">
+										<ice:graphicImage url="../images/arrow-fr.gif"
+											style="border:none;" title="#{lbl['label.paginaAnterior']}" />
+									</f:facet>
+									<f:facet name="next">
+										<ice:graphicImage url="../images/arrow-ff.gif"
+											style="border:none; background-color: none;"
+											title="#{lbl['label.paginaSiguiente']}" />
+									</f:facet>
+								</ice:dataPaginator>
+							</center>
+						</ice:panelGrid>
+						<br />
+						<ice:panelGrid columns="1"
+							visible="#{policiesPage.showTablaVehiculosPolizas}">
+							<center>
+								<ice:dataTable id="tablaVehiculosPolizas" border="0"
+									value="#{policiesPage.listaPolizaDetalle}" rows="10"
+									visible="#{policiesPage.showTablaVehiculosPolizas }"
+									binding="#{policiesPage.tblVehiculosPolizas}" var="item">
+									<f:facet name="header">
+										<center>
+											<ice:outputText value="#{lbl['label.tituloFacPol']}" />
+										</center>
+									</f:facet>
+									<ice:column id="column0">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.numeroPoliza']}" />
+										</f:facet>
+										<ice:outputText value="#{item.policies.plsNumero}" />
+									</ice:column>
+									<ice:column id="column1">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.numFacPoliza']}" />
+										</f:facet>
+										<ice:outputText value="#{item.pinNumeroFactura}">
+
+										</ice:outputText>
+									</ice:column>
+									<ice:column id="column2">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.fechaFacPoli']}" />
+										</f:facet>
+										<ice:outputText value="#{item.pinFechaFactura}">
+											<f:convertDateTime pattern="dd-MMM-yyyy" />
+										</ice:outputText>
+									</ice:column>
+								</ice:dataTable>
+								<br />
+								<ice:dataTable id="tablaPlacas" border="0" rows="10"
+									value="#{policiesPage.listaPoliciesVhc}"
+									visible="#{policiesPage.showTablaVehiculosPolizas }"
+									binding="#{policiesPage.tblPlacas}" var="item">
+									<f:facet name="header">
+										<center>
+											<ice:outputText value="#{lbl['label.vehiculos']}" />
+										</center>
+									</f:facet>
+									<ice:column id="column1">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.placa']}" />
+										</f:facet>
+										<ice:outputText value="#{item.vehicles.vhcPlacaDiplomatica}" />
+									</ice:column>
+									<ice:column id="column2">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.valPrimFacPo']}" />
+										</f:facet>
+										<ice:outputText value="#{item.pvsValorPrima}">
+											<f:convertNumber type="currency" currencySymbol="$"
+												maxFractionDigits="2" minFractionDigits="2" />
+										</ice:outputText>
+									</ice:column>
+									<ice:column id="column3">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.ivaFacPoliza']}" />
+										</f:facet>
+										<ice:outputText value="#{item.pvsValorIva}">
+											<f:convertNumber type="currency" currencySymbol="$"
+												maxFractionDigits="2" minFractionDigits="2" />
+										</ice:outputText>
+									</ice:column>
+									<ice:column id="column3">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.valorTotal']}"></ice:outputText>
+										</f:facet>
+										<ice:outputText value="#{item.pvsValorTotal}">
+											<f:convertNumber type="currency" currencySymbol="$"
+												maxFractionDigits="2" minFractionDigits="2" />
+										</ice:outputText>
+									</ice:column>
+									<ice:column>
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.valAseguPoli']}" />
+										</f:facet>
+										<ice:outputText value="#{item.pvsValorAsegurado}">
+											<f:convertNumber type="currency" currencySymbol="$"
+												maxFractionDigits="2" minFractionDigits="2" />
+										</ice:outputText>
+									</ice:column>
+									<ice:column>
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.noveltyPol'] }" />
+										</f:facet>
+										<ice:outputText value="#{item.monthTransacType.mttNombre}" />
+									</ice:column>
+									<ice:column>
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.dateNovedPol'] }" />
+										</f:facet>
+										<ice:outputText value="#{item.pvsFechaini}">
+											<f:convertDateTime pattern="dd-MMM-yyyy" />
+										</ice:outputText>
+									</ice:column>
+									<ice:column>
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.legateePV'] }"></ice:outputText>
+										</f:facet>
+										<ice:outputText value="#{item.legateesTypes.lgtNombre}" />
+									</ice:column>
+									<ice:column>
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.carnetPV'] }"></ice:outputText>
+										</f:facet>
+										<ice:outputText value="#{item.pvsCarnetAsignatario}" />
+									</ice:column>
+								</ice:dataTable>
+
+								<ice:dataPaginator for="tablaPlacas" paginator="true"
+									fastStep="1" paginatorMaxPages="5" rendered="true"
+									visible="#{policiesPage.showTablaVehiculosPolizas }">
+									<f:facet name="previous">
+										<ice:graphicImage url="../images/arrow-fr.gif"
+											style="border:none; " title="#{lbl['label.paginaAnterior']}" />
+									</f:facet>
+									<f:facet name="next">
+										<ice:graphicImage url="../images/arrow-ff.gif"
+											style="border:none; " title="#{lbl['label.paginaSiguiente']}" />
+									</f:facet>
+								</ice:dataPaginator>
+
+							</center>
+						</ice:panelGrid>
+					</ice:form>
+					<ui:include src="auxilariesTablePolizaSeguros.jspx" />
+				</center>
+			</ui:define>
+		</ui:decorate>
+	</ui:define>
+</ui:composition>

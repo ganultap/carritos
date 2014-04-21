@@ -1,0 +1,162 @@
+<div class="navTree" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+	<ice:outputText value="Vehiculos accidentados" />
+	<center>
+		<ice:panelGrid columns="1" style="border:solid blue 1px;">
+			<center>
+				<ice:panelGrid columns="4" style="text-align:left;">
+					<ice:outputText value="#{lbl['label.tipoVehiculo'] }"
+						binding="#{involvedVehiclesPage.lblTipoVehiculo }" />
+					<ice:selectOneMenu value="#{involvedVehiclesPage.hnvTipoVehiculo}"
+						styleClass="siscarNotNull"
+						binding="#{involvedVehiclesPage.cbxTipoVehiculo }"
+						valueChangeListener="#{involvedVehiclesPage.listener_tipoVehiculo }">
+						<f:selectItems value="#{selectItemAccidents.listTipoVehiculo }" />
+					</ice:selectOneMenu>
+					<ice:outputText value="#{lbl['label.placa'] }"
+						binding="#{involvedVehiclesPage.lblPlaca }" />
+					<ice:inputText value="#{involvedVehiclesPage.hnvPlaca}"
+						styleClass="siscarNotNull" maxlength="18"
+						binding="#{involvedVehiclesPage.txtPlacaVHC }"
+						valueChangeListener="#{involvedVehiclesPage.listener_placaVehiculo }" />
+					<ice:outputText value="#{lbl['label.marca'] }"
+						binding="#{involvedVehiclesPage.lblMarca }" />
+					<ice:inputText value="#{involvedVehiclesPage.hnvMarca}"
+						styleClass="siscarNotNull" maxlength="30"
+						binding="#{involvedVehiclesPage.txtMarca}" />
+					<ice:outputText value="#{lbl['label.modelo'] }"
+						binding="#{involvedVehiclesPage.lblModelo }" />
+					<ice:inputText size="4" maxlength="4"
+						value="#{involvedVehiclesPage.hnvModelo}"
+						styleClass="siscarNotNull"
+						binding="#{involvedVehiclesPage.txtModelo }" />
+
+					<ice:outputText value="#{lbl['label.cedulaConductor'] }"
+						binding="#{involvedVehiclesPage.lblCedulaConductor }" />
+					<ice:inputText value="#{involvedVehiclesPage.hnvIdentifConduc}"
+						styleClass="siscarNotNull" maxlength="20"
+						binding="#{involvedVehiclesPage.txtCedulaConduc }" 
+						valueChangeListener="#{involvedVehiclesPage.listener_busquedaEmpleado }" />
+					<ice:outputText value="#{lbl['label.nombreConductor'] }"
+						binding="#{involvedVehiclesPage.lblNomConductor }" />
+
+					<ice:panelGrid columns="2">
+						<ice:inputText value="#{involvedVehiclesPage.hnvConductor}"
+							styleClass="siscarNotNull" maxlength="50" size="30"
+							binding="#{involvedVehiclesPage.txtNombreConduc }" />
+
+					</ice:panelGrid>
+					<ice:outputText value="#{lbl['label.direccion'] }"
+						binding="#{involvedVehiclesPage.lblDireccion }" />
+					<ice:inputText
+						value="#{involvedVehiclesPage.hnvDireccionconductor}"
+						maxlength="30"
+						binding="#{involvedVehiclesPage.txtDireccionConduc }" />
+					<ice:outputText value="#{lbl['label.telefono'] }"
+						binding="#{involvedVehiclesPage.lblTelefono }" />
+					<ice:inputText value="#{involvedVehiclesPage.hnvTelefConduc}"
+						maxlength="20" />
+
+					<ice:outputText value="#{lbl['label.cedulaPropietario'] }"
+						binding="#{involvedVehiclesPage.lblCedulaPropier }" />
+					<ice:inputText value="#{involvedVehiclesPage.hnvIdentifProp}"
+						maxlength="20" />
+					<ice:outputText value="#{lbl['label.nombrePropietario'] }"
+						binding="#{involvedVehiclesPage.lblNomPropier }" />
+					<ice:inputText value="#{involvedVehiclesPage.hnvPropietario}"
+						maxlength="50" />
+					<ice:outputText value="#{lbl['label.pais']}"
+						binding="#{involvedVehiclesPage.lblPais }" />
+					<ice:selectOneMenu partialSubmit="true"
+						value="#{involvedVehiclesPage.idPais}" styleClass="siscarNotNull"
+						valueChangeListener="#{involvedVehiclesPage.listener_listarCiudades}">
+						<f:selectItems value="#{involvedVehiclesPage.listCountry}" />
+					</ice:selectOneMenu>
+
+					<ice:outputText value="#{lbl['label.cuidad']}"
+						binding="#{involvedVehiclesPage.lblCiudad }" />
+					<ice:selectOneMenu value="#{involvedVehiclesPage.idCiudad}"
+						styleClass="siscarNotNull">
+						<f:selectItems value="#{involvedVehiclesPage.listaCiudades}" />
+					</ice:selectOneMenu>
+				</ice:panelGrid>
+
+				<ice:panelGrid columns="4">
+
+					<ice:commandButton type="button" image="../images/1filesave.png"
+						actionListener="#{involvedVehiclesPage.action_ingresarVehiculoInvolucrado }"
+						alt="#{lbl['label.ingresar'] }" />
+
+					<ice:commandButton type="button" image="../images/1btnedit.png"
+						alt="#{lbl['label.modificar'] }"
+						actionListener="#{involvedVehiclesPage.action_modificarVehiculoInvolucrado }" />
+
+					<ice:commandButton value="" image="../images/1btndelete.png"
+						actionListener="#{involvedVehiclesPage.action_eliminarVehiculoInvolucradoForm }" />
+
+					<ice:commandButton type="button" image="../images/broom.JPG"
+						actionListener="#{involvedVehiclesPage.action_limpiar }"
+						alt="#{lbl['label.limpiar'] }" />
+				</ice:panelGrid>
+			</center>
+		</ice:panelGrid>
+
+		<ice:dataTable value="#{involvedVehiclesPage.listInvolvedVehicles }"
+			var="item" rendered="true" id="idTablaVehiculosInvolucrados">
+			<ice:column>
+				<f:facet name="header">
+					<ice:outputText value="#{lbl['label.placa'] }" />
+				</f:facet>
+				<ice:outputText value="#{item.hnvPlaca }"
+					binding="#{involvedVehiclesPage.txtPlaca }" />
+			</ice:column>
+
+			<ice:column>
+				<f:facet name="header">
+					<ice:outputText value="#{lbl['label.tipoVehiculo'] }" />
+				</f:facet>
+				<ice:outputText value="#{item.hnvTipoVehiculo }" />
+			</ice:column>
+
+			<ice:column>
+				<f:facet name="header">
+					<ice:outputText value="#{lbl['label.marca'] }" />
+				</f:facet>
+				<ice:outputText value="#{item.hnvMarca }" />
+			</ice:column>
+
+			<ice:column>
+				<f:facet name="header">
+					<ice:outputText value="#{lbl['label.modelo'] }" />
+				</f:facet>
+				<ice:outputText value="#{item.hnvModelo }" />
+			</ice:column>
+
+			<ice:column>
+				<f:facet name="header">
+					<ice:outputText value="#{lbl['label.nombreConductor'] }" />
+				</f:facet>
+				<ice:outputText value="#{item.hnvConductor }" />
+			</ice:column>
+
+			<ice:column>
+				<f:facet name="header">
+					<ice:outputText value="#{lbl['label.cargaFormulario'] }" />
+				</f:facet>
+				<ice:commandButton value="" image="../images/1btnedit.png"
+					actionListener="#{involvedVehiclesPage.action_cargarVehiculoInvolucrado }" />
+			</ice:column>
+
+			<ice:column>
+				<f:facet name="header">
+					<ice:outputText value="#{lbl['label.eliminar'] }" />
+				</f:facet>
+				<ice:commandButton value="" image="../images/1btndelete.png"
+					actionListener="#{involvedVehiclesPage.action_eliminarVehiculoInvolucradoTabla }" />
+			</ice:column>
+		</ice:dataTable>
+	</center>
+
+</div>
+
+

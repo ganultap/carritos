@@ -1,0 +1,80 @@
+<ui:composition template="../inc-templates/main-template.jspx"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:gw="http://geniar.net/framework">
+
+	<!-- params for page titles-->
+	<ui:param name="pageTitle" value="#{lbl['label.retiroVehiculo']}" />
+	<ui:param name="contentHeader" value="#{lbl['label.retiroVehiculo']}" />
+	<ui:define name="content">
+		<ui:decorate template="../inc-templates/content-template.jspx">
+			<!-- header content here  -->
+			<!-- insert content here -->
+			<ui:define name="pageContent">
+				<ice:form partialSubmit="true">
+					<center>
+						<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+						<ice:panelGrid columns="3" styleClass="siscarTitle">
+							<ice:graphicImage value="../images/t5a.gif" />
+							<ice:outputText style="font-size: 220%;"
+								value=" #{contentHeader}" />
+							<ice:graphicImage value="../images/t5c.gif" />
+						</ice:panelGrid>
+
+						<ice:panelGrid columns="1" style="border:1px solid blue;">
+							<ice:panelGrid columns="4">
+								<ice:outputText value="#{lbl['label.placa']}" />
+								<ice:inputText styleClass="siscarNotNull"
+									value="#{vehicleRetirementPage.vhcPlacaDiplomatica}" />
+
+								<ice:outputText value="#{lbl['label.motivoRetiro']}" />
+
+								<ice:selectOneMenu styleClass="siscarNotNull"
+									value="#{vehicleRetirementPage.idMotivoRetiro}">
+									<f:selectItems
+										value="#{selectItemRetirementsTypesPage.listRetirementTypes}" />
+								</ice:selectOneMenu>
+
+							</ice:panelGrid>
+
+							<div align="center" style="width: 592px">
+								<ice:panelGrid columns="2">
+									<ice:outputText value="#{lbl['label.observaciones']}" />
+									<ice:inputTextarea styleClass="siscarNotNull"
+										style="width: 418px; height: 64px; "
+										value="#{vehicleRetirementPage.descripcion}" />
+								</ice:panelGrid>
+							</div>
+
+							<div align="center">
+								<ice:messages />
+							</div>
+
+						</ice:panelGrid>
+
+						<ice:panelGrid columns="4">
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton
+									actionListener="#{vehicleRetirementPage.mostrarConfirmacion}"
+									value="#{lbl['label.crear']}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton
+									actionListener="#{vehicleRetirementPage.action_limpiar}"
+									value="#{lbl['label.limpiar']}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+						</ice:panelGrid>
+					</center>
+				</ice:form>
+			</ui:define>
+		</ui:decorate>
+	</ui:define>
+</ui:composition>

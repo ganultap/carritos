@@ -1,0 +1,134 @@
+<div class="navTree" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+		<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+		<ice:panelPopup id="popupDiv" rendered="true" modal="true"
+			visible="#{dataTableColor.showAvailability}" draggable="true"
+			style="top: 45%; left: 35%; width: 400px;" styleClass="corePopup"
+			autoCentre="false">
+			<f:facet name="header">
+
+				<ice:panelGrid columns="2" cellpadding="0" cellspacing="0"
+					style="width:400px;">
+					<div align="left">
+						<ice:outputText value="#{lbl['label.Titulo.Color']}"
+							style="color: #FFFFFF;" styleClass="popupHeaderText" />
+					</div>
+					<div align="right">
+						<ice:commandButton type="button" image="../images/eliminar.jpg"
+							actionListener="#{dataTableColor.action_closeAvailability}"
+							styleClass="popupHeaderImage" title="Close Popup" alt="Close" />
+					</div>
+				</ice:panelGrid>
+			</f:facet>
+			<f:facet name="body">
+
+				<center>
+
+					<ice:panelTabSet>
+
+						<ice:panelTab id="tab1" label="Paleta de Colores">
+							<ice:outputText value="#{lbl['label.coloresBasicos']}" />
+
+							<ice:dataTable id="tableColors" var="colors" scrollHeight="true"
+								value="#{dataTableColor.listColors}"
+								rows="#{dataTableColor.rows}">
+
+
+								<ice:column styleClass="iceDatTblRowBeige">
+									<ice:commandLink value="click" styleClass="icelnkBeige"
+										style="color: F5F5DC;" title="#{colors.beige}"
+										actionListener="#{dataTableColor.elegirColor}">
+										<f:param value="#{colors.beige}" name="color"></f:param>
+									</ice:commandLink>
+								</ice:column>
+
+								<ice:column styleClass="iceDatTblRowRed">
+									<ice:commandLink styleClass="icelnkRed" title="#{colors.rojo}"
+										value="click" actionListener="#{dataTableColor.elegirColor}">
+										<f:param value="#{colors.rojo}" name="color"></f:param>
+									</ice:commandLink>
+								</ice:column>
+
+								<ice:column styleClass="iceDatTblRowBlue">
+									<ice:commandLink value="click" styleClass="icelnkBlue"
+										title="#{colors.azul}"
+										actionListener="#{dataTableColor.elegirColor}">
+										<f:param value="#{colors.azul}" name="color"></f:param>
+									</ice:commandLink>
+								</ice:column>
+
+								<ice:column styleClass="iceDatTblRowWhite">
+									<ice:commandLink value="click" styleClass="icelnkWhite"
+										title="#{colors.blanco}"
+										actionListener="#{dataTableColor.elegirColor}">
+										<f:param value="#{colors.blanco}" name="color"></f:param>
+									</ice:commandLink>
+								</ice:column>
+
+								<ice:column styleClass="iceDatTblRowDarkGray">
+									<ice:commandLink value="click" style="color: silver;"
+										styleClass="icelnkDarkGray" title="#{colors.gris}"
+										actionListener="#{dataTableColor.elegirColor}">
+										<f:param value="#{colors.gris}" name="color"></f:param>
+									</ice:commandLink>
+								</ice:column>
+
+								<ice:column styleClass="iceDatTblRowGray">
+									<ice:commandLink value="click" styleClass="icelnkGray"
+										style="color: gray;" title="#{colors.grisOscuro}"
+										actionListener="#{dataTableColor.elegirColor}">
+										<f:param value="#{colors.grisOscuro}" name="color"></f:param>
+									</ice:commandLink>
+								</ice:column>
+
+								<ice:column styleClass="iceDatTblRowBlack">
+									<ice:commandLink value="click" styleClass="icelnkBlack"
+										style="color: black;" title="#{colors.negro}"
+										actionListener="#{dataTableColor.elegirColor}">
+										<f:param value="#{colors.negro}" name="color"></f:param>
+									</ice:commandLink>
+								</ice:column>
+
+
+							</ice:dataTable>
+						</ice:panelTab>
+
+						<ice:panelTab label="Ingresar Color">
+							<ice:outputText value="#{lbl['label.color']}" />
+							<ice:inputText maxlength="30" styleClass="siscarNotNull"
+								binding="#{dataTableColor.txtColor}"
+								value="#{dataTableColor.color}" />
+
+							<ice:outputText value="#{lbl['label.color']}" />
+							<ice:selectOneMenu partialSubmit="true"
+								styleClass="siscarNotNull" value="#{dataTableColor.idColor}"
+								binding="#{dataTableColor.selectColor}"
+								valueChangeListener="#{dataTableColor.seleccionarColor}">
+								<f:selectItems value="#{selectItemTableColors.listColors}" />
+							</ice:selectOneMenu>
+							<ice:panelGrid columns="4" styleClass="siscarCmdBtn">
+								<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+									<ice:graphicImage value="../images/b4a.gif" />
+									<ice:commandButton value="#{lbl['label.crear']}"
+										actionListener="#{dataTableColor.action_crear}" />
+									<ice:graphicImage value="../images/b4c.gif" />
+								</ice:panelGrid>
+
+								<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+									<ice:graphicImage value="../images/b4a.gif" />
+									<ice:commandButton value="#{lbl['label.aceptar']}"
+										actionListener="#{dataTableColor.action_aceptar}" />
+									<ice:graphicImage value="../images/b4c.gif" />
+								</ice:panelGrid>
+							</ice:panelGrid>
+
+						</ice:panelTab>
+
+					</ice:panelTabSet>
+
+					<ice:messages />
+				</center>
+			</f:facet>
+		</ice:panelPopup>
+</div>

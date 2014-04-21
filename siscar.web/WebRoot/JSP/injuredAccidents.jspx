@@ -1,0 +1,173 @@
+<div class="navTree" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+	<ice:outputText value="Lesionados por vehículo" />
+	<center>
+
+		<ice:dataTable value="#{involvedVehiclesPage.listInvolvedVehicles }"
+			var="item" rendered="true" id="idTablaVehiculosInvolucrados">
+			<ice:column>
+				<f:facet name="header">
+					<ice:outputText value="#{lbl['label.placa'] }" />
+				</f:facet>
+				<ice:outputText value="#{item.hnvPlaca }"
+					binding="#{injuredAccidentsPage.txtPlaca }" />
+			</ice:column>
+
+			<ice:column>
+				<f:facet name="header">
+					<ice:outputText value="#{lbl['label.tipoVehiculo'] }" />
+				</f:facet>
+				<ice:outputText value="#{item.hnvTipoVehiculo }" />
+			</ice:column>
+
+			<ice:column>
+				<f:facet name="header">
+					<ice:outputText value="#{lbl['label.marca'] }" />
+				</f:facet>
+				<ice:outputText value="#{item.hnvMarca }" />
+			</ice:column>
+
+			<ice:column>
+				<f:facet name="header">
+					<ice:outputText value="#{lbl['label.modelo'] }" />
+				</f:facet>
+				<ice:outputText value="#{item.hnvModelo }" />
+			</ice:column>
+
+			<ice:column>
+				<f:facet name="header">
+					<ice:outputText value="#{lbl['label.nombreConductor'] }" />
+				</f:facet>
+				<ice:outputText value="#{item.hnvConductor }" />
+			</ice:column>
+
+			<ice:column>
+				<f:facet name="header">
+					<ice:outputText value="#{lbl['label.listar'] }" />
+				</f:facet>
+				<ice:commandButton value="" image="../images/noatunloopsong.png"
+					actionListener="#{injuredAccidentsPage.action_registrarPlaca }" />
+			</ice:column>
+
+
+
+		</ice:dataTable>
+
+		<ice:panelGrid columns="1" style="border:1px solid blue;">
+			<ice:panelGrid columns="4" style="text-align:left;">
+				<ice:outputText value="#{lbl['label.identificacion']}"
+					binding="#{injuredAccidentsPage.lblIdentificacion }" />
+				<ice:inputText value="#{injuredAccidentsPage.pivId}"
+					styleClass="siscarNotNull" maxlength="38" />
+
+				<ice:outputText value="#{lbl['label.nombre'] }"
+					binding="#{injuredAccidentsPage.lblNombreLesionado }" />
+				<ice:inputText value="#{injuredAccidentsPage.pivNombre}"
+					styleClass="siscarNotNull" maxlength="30" />
+
+				<ice:outputText value="#{lbl['label.direccion'] }"
+					binding="#{injuredAccidentsPage.lblDireccionLesionado }" />
+				<ice:inputText value="#{injuredAccidentsPage.pivDireccion}"
+					styleClass="siscarNotNull" maxlength="50" />
+
+				<ice:outputText value="#{lbl['label.telefono'] }"
+					binding="#{injuredAccidentsPage.lblTelefonoLesionado }" />
+				<ice:inputText value="#{injuredAccidentsPage.pnvTelefono}"
+					styleClass="siscarNotNull" maxlength="20" />
+
+				<ice:outputText value="#{lbl['label.edad'] }"
+					binding="#{injuredAccidentsPage.lblEdadLesionado }" />
+				<ice:inputText value="#{injuredAccidentsPage.pivEdad}" maxlength="3"
+					size="3" />
+
+				<ice:outputText value="#{lbl['label.sitioAtencion'] }"
+					binding="#{injuredAccidentsPage.lblSitioAtencion }" />
+				<ice:inputText value="#{injuredAccidentsPage.pivSitioatencion}"
+					styleClass="siscarNotNull" maxlength="30" />
+
+				<ice:outputText value="#{lbl['label.placa'] }" />
+				<ice:inputText value="#{injuredAccidentsPage.placa}"
+					styleClass="siscarNotNull" maxlength="20" readonly="true" />
+			</ice:panelGrid>
+
+			<center>
+				<ice:panelGrid columns="4">
+
+
+					<ice:commandButton type="button" image="../images/1filesave.png"
+						binding="#{injuredAccidentsPage.btnCrear }"
+						actionListener="#{injuredAccidentsPage.action_crearLesionado }"
+						alt="#{lbl['label.grabar'] }" />
+
+
+					<ice:commandButton type="button" image="../images/1btnedit.png"
+						binding="#{injuredAccidentsPage.btnModificar }"
+						alt="#{lbl['label.modificar'] }"
+						actionListener="#{injuredAccidentsPage.action_modificarLesionado }" />
+
+					<ice:commandButton type="button" image="../images/1btndelete.png"
+						alt="#{lbl['label.eliminar'] }"
+						actionListener="#{injuredAccidentsPage.action_eliminarLesionado }" />
+
+					<ice:commandButton value="#{lbl['label.limpiar']}" type="button"
+						image="../images/broom.JPG" alt="#{lbl['label.limpiar'] }"
+						actionListener="#{injuredAccidentsPage.action_limpiar }" />
+
+				</ice:panelGrid>
+			</center>
+		</ice:panelGrid>
+
+		<ice:panelGrid columns="2">
+			<ice:outputText value="#{lbl['label.placaInvulocrudo'] }" />
+			<ice:outputText value="#{injuredAccidentsPage.placa }" />
+		</ice:panelGrid>
+
+
+		<ice:dataTable var="item" rendered="true"
+			value="#{injuredAccidentsPage.listInjuredPersons }" rows="10">
+
+			<ice:column>
+				<f:facet name="header">
+					<ice:outputText value="#{lbl['label.placa']}" />
+				</f:facet>
+				<ice:outputText value="#{item.involvedVehicles.hnvPlaca }" />
+			</ice:column>
+
+			<ice:column>
+				<f:facet name="header">
+					<ice:outputText value="#{lbl['label.identificacion']}" />
+				</f:facet>
+				<ice:outputText value="#{item.pivId }"
+					binding="#{injuredAccidentsPage.txtIdentificacion }" />
+			</ice:column>
+
+			<ice:column>
+				<f:facet name="header">
+					<ice:outputText value="#{lbl['label.nombre']}" />
+				</f:facet>
+				<ice:outputText value="#{item.pivNombre }" />
+			</ice:column>
+
+			<ice:column>
+				<f:facet name="header">
+					<ice:outputText value="#{lbl['label.cargaFormulario']}" />
+				</f:facet>
+				<ice:commandButton image="../images/1btnedit.png"
+					actionListener="#{injuredAccidentsPage.action_cargarFormulario }"
+					alt="#{lbl['label.cargaFormulario'] }" />
+			</ice:column>
+
+			<ice:column>
+				<f:facet name="header">
+					<ice:outputText value="#{lbl['label.eliminar']}" />
+				</f:facet>
+				<ice:commandButton type="button" image="../images/1btndelete.png"
+					alt="#{lbl['label.eliminar'] }"
+					actionListener="#{injuredAccidentsPage.action_eliminarLesionadoLista }" />
+			</ice:column>
+
+
+		</ice:dataTable>
+
+	</center>
+</div>

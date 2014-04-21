@@ -1,0 +1,44 @@
+<div class="navTree" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+	<ice:form partialSubmit="true">
+		<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+		<ice:panelPopup id="idCancelation" draggable="true" modal="false"
+			autoCentre="true" visible="#{trayAdminPage.showCancelacion}"
+			style="top: 45%; left: 35%; width: 600px;" styleClass="icePanelPopup">
+			<f:facet name="header">
+				<ice:outputText styleClass="icePanelPopupHeader"
+					value="Cancelar Solicitud" style="color: #FFFFFF;" />
+			</f:facet>
+			<f:facet name="body">
+				<center>
+
+					<ice:panelGrid columns="1">
+						<ice:outputText value="#{lbl['label.motivoCancelacion'] }" />
+						<ice:inputTextarea cols="20" rows="4" 
+							style="width: 353px; height: 112px; overflow: auto; "
+							value="#{trayAdminPage.sbMotivoCancelacion }" />
+						</ice:panelGrid>
+
+						<ice:panelGrid columns="2">
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.aceptar'] }"
+									actionListener="#{trayAdminPage.mostrarConfirmacionCancelar}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="Cancelar"
+									actionListener="#{trayAdminPage.action_closeCancelacion}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+						</ice:panelGrid>
+				</center>
+			</f:facet>
+		</ice:panelPopup>
+	</ice:form>
+</div>
+
+

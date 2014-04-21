@@ -1,0 +1,407 @@
+.textitulos2 {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #003366;
+	text-decoration: none;
+}
+
+body {
+	margin-top: 0px;
+	margin-left: 0px;
+	background-color: #E1ECFF;
+}
+
+.siscar_header { /*	
+	top: 0px;
+	left: 0px;
+	height: 51px;
+	position: absolute;
+*/
+	width: 100%;
+	background-image: url("../images/1cab_back.gif");
+	background-repeat: repeat-x;
+}
+
+.siscar_title {
+	padding: 0px;
+}
+
+datatbl.costCenter {
+	text-align: center;
+	width: 80px;
+}
+
+.iceMnuItmLabel,.iceMnuBarItemLabel {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	text-decoration: none;
+	font-size: 11px;
+}
+
+.siscar_header_img {
+	margin-top: -2px;
+}
+
+.siscar_header_div {
+	
+}
+
+.siscar_toolbar {
+	width: 100%;
+	background-image: url("../images/4_backg.gif");
+	background-repeat: repeat-x;
+}
+
+.siscar_buttonItem {
+	margin-left: 4px;
+	background-color: #B9C9E1;
+	background-image: url("../images/p3c.gif");
+	background-position: right bottom;
+	background-repeat: no-repeat;
+}
+
+.siscar_buttonItem a {
+	background-color: transparent;
+	background-image: url("../images/p3a.gif");
+	background-repeat: no-repeat;
+	background-position: left bottom;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #333333;
+	text-align: right;
+	cursor: hand;
+}
+
+.siscar_buttonItem span {
+	font-weight: bold;
+}
+
+/* ---- */
+.siscarCmdBtn {
+	vertical-align: middle;
+	text-align: center;
+	border-collapse: collapse;
+	border-spacing: 0px;
+	border: none;
+	padding: 0px;
+	margin: 0px;
+	height: 20px;
+}
+
+.siscarCmdBtn input {
+	height: 20px;
+	border: none;
+	margin: 0px;
+	padding: 0px;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #FFFFFF;
+	background-image: url('../images/b4b.gif');
+	background-position: center;
+	background-color: transparent;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.siscarCmdBtn td {
+	text-align: center;
+	vertical-align: middle;
+	padding: 0px;
+}
+
+.siscarCmdBtn img {
+	text-align: center;
+	vertical-align: middle;
+	border: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+/* --- */
+.siscarMnuBar {
+	
+}
+
+.siscarMnuBar  a {
+	margin-left: 2px;
+	background-color: #B9C9E1;
+	background-image: url("../images/p3c.gif");
+	background-position: right bottom;
+	background-repeat: no-repeat;
+}
+
+.siscarMnuBarItem {
+	background-color: #B9C9E1;
+	background-image: url("../images/p3a.gif");
+	background-repeat: no-repeat;
+	background-position: left bottom;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #333333;
+	text-align: right;
+	cursor: hand;
+}
+
+.siscarMnuBar span {
+	font-weight: bold;
+}
+
+/* -- */
+.siscarBox {
+	border-collapse: collapse;
+	border-spacing: 0px;
+	border: none;
+	padding: 0px;
+	margin: 0px;
+	height: 20px;
+}
+
+.siscarBox td {
+	padding: 0px;
+}
+
+.siscarBox img {
+	border: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+.siscarBoxTop {
+	background-color: transparent;
+	background-image: url("../images/2-m2_sup.gif");
+	background-repeat: repeat-x;
+	width: 100%;
+	height: 6px;
+}
+
+.siscarBoxLeft {
+	background-color: transparent;
+	background-image: url("../images/2-m8_lat_izq.gif");
+	background-repeat: repeat-y;
+	width: 6px;
+	height: 100%;
+}
+
+.siscarBoxRight {
+	background-color: transparent;
+	background-image: url("../images/2-m4_lat_der.gif");
+	background-repeat: repeat-y;
+	width: 6px;
+	height: 100%;
+}
+
+.siscarBoxBottom {
+	background-color: transparent;
+	background-image: url("../images/2-m6_lat_inf.gif");
+	background-repeat: repeat-x;
+	width: 100%;
+	height: 6px;
+}
+
+.siscarBoxRow1 .siscarBoxCol {
+	height: 6px;
+}
+
+.siscarBoxRow2 .siscarBoxCol1 {
+	background-color: transparent;
+	background-image: url("../images/2-m8_lat_izq.gif");
+	background-repeat: repeat-y;
+}
+
+.siscarBoxRow2 div {
+	border: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+.siscarBoxRow2 .siscarBoxCol3 {
+	background-color: transparent;
+	background-image: url("../images/2-m4_lat_der.gif");
+	background-repeat: repeat-y;
+}
+
+.siscarBoxRow3 .siscarBoxCol {
+	height: 6px;
+}
+
+/*  --- */
+.siscarTitle {
+	border-collapse: collapse;
+	border-spacing: 0px;
+	border: none;
+	padding: 0px;
+	margin: 0px;
+	font-size: 50%;
+	font-weight: 100;
+}
+
+.siscarTitle span {
+	padding: 0px;
+}
+
+.siscarTitle img {
+	border: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+.titulossiscar {
+	font-size: 220%;
+}
+
+.siscarTitle td {
+	border: none;
+	margin: 0px;
+	padding: 0px;
+	background-color: transparent;
+	background-image: url("../images/t5b.gif");
+	background-repeat: repeat-x;
+}
+
+.siscarMessajes {
+	font-size: 1.2em;
+	color: red;
+	font: normal;
+}
+
+.page-container-header {
+	margin-bottom: 50px;
+}
+
+.page-container-header .iceOutTxt,.iceOutLbl {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #003366;
+}
+
+.page-container-header .iceDatTblColHdr .iceOutTxt,.iceDatTblColHdr1 .iceOutTxt,.iceDatTblColHdr2 .iceOutTxt
+	{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+
+.page-container-header .icePnlClpsblHdr .iceOutTxt,.icePnlClpsblColpsdHdr .iceOutTxt
+	{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+
+.icePnlGrdCol1 {
+	text-align: right;
+}
+
+.footer .icePnlGrp {
+	position: fixed;
+	bottom: 0;
+}
+
+.iceDatTbl td {
+	text-align: center;
+}
+
+.iceDatTbl a span.iceOutTxt {
+	text-decoration: underline;
+}
+
+.iceSelOneMnu,.iceSelMnyLb,.iceSelMnyMnu,.iceSelOneLb {
+	background: #FFFFFF none repeat scroll 0%;
+	border: 1px solid #D9D9D9;
+	font-family: tahoma;
+	font-size: 11px;
+	font-size-adjust: none;
+	font-stretch: normal;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	line-height: normal;
+	margin: 2px;
+	padding: 3px;
+}
+
+.iceInpTxt,.iceInpSecrt {
+	background: #FFFFFF none repeat scroll 0%;
+	border: 1px solid #D9D9D9;
+	font-family: tahoma;
+	font-size: 11px;
+	font-size-adjust: none;
+	font-stretch: normal;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	line-height: normal;
+	margin: 2px;
+	padding: 3px;
+}
+
+.siscarNotNull {
+	background: #FFFF99 none repeat scroll 0%;
+	border: 1px solid #FFFF99;
+	font-family: tahoma;
+	font-size: 11px;
+	font-size-adjust: none;
+	font-stretch: normal;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	line-height: normal;
+	margin: 2px;
+	padding: 3px;
+}
+
+.siscarDataTable .iceOutTxt .iceOutLbl {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 5px;
+	font-weight: bold;
+	display: block;
+	overflow: hidden;
+	padding: 2px 0px;
+}
+
+.icePnlPopBody td {
+	text-align: center;
+}
+
+.icePnlPopBody .icePnlGrdCol1 td {
+	align: center;
+}
+
+.tableRowSelected {
+	background-color: red;
+}
+
+.tableRowMouseOver {
+	background-color: blue;
+	cursor: pointer;
+}
+
+.TablaContactenos {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #003366;
+	text-align: center;
+	border-color: #003366;
+}
+
+.TablaContactenos td {
+	border-left: 1px solid #003366;
+	border-right: 1px solid #003366;
+	border-top: 1px solid #003366;
+	border-bottom: 1px solid #003366;
+}
+
+.iceMnuBarSubMenu,.iceMnuBarVrtSubMenu {
+	width: 240px;
+}
+
+.iceSelMnyCb input,.iceSelOneRb input,.iceSelBoolChkbx {
+	margin: 10px;
+	padding: 10px;
+}

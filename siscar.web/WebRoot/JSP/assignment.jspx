@@ -1,0 +1,119 @@
+<ui:composition template="../inc-templates/main-template.jspx"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:gw="http://geniar.net/framework">
+
+
+	<!-- params for page titles-->
+	<ui:param name="pageTitle" value="#{lbl['label.asignacion'] }" />
+	<ui:param name="contentHeader" value="#{lbl['label.asignacion'] }" />
+	<ui:define name="content">
+		<ui:decorate template="../inc-templates/content-template.jspx">
+
+
+			<!-- insert content here -->
+			<ui:define name="pageContent">
+				<center>
+					<ice:form partialSubmit="true">
+						<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+
+						<ice:panelGrid columns="3" styleClass="siscarTitle">
+							<ice:graphicImage value="../images/t5a.gif" />
+							<ice:outputText style="font-size: 220%;"
+								value=" #{contentHeader}" />
+							<ice:graphicImage value="../images/t5c.gif" />
+						</ice:panelGrid>
+						<br />
+						<ice:panelGrid columns="2" style="border: 1px solid blue;">
+							<ice:outputLabel value="#{lbl['label.placa']}" />
+							<ice:inputText value="#{assignmentPage.placa}" readonly="true" />
+							<ice:outputLabel value="#{lbl['label.tipoAsignacion']}" />
+							<ice:inputText value="#{assignmentPage.tipo_asignacion}"
+								readonly="true" />
+							<ice:outputLabel value="#{lbl['label.fechaDesde']}" />
+							<ice:inputText value="#{assignmentPage.fecha_inicio}"
+								readonly="true">
+								<f:convertDateTime pattern="dd-MMM-yyyy" />
+							</ice:inputText>
+							<ice:outputLabel value="#{lbl['label.fechaHasta']}" />
+							<ice:inputText value="#{assignmentPage.fecha_final}"
+								readonly="true">
+								<f:convertDateTime pattern="dd-MMM-yyyy" />
+							</ice:inputText>
+							<ice:outputLabel value="Cobro"
+								visible="#{assignmentPage.showCobroTarifa}" />
+							<ice:selectBooleanCheckbox
+								visible="#{assignmentPage.showCobroTarifa}"
+								value="#{assignmentPage.cobro}" />
+							<ice:outputLabel value="#{lbl['label.tarifa_casa_ciat'] }"
+								visible="#{assignmentPage.showCobroCasaCiat}" />
+							<ice:selectBooleanCheckbox
+								visible="#{assignmentPage.showCobroCasaCiat}"
+								value="#{assignmentPage.cobroCasaCiat}" />
+							<ice:outputText value="#{lbl['label.tipoUbicacion']}" />
+							<ice:selectOneMenu styleClass="siscarNotNull"
+								valueChangeListener="#{selectItemLocationPage.changeLocation}"
+								partialSubmit="true" value="#{assignmentPage.idTipoUbicacion }">
+								<f:selectItems
+									value="#{selectItemLocationPage.listLocationsTypes}" />
+							</ice:selectOneMenu>
+
+							<ice:outputText value="#{lbl['label.ubicacion']}" />
+							<ice:selectOneMenu value="#{assignmentPage.idUbicacion }"
+								styleClass="siscarNotNull">
+								<f:selectItems value="#{selectItemLocationPage.listLocations}" />
+							</ice:selectOneMenu>
+
+							<ice:outputText value="#{lbl['label.zona']}"
+								binding="#{assignmentPage.txtZones }"
+								visible="#{assignmentPage.showZones }" />
+							<ice:selectOneMenu value="#{assignmentPage.idZona }"
+								binding="#{assignmentPage.cbxZones }"
+								visible="#{assignmentPage.showZones }">
+								<f:selectItems value="#{selectItemZonePage.listZone}" />
+							</ice:selectOneMenu>
+
+						</ice:panelGrid>
+
+						<ice:dataTable value="#{assignmentPage.listCostsCentersRequests}"
+							var="resq" visible="#{assignmentPage.showCostCenter}">
+							<ice:column>
+								<f:facet name="header">
+									<ice:outputText value="Codigo Centro Costo" />
+								</f:facet>
+								<ice:outputText value="#{resq.costsCenters.cocNumero}" />
+							</ice:column>
+
+							<ice:column>
+								<f:facet name="header">
+									<ice:outputText value="Porcentaje" />
+								</f:facet>
+								<ice:outputText value="#{resq.ccrPorcentaje}" />
+							</ice:column>
+						</ice:dataTable>
+
+						<ice:panelGrid columns="2">
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.asignar']}"
+									actionListener="#{assignmentPage.action_reserva}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.cancelar']}"
+									action="#{assignmentPage.action_cancelar}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+						</ice:panelGrid>
+
+					</ice:form>
+				</center>
+				<ui:include src="popupTrayAdmin.jspx" />
+			</ui:define>
+		</ui:decorate>
+	</ui:define>
+</ui:composition>

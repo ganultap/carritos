@@ -1,0 +1,91 @@
+<ui:composition template="../inc-templates/main-template.jspx"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:gw="http://geniar.net/framework">
+
+
+	<!-- params for page titles-->
+	<ui:param name="pageTitle" value="#{lbl['label.lineVehiculo'] }" />
+	<ui:param name="contentHeader" value="#{lbl['label.lineVehiculo'] }" />
+	<ui:define name="content">
+		<ui:decorate template="../inc-templates/content-template.jspx">
+
+			<!-- insert content here -->
+			<ui:define name="pageContent">
+				<ice:form partialSubmit="true">
+					<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+					<center>
+						<ice:panelGrid columns="3" styleClass="siscarTitle">
+							<ice:graphicImage value="../images/t5a.gif" />
+							<ice:outputText style="font-size: 220%;"
+								value=" #{contentHeader}" />
+							<ice:graphicImage value="../images/t5c.gif" />
+						</ice:panelGrid>
+						<br />
+						<ice:panelGrid columns="2"
+							style="border:1px solid blue; text-align:left">
+							<ice:outputText value="#{lbl['label.marca']}" />
+							<ice:selectOneMenu value="#{linesPage.brands }"
+								binding="#{linesPage.cbxBrand }"
+								valueChangeListener="#{selectItemBrandPage.changeBrand}"
+								styleClass="siscarNotNull">
+								<f:selectItems value="#{selectItemBrandPage.brands }" />
+							</ice:selectOneMenu>
+							<ice:outputText value="#{lbl['label.linea']}" />
+							<ice:selectOneMenu value="#{linesPage.lnsId }"
+								binding="#{linesPage.cbxLine }"
+								valueChangeListener="#{linesPage.listener_line}"
+								partialSubmit="true" rendered="true" style="width:226px;">
+								<f:selectItems value="#{selectItemBrandPage.listLines }" />
+							</ice:selectOneMenu>
+							<ice:outputText value="#{lbl['label.nombre']}" />
+							<ice:inputText value="#{linesPage.lnsNombre }"
+								binding="#{linesPage.txtNombreLine }" styleClass="siscarNotNull"
+								partialSubmit="false"
+								validator="#{linesPage.validateMinLenght }" 
+								maxlength="50" style="width: 219px; "/>
+						</ice:panelGrid>
+
+						<ice:panelGrid columns="4">
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.crear']}"
+									action="#{linesPage.action_crearLine}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.modificar']}"
+									actionListener="#{linesPage.modificar_confirmacion}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.eliminar']}"
+									actionListener="#{linesPage.mostrarConfirmacion}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.limpiar']}"
+									action="#{linesPage.action_limpiar}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+
+
+
+						</ice:panelGrid>
+						<ice:messages />
+					</center>
+				</ice:form>
+
+			</ui:define>
+		</ui:decorate>
+	</ui:define>
+</ui:composition>

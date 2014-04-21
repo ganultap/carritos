@@ -1,0 +1,150 @@
+<div class="navTree" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+	<ice:form partialSubmit="true">
+		<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+		<ice:panelPopup draggable="false" id="idEmployeeTable" rendered="true"
+			modal="true" visible="#{scheduleFuelPage.showScheduleTank}"
+			style="top: 1%; left: 35%; width: 550px;" styleClass="corePopup"
+			autoCentre="true">
+
+			<f:facet name="header">
+				<ice:panelGrid width="100%" cellpadding="0" cellspacing="0"
+					columns="2" style="text-align: right">
+					<div align="left">
+						<ice:outputText style="color: #FFFFFF;"
+							value="#{lbl['label.consultaPlanillaTanques'] }" />
+					</div>
+					<ice:commandButton value="" image="../images/eliminar.jpg"
+						actionListener="#{scheduleFuelPage.action_ocultarScheduleTanks}" />
+				</ice:panelGrid>
+
+			</f:facet>
+			<f:facet name="body">
+
+				<ice:panelGrid columns="1">
+
+					<ice:panelGrid columns="4">
+						<ice:outputText value="#{lbl['label.nombreTanque'] }" />
+						<div align="left">
+							<ice:selectOneMenu value="#{scheduleFuelPage.filtroTanque }">
+								<f:selectItems value="#{selectItemFuelTanksPage.items }" />
+							</ice:selectOneMenu>
+						</div>
+						<ice:outputText value="" />
+						<ice:outputText value="" />
+
+						<ice:outputText value="#{lbl['label.fechaDesde'] }" />
+						<ice:selectInputDate renderAsPopup="true"
+							value="#{scheduleFuelPage.filtroFechaIni }">
+							<f:convertDateTime timeZone="GMT-5" />
+						</ice:selectInputDate>
+
+						<ice:outputText value="#{lbl['label.fechaFinal'] }" />
+						<ice:selectInputDate renderAsPopup="true"
+							value="#{scheduleFuelPage.filtroFechaFin }">
+							<f:convertDateTime timeZone="GMT-5" />
+						</ice:selectInputDate>
+					</ice:panelGrid>
+
+
+					<ice:panelGrid columns="2">
+
+						<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+							<ice:graphicImage value="../images/b4a.gif" />
+							<ice:commandButton value="#{lbl['label.consultar'] }"
+								actionListener="#{scheduleFuelPage.action_filtrarPlanillaTanque }" />
+							<ice:graphicImage value="../images/b4c.gif" />
+						</ice:panelGrid>
+
+						<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+							<ice:graphicImage value="../images/b4a.gif" />
+							<ice:commandButton value="#{lbl['label.limpiar'] }"
+								actionListener="#{scheduleFuelPage.action_limpiarConsulta }" />
+							<ice:graphicImage value="../images/b4c.gif" />
+						</ice:panelGrid>
+
+					</ice:panelGrid>
+
+
+					<ice:dataTable id="idPlanillaTanque" var="item"
+						value="#{scheduleFuelPage.listaPlanillaTanque}" rows="10">
+
+						<f:facet name="header">
+							<ice:outputText value="#{lbl['label.consultaPlanillaTanques']}" />
+						</f:facet>
+
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="#{lbl['label.codigo']}" />
+							</f:facet>
+
+							<ice:rowSelector
+								selectionListener="#{scheduleFuelPage.rowSelectorPlanillaTanque}" />
+							<ice:outputText value="#{item.damId }"
+								binding="#{scheduleFuelPage.txtIdRegistro }" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="#{lbl['label.fechaRevision']}" />
+							</f:facet>
+							<ice:outputText value="#{item.damFecha }">
+								<f:convertDateTime pattern="dd-MMM-yyyy" />
+							</ice:outputText>
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="#{lbl['label.lecturaTanque']}" />
+							</f:facet>
+							<ice:outputText value="#{item.damLectura }">
+								<f:convertNumber pattern="0.00" maxFractionDigits="2"
+									minFractionDigits="0" />
+							</ice:outputText>
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="#{lbl['label.horaRevision']}" />
+							</f:facet>
+							<ice:outputText value="#{item.revisionHour.rhoHora }" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="#{lbl['label.tipoCombustible']}" />
+							</f:facet>
+							<ice:outputText value="#{item.fuelTanks.fuelsTypes.futNombre}" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="#{lbl['label.entrada']}" />
+							</f:facet>
+							<ice:outputText value="#{item.damEntrada }" />
+						</ice:column>
+
+					</ice:dataTable>
+
+					<ice:dataPaginator id="dataScroll" for="idPlanillaTanque"
+						paginator="true" fastStep="1" paginatorMaxPages="10">
+						<f:facet name="previous">
+							<ice:graphicImage url="../images/arrow-fr.gif"
+								style="border:none;" title="Previous Page" />
+						</f:facet>
+						<f:facet name="next">
+							<ice:graphicImage url="../images/arrow-ff.gif"
+								style="border:none;" title="Next Page" />
+						</f:facet>
+					</ice:dataPaginator>
+					<ice:messages />
+				</ice:panelGrid>
+
+			</f:facet>
+		</ice:panelPopup>
+	</ice:form>
+</div>
+
+

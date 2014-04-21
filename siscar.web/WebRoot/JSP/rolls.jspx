@@ -1,0 +1,192 @@
+<ui:composition template="../inc-templates/main-template.jspx"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:gw="http://geniar.net/framework">
+
+	<!-- params for page titles-->
+	<ui:param name="pageTitle" value="#{lbl['label.creacionRol']}" />
+	<ui:param name="contentHeader" value="#{lbl['label.creacionRol']}" />
+	<ui:define name="content">
+		<ui:decorate template="../inc-templates/content-template.jspx">
+			<!-- header content here  -->
+			<!-- insert content here -->
+			<ui:define name="pageContent">
+				<ice:form partialSubmit="true">
+					<center>
+						<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+						<ice:panelGrid columns="3" styleClass="siscarTitle">
+							<ice:graphicImage value="../images/t5a.gif" />
+							<ice:outputText style="font-size: 220%;"
+								value=" #{contentHeader}" />
+							<ice:graphicImage value="../images/t5c.gif" />
+						</ice:panelGrid>
+
+						<ice:panelGrid columns="1" style="border:1px solid blue;">
+							<div align="center" style="width: 592px">
+								<ice:panelGrid columns="4">
+									<ice:outputText value="#{lbl['label.nombreRol']}" />
+									<ice:inputText maxlength="30" styleClass="siscarNotNull"
+										value="#{rollsPage.rlsNombre}" />
+
+									<ice:outputText value="#{lbl['label.email']}" />
+									<ice:inputText maxlength="50" styleClass="siscarNotNull"
+										value="#{rollsPage.rlsMail}" />
+								</ice:panelGrid>
+							</div>
+							<div align="center" style="width: 592px">
+								<ice:panelGrid columns="2">
+									<ice:outputText value="#{lbl['label.descripcion']}" />
+									<ice:inputTextarea style="width: 418px; height: 64px; "
+										value="#{rollsPage.rlsDescripcion}" />
+								</ice:panelGrid>
+							</div>
+
+							<div align="center">
+								<ice:messages />
+							</div>
+
+						</ice:panelGrid>
+
+						<ice:panelGrid columns="4">
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton actionListener="#{rollsPage.action_crearRol}"
+									value="#{lbl['label.crear']}"
+									binding="#{bakingBeanRolls.btnCrear}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton actionListener="#{rollsPage.action_limpiar}"
+									value="#{lbl['label.limpiar']}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton
+									actionListener="#{rollsPage.mostrarConfirmacionModificar}"
+									value="#{lbl['label.modificar']}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+						</ice:panelGrid>
+
+						<ice:panelGrid columns="3">
+							<ice:outputText value="#{lbl['label.nombre']}" />
+							<ice:inputText maxlength="30"
+								value="#{rollsPage.rlsNombreConsulta}" />
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton
+									actionListener="#{rollsPage.action_consultar}"
+									value="#{lbl['label.consultar']}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+						</ice:panelGrid>
+
+
+						<ice:panelGrid columns="3" style="border:1px solid blue;">
+							<ice:panelGrid columns="3">
+								<ice:outputText value="#{lbl['label.selectAll']}" />
+								<ice:selectBooleanCheckbox partialSubmit="true"
+									value="#{rollsPage.checkStateSelectAll}"
+									binding="#{rollsPage.checkStatesSelectAll}"
+									valueChangeListener="#{rollsPage.seleccionarTodas}">
+								</ice:selectBooleanCheckbox>
+							</ice:panelGrid>
+
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton
+									actionListener="#{rollsPage.mostrarConfirmacion}"
+									value="#{lbl['label.eliminar']}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+						</ice:panelGrid>
+
+						<ice:panelGrid columns="1" rendered="#{rollsPage.mostrarTabla}">
+							<div align="center">
+								<ice:dataTable id="listRols" value="#{rollsPage.listRols}"
+									border="1" var="rol" rows="5" width="20%" scrollHeight="true">
+
+									<ice:column>
+										<f:facet name="header">
+											<ice:outputText styleClass=""
+												value="#{lbl['label.nombreRol']}"></ice:outputText>
+										</f:facet>
+										<ice:panelGroup style="text-align:left;">
+											<ice:outputText value="#{rol.nombre}"></ice:outputText>
+										</ice:panelGroup>
+									</ice:column>
+
+									<ice:column>
+										<f:facet name="header">
+											<ice:outputText styleClass="" value="#{lbl['label.email']}"></ice:outputText>
+										</f:facet>
+										<ice:panelGroup style="text-align:left;">
+											<ice:outputText value="#{rol.email}"></ice:outputText>
+										</ice:panelGroup>
+									</ice:column>
+
+									<ice:column>
+										<f:facet name="header">
+											<ice:outputText styleClass=""
+												value="#{lbl['label.descripcion']}"></ice:outputText>
+										</f:facet>
+										<ice:panelGroup style="text-align:left;">
+											<ice:outputText value="#{rol.descripcion}"></ice:outputText>
+										</ice:panelGroup>
+									</ice:column>
+
+									<ice:column>
+										<f:facet name="header">
+											<ice:outputText styleClass=""
+												value="#{lbl['label.eliminar']}"></ice:outputText>
+
+										</f:facet>
+										<ice:panelGroup>
+											<ice:selectBooleanCheckbox value="#{rol.checkState}"
+												binding="#{rollsPage.checkStates}">
+											</ice:selectBooleanCheckbox>
+										</ice:panelGroup>
+									</ice:column>
+
+									<ice:column>
+										<f:facet name="header">
+											<ice:outputText styleClass=""
+												value="#{lbl['label.modificar']}"></ice:outputText>
+										</f:facet>
+										<ice:panelGroup style="text-align:center;">
+											<ice:commandLink styleClass=""
+												actionListener="#{rollsPage.action_mostrarRol}">
+												<f:param value="#{rol.idRol}" name="idRol" />
+												<ice:graphicImage url="../images/edit.gif" />
+											</ice:commandLink>
+										</ice:panelGroup>
+									</ice:column>
+
+								</ice:dataTable>
+
+								<ice:dataPaginator id="dataScroll" for="listRols"
+									paginator="true" fastStep="1" paginatorMaxPages="5">
+									<f:facet name="previous">
+										<ice:graphicImage url="../images/arrow-fr.gif"
+											style="border:none;" title="#{lbl['label.paginaAnterior']}" />
+									</f:facet>
+									<f:facet name="next">
+										<ice:graphicImage url="../images/arrow-ff.gif"
+											style="border:none;" title="#{lbl['label.paginaSiguiente']}" />
+									</f:facet>
+								</ice:dataPaginator>
+							</div>
+						</ice:panelGrid>
+					</center>
+				</ice:form>
+			</ui:define>
+		</ui:decorate>
+	</ui:define>
+</ui:composition>

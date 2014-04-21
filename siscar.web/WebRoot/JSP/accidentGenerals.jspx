@@ -1,0 +1,138 @@
+<ui:composition template="../inc-templates/main-template.jspx"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:gw="http://geniar.net/framework">
+
+	<!-- params for page titles-->
+	<ui:param name="pageTitle" value="#{lbl['label.accidentes']}" />
+	<ui:param name="contentHeader" value="#{lbl['label.accidentes']}" />
+	<ui:define name="content">
+		<script language="JavaScript" src="../js/geniar.validator.js"
+			type="text/javascript"></script>
+		<ui:decorate template="../inc-templates/content-template.jspx">
+			<!-- insert content here -->
+			<ui:define name="pageContent">
+				<ice:form partialSubmit="true">
+					<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+					<center>
+						<ice:panelGrid columns="3" styleClass="siscarTitle">
+							<ice:graphicImage value="../images/t5a.gif" />
+							<ice:outputText style="font-size: 220%;"
+								value=" #{contentHeader}" />
+							<ice:graphicImage value="../images/t5c.gif" />
+						</ice:panelGrid>
+
+						<br />
+						<div align="left">
+							<ice:panelGrid columns="10" style="text-align:left;">
+								<ice:outputText value="#{lbl['label.placa'] }:"
+									style="font-style:italic;font-size:16px; color:	#000000;" />
+								<ice:outputText value="#{dataAccidentsPage.placaConsulta }"
+									style="font-size:12px;" />
+								<ice:outputText value="" />
+								<ice:outputText value="" />
+								<ice:outputText value="#{lbl['label.fechaAccidente'] }:"
+									style="font-style:italic;font-size:16px; color:	#000000;" />
+								<ice:outputText
+									value="#{dataAccidentsPage.fechaAccidenteConsulta }"
+									style="font-size:12px;">
+									<f:convertDateTime pattern="dd-MMM-yyyy" />
+								</ice:outputText>
+								<ice:outputText value="" />
+								<ice:outputText value="" />
+								<ice:outputText value="#{lbl['label.numeroSiniestro'] }:"
+									style="font-style:italic;font-size:16px; color:	#000000;" />
+								<ice:outputText
+									value="#{dataAccidentsPage.numSiniestroConsulta }"
+									style="font-size:12px;" />
+
+							</ice:panelGrid>
+							<ice:panelGrid columns="4">
+								<ice:outputText value="#{lbl['label.codigoAccidente'] }:"
+									style="font-style:italic;font-size:16px; color:	#000000;" />
+								<ice:outputText value="#{dataAccidentsPage.codigoAccConsulta }"
+									style="font-size:12px;" />
+
+								<ice:outputText value="#{lbl['label.nombreConductor'] }:"
+									style="font-style:italic;font-size:16px; color:	#000000;" />
+								<ice:outputText value="#{dataAccidentsPage.nombreConsulta }"
+									style="font-size:12px;" />
+							</ice:panelGrid>
+						</div>
+						<ice:panelTabSet>
+							<ice:panelTab label="#{lbl['label.datosBasicos'] }"
+								binding="#{dataAccidentsPage.panelDatosBasicos }">
+								<ui:include src="dataAccidents.jspx" />
+							</ice:panelTab>
+
+							<ice:panelTab label="#{lbl['label.vehiculosInvolucrados'] }"
+								binding="#{involvedVehiclesPage.panelvehiculosInvolucrados }">
+								<ui:include src="vechicleAccidents.jspx" />
+							</ice:panelTab>
+
+							<ice:panelTab label="#{lbl['label.LesionadosVehiculo'] }"
+								binding="#{injuredAccidentsPage.panelLesionadosVehiculos }">
+								<ui:include src="injuredAccidents.jspx" />
+							</ice:panelTab>
+
+							<ice:panelTab label="#{lbl['label.testigos'] }"
+								binding="#{witnessesPage.panelTestigos }">
+								<ui:include src="witnessAccidents.jspx" />
+							</ice:panelTab>
+
+							<ice:panelTab label="#{lbl['label.otrosDatos'] }"
+								binding="#{accidentFilesPage.panelOtrosDatos }">
+								<ui:include src="addtionalDataAccidents.jspx" />
+							</ice:panelTab>
+
+						</ice:panelTabSet>
+
+						<ice:panelGrid columns="4">
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.crear'] }"
+									actionListener="#{dataAccidentsPage.action_crearAccidente }"
+									binding="#{dataAccidentsPage.btnCrear }" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.modificar'] }"
+									actionListener="#{dataAccidentsPage.action_modificarAccidente }" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.consultar'] }"
+									actionListener="#{dataAccidentsPage.action_showAccidentsTable }" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.limpiar'] }"
+									actionListener="#{dataAccidentsPage.action_limpiarFormularion }" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+
+						</ice:panelGrid>
+						<ice:messages />
+					</center>
+				</ice:form>
+				<ui:include src="drivensTable.jspx" />
+				<ui:include src="costCentersAccidents.jspx" />
+				<ui:include src="legateesTable.jspx" />
+				<ui:include src="accidentsTable.jspx" />
+				<ui:include src="auxilariesTableAccidents.jspx" />
+			</ui:define>
+		</ui:decorate>
+	</ui:define>
+</ui:composition>
+
+
+
+
+
+

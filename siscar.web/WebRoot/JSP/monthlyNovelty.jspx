@@ -1,0 +1,275 @@
+<ui:composition template="../inc-templates/main-template.jspx"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:gw="/gw_core.tld">
+	<!-- params for page titles-->
+	<ui:param name="pageTitle" value="#{lbl['label.tituloNovedad']}" />
+	<ui:param name="contentHeader" value="#{lbl['label.tituloNovedad']}" />
+	<ui:define name="content">
+		<ui:decorate template="../inc-templates/content-template.jspx">
+			<!-- header content here  -->
+			<ui:define name="pageName">
+			</ui:define>
+			<!-- insert content here -->
+			<ui:define name="pageContent">
+				<center>
+					<ice:form partialSubmit="true" id="frmNovedadPolizas">
+						<ice:panelGrid columns="3" styleClass="siscarTitle">
+							<ice:graphicImage value="../images/t5a.gif" />
+							<ice:outputText style="font-size: 220%;" value="#{contentHeader}" />
+							<ice:graphicImage value="../images/t5c.gif" />
+						</ice:panelGrid>
+						<br />
+						<!-- Combo pra la seleccion de novedades segun el tipo poliza -->
+						<ice:panelGrid columns="2" style="border:1px solid blue;">
+							<ice:outputText value="#{lbl['label.tipoPoliza']}" />
+							<ice:selectOneMenu value="#{noveltiesPage.idTipoPoliza }"
+								partialSubmit="true"
+								valueChangeListener="#{noveltiesPage.listener_tipoPolizas}">
+								<f:selectItems
+									value="#{selectItemPolicyTypePage.listPoliciesTypes}" />
+							</ice:selectOneMenu>
+						</ice:panelGrid>
+						<br />
+						<!-- Panel para las novedades Full y amparos -->
+						<ice:panelGrid columns="1"
+							visible="#{noveltiesPage.showNovedadesFA }">
+							<ice:panelGrid>
+								<center>
+									<ice:outputText value="#{lbl['label.planoNovedad']}" />
+								</center>
+							</ice:panelGrid>
+
+							<ice:inputFile id="iptFileNovelties"
+								label="#{lbl['label.subir']}"
+								binding="#{noveltiesPage.inputFile}"
+								actionListener="#{noveltiesPage.action_archivoEstado}"
+								progressListener="#{noveltiesPage.progresoCargaArchivo}"
+								progressRender="true" />
+
+							<ice:panelGrid columns="1">
+								<div align="left">
+									<ice:outputProgress value="#{noveltiesPage.porcentaje}" />
+								</div>
+								<div align="center">
+									<ice:panelGrid columns="2">
+										<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+											<ice:graphicImage value="../images/b4a.gif" />
+											<ice:commandButton value="#{lbl['label.verDatosArchivo'] }"
+												title="Muestra las inconsistencias encontradas"
+												actionListener="#{noveltiesPage.action_verDatos}"
+												disabled="#{noveltiesPage.disableVerDatos }">
+											</ice:commandButton>
+											<ice:graphicImage value="../images/b4c.gif" />
+										</ice:panelGrid>
+										<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+											<ice:graphicImage value="../images/b4a.gif" />
+											<ice:commandButton value="#{lbl['label.limpiar']}"
+												actionListener="#{noveltiesPage.action_limpiar}">
+											</ice:commandButton>
+											<ice:graphicImage value="../images/b4c.gif" />
+										</ice:panelGrid>
+									</ice:panelGrid>
+								</div>
+							</ice:panelGrid>
+						</ice:panelGrid>
+						<ice:panelGrid colums="1"
+							visible="#{noveltiesPage.showTblInconsis }" partial="true">
+							<center>
+
+								<ice:dataTable id="tblIncons" value="#{noveltiesPage.lstIncons}"
+									var="items" binding="#{noveltiesPage.tblIncons}" rows="10"
+									partialSubmit="true">
+									<f:facet name="header">
+										<ice:outputText value="#{lbl['label.inconsistencia']}s" />
+									</f:facet>
+									<ice:column id="col1">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.inconsistencia']}"></ice:outputText>
+										</f:facet>
+										<ice:outputText
+											value="#{items.inconsistenciesTypes.ictNombre}">
+										</ice:outputText>
+									</ice:column>
+									<ice:column id="col5">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.placa'] }"></ice:outputText>
+										</f:facet>
+										<ice:outputText value="#{items.vhcPlaca}"></ice:outputText>
+									</ice:column>
+									<ice:column id="col6">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.valPrimFacPo']}"></ice:outputText>
+										</f:facet>
+										<ice:outputText value="#{items.incValorPrima}">
+											<f:convertNumber type="currency" currencySymbol="$"
+												maxFractionDigits="2" minFractionDigits="2" />
+										</ice:outputText>
+									</ice:column>
+									<ice:column id="col7">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.ivaFacPoliza']}"></ice:outputText>
+										</f:facet>
+										<ice:outputText value="#{items.incValorIva}">
+											<f:convertNumber type="currency" currencySymbol="$"
+												maxFractionDigits="2" minFractionDigits="2" />
+										</ice:outputText>
+									</ice:column>
+									<ice:column id="col8">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.valorTotal']}"></ice:outputText>
+										</f:facet>
+										<ice:outputText value="#{items.incValorTotal}">
+											<f:convertNumber type="currency" currencySymbol="$"
+												maxFractionDigits="2" minFractionDigits="2" />
+										</ice:outputText>
+									</ice:column>
+									<ice:column id="col9">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.valAseguPoli'] }"></ice:outputText>
+										</f:facet>
+										<ice:outputText value="#{items.incValorAsegurado}">
+											<f:convertNumber type="currency" currencySymbol="$"
+												maxFractionDigits="2" minFractionDigits="2" />
+										</ice:outputText>
+									</ice:column>
+									<ice:column id="col10">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.legateePV'] }"></ice:outputText>
+										</f:facet>
+										<ice:outputText value="#{items.legateesTypes.lgtNombre}" />
+									</ice:column>
+									<ice:column id="col11">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.carnetPV'] }"></ice:outputText>
+										</f:facet>
+										<ice:outputText value="#{items.pvsCarnetAsignatario}" />
+									</ice:column>
+									<ice:column id="col11">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.nota']}"></ice:outputText>
+										</f:facet>
+										<ice:outputText value="#{lbl['label.incosistenciaNota']}"
+											visible="#{(items.inconsistenciesTypes.ictId == 1 || items.inconsistenciesTypes.ictId == 3)}" />
+									</ice:column>
+
+									<ice:column id="col12">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.observacion']}"></ice:outputText>
+										</f:facet>
+										<ice:inputText value="#{items.incObservacion}" maxlenght="50" />
+									</ice:column>
+								</ice:dataTable>
+								<ice:dataPaginator id="dataScrolltblIncons" for="tblIncons"
+									paginator="true" fastStep="1" paginatorMaxPages="5">
+									<f:facet name="previous">
+										<ice:graphicImage url="../images/arrow-fr.gif"
+											style="border:none; " title="#{lbl['label.paginaAnterior']}" />
+									</f:facet>
+									<f:facet name="next">
+										<ice:graphicImage url="../images/arrow-ff.gif"
+											style="border:none; " title="#{lbl['label.paginaSiguiente']}" />
+									</f:facet>
+								</ice:dataPaginator>
+							</center>
+						</ice:panelGrid>
+						<ice:panelGrid colums="1" visible="#{noveltiesPage.showTblPvs }">
+							<center>
+
+								<ice:dataTable id="tblVHCPOL" value="#{noveltiesPage.lstPvs}"
+									var="items" binding="#{noveltiesPage.tblPvs}"
+									partialSubmit="true" rows="10">
+									<f:facet name="header">
+										<ice:outputText value="#{lbl['label.datosCorrectosPol'] }" />
+									</f:facet>
+									<ice:column id="col5">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.placa']}" />
+										</f:facet>
+										<ice:outputText value="#{items.vehicles.vhcPlacaDiplomatica}" />
+									</ice:column>
+									<ice:column id="col6">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.valPrimFacPo']}"></ice:outputText>
+										</f:facet>
+										<ice:outputText value="#{items.pvsValorPrima}">
+											<f:convertNumber type="currency" currencySymbol="$"
+												maxFractionDigits="2" minFractionDigits="2" />
+										</ice:outputText>
+									</ice:column>
+									<ice:column id="col7">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.ivaFacPoliza']}" />
+										</f:facet>
+										<ice:outputText value="#{items.pvsValorIva}">
+											<f:convertNumber type="currency" currencySymbol="$"
+												maxFractionDigits="2" minFractionDigits="2" />
+										</ice:outputText>
+									</ice:column>
+									<ice:column id="col8">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.valorTotal']}"></ice:outputText>
+										</f:facet>
+										<ice:outputText value="#{items.pvsValorTotal}">
+											<f:convertNumber type="currency" currencySymbol="$"
+												maxFractionDigits="2" minFractionDigits="2" />
+										</ice:outputText>
+									</ice:column>
+									<ice:column id="col9">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.valAseguPoli']}" />
+										</f:facet>
+										<ice:outputText value="#{items.pvsValorAsegurado}">
+											<f:convertNumber type="currency" currencySymbol="$"
+												maxFractionDigits="2" minFractionDigits="2" />
+										</ice:outputText>
+									</ice:column>
+									<ice:column id="col10">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.legateePV'] }"></ice:outputText>
+										</f:facet>
+										<ice:outputText value="#{items.legateesTypes.lgtNombre}" />
+									</ice:column>
+									<ice:column id="col11">
+										<f:facet name="header">
+											<ice:outputText value="#{lbl['label.carnetPV'] }"></ice:outputText>
+										</f:facet>
+										<ice:outputText value="#{items.pvsCarnetAsignatario}" />
+									</ice:column>
+								</ice:dataTable>
+								<ice:dataPaginator id="dataScrolltblVHCPOL" for="tblVHCPOL"
+									paginator="true" fastStep="1" paginatorMaxPages="5">
+									<f:facet name="previous">
+										<ice:graphicImage url="../images/arrow-fr.gif"
+											style="border:none; " title="#{lbl['label.paginaAnterior']}" />
+									</f:facet>
+									<f:facet name="next">
+										<ice:graphicImage url="../images/arrow-ff.gif"
+											style="border:none; " title="#{lbl['label.paginaSiguiente']}" />
+									</f:facet>
+								</ice:dataPaginator>
+							</center>
+
+							<div align="center">
+								<ice:panelGrid columns="2">
+									<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+										<ice:graphicImage value="../images/b4a.gif" />
+										<ice:commandButton value="#{lbl['label.guardarNovedades']}"
+											actionListener="#{noveltiesPage.guardarDetalleNovedad}"
+											disabled="#{noveltiesPage.disabledGuardarDetalle }">
+										</ice:commandButton>
+										<ice:graphicImage value="../images/b4c.gif" />
+									</ice:panelGrid>
+								</ice:panelGrid>
+							</div>
+						</ice:panelGrid>
+						<br />
+						<ice:messages />
+					</ice:form>
+				</center>
+			</ui:define>
+		</ui:decorate>
+	</ui:define>
+</ui:composition>

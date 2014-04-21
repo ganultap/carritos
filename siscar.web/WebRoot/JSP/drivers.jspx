@@ -1,0 +1,95 @@
+<ui:composition template="../inc-templates/main-template.jspx"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:gw="http://geniar.net/framework">
+
+
+	<!-- params for page titles-->
+	<ui:param name="pageTitle" value="#{lbl['label.condutores']}" />
+	<ui:param name="contentHeader" value="#{lbl['label.condutores']}" />
+	<ui:define name="content">
+		<ui:decorate template="../inc-templates/content-template.jspx">
+			<!-- insert content here -->
+			<ui:define name="pageContent">
+				<ice:form partialSubmit="true">
+					<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+					<center>
+						<ice:panelGrid columns="3" styleClass="siscarTitle">
+							<ice:graphicImage value="../images/t5a.gif" />
+							<ice:outputText style="font-size: 220%;"
+								value=" #{contentHeader}" />
+							<ice:graphicImage value="../images/t5c.gif" />
+						</ice:panelGrid>
+						<ice:panelGrid columns="2"
+							style="border:1px solid blue; text-align:left;">
+
+							<ice:outputText value="#{lbl['label.cedulaConductor']}" />
+							<ice:inputText value="#{driverPage.drvCedula }" maxlength="30"
+								styleClass="siscarNotNull"
+								valueChangeListener="#{driverPage.listener_cedula }"
+								partialSubmit="true" />
+
+							<ice:outputText value="#{lbl['label.nombreConductor']}" />
+							<ice:inputText value="#{driverPage.drvNombre }" maxlength="50"
+								styleClass="siscarNotNull" binding="#{driverPage.txtNombre }" />
+
+							<ice:outputText value="#{lbl['label.carneConductor']}" />
+							<ice:inputText value="#{driverPage.drvNumeroCarne }"
+								maxlength="18" binding="#{driverPage.txtCarne }"
+								styleClass="siscarNotNull" />
+
+							<ice:outputText value="#{lbl['label.cargoConductor']}" />
+							<ice:inputText value="#{driverPage.drvCargo }" maxlength="50"
+								styleClass="siscarNotNull" binding="#{driverPage.txtcargo }" />
+
+							<ice:outputText value="#{lbl['label.direccion']}" />
+							<ice:inputText value="#{driverPage.drvDireccion }" maxlength="50"
+								styleClass="siscarNotNull" binding="#{driverPage.txtDireccion }" />
+
+							<ice:outputText value="#{lbl['label.telefono']}" />
+							<ice:inputText value="#{driverPage.drvTelefono }" maxlength="20"
+								styleClass="siscarNotNull" binding="#{driverPage.txtTelefono }" />
+
+						</ice:panelGrid>
+						<ice:panelGrid columns="4">
+
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.crear']}"
+									actionListener="#{driverPage.action_crearConductor }"
+									binding="#{driverPage.btnCrear }" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.modificar']}"
+									disabled='true' binding="#{driverPage.btnModifcar }"
+									actionListener="#{driverPage.action_modicarConductor }" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.eliminar']}"
+									binding="#{driverPage.btnEliminar }"
+									actionListener="#{driverPage.action_eliminarConductor }" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.limpiar']}"
+									actionListener="#{driverPage.action_limpiar }" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+						</ice:panelGrid>
+						<ice:messages />
+					</center>
+				</ice:form>
+			</ui:define>
+		</ui:decorate>
+	</ui:define>
+</ui:composition>
