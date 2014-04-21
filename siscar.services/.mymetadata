@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="siscar.services"
+  id="myeclipse.1231887075796"
+  context-root="/siscar.services"
+  j2ee-spec="5.0"
+  archive="siscar.services.war">
+  <attributes>
+    <attribute name="webrootdir" value="/WebRoot" />
+  </attributes>
+</project-module>
+

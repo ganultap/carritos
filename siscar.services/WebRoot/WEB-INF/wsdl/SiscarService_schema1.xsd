@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://services.siscarMobile.ciat/" targetNamespace="http://services.siscarMobile.ciat/" version="1.0">
+
+  <xs:element name="GWorkException" type="tns:GWorkException"/>
+
+  <xs:element name="SiscarException" type="tns:SiscarException"/>
+
+  <xs:element name="consultCostCenterFuelByPlaca" type="tns:consultCostCenterFuelByPlaca"/>
+
+  <xs:element name="consultCostCenterFuelByPlacaResponse" type="tns:consultCostCenterFuelByPlacaResponse"/>
+
+  <xs:element name="consultCostCenters" type="tns:consultCostCenters"/>
+
+  <xs:element name="consultCostCentersResponse" type="tns:consultCostCentersResponse"/>
+
+  <xs:element name="consultEmpleoyeeName" type="tns:consultEmpleoyeeName"/>
+
+  <xs:element name="consultEmpleoyeeNameResponse" type="tns:consultEmpleoyeeNameResponse"/>
+
+  <xs:element name="consultPums" type="tns:consultPums"/>
+
+  <xs:element name="consultPumsResponse" type="tns:consultPumsResponse"/>
+
+  <xs:element name="consultTypeRequest" type="tns:consultTypeRequest"/>
+
+  <xs:element name="consultTypeRequestResponse" type="tns:consultTypeRequestResponse"/>
+
+  <xs:element name="consultarAuxiliarCiat" type="tns:consultarAuxiliarCiat"/>
+
+  <xs:element name="consultarAuxiliarCiatResponse" type="tns:consultarAuxiliarCiatResponse"/>
+
+  <xs:element name="consultarCentroCostoVO" type="tns:consultarCentroCostoVO"/>
+
+  <xs:element name="consultarCentroCostoVOResponse" type="tns:consultarCentroCostoVOResponse"/>
+
+  <xs:element name="consultarCostCenterFuelPorPlaca" type="tns:consultarCostCenterFuelPorPlaca"/>
+
+  <xs:element name="consultarCostCenterFuelPorPlacaResponse" type="tns:consultarCostCenterFuelPorPlacaResponse"/>
+
+  <xs:element name="consultarValorTarifaCombustibleCALI" type="tns:consultarValorTarifaCombustibleCALI"/>
+
+  <xs:element name="consultarValorTarifaCombustibleCALIResponse" type="tns:consultarValorTarifaCombustibleCALIResponse"/>
+
+  <xs:element name="consultarValorTarifaCombustibleCIAT" type="tns:consultarValorTarifaCombustibleCIAT"/>
+
+  <xs:element name="consultarValorTarifaCombustibleCIATResponse" type="tns:consultarValorTarifaCombustibleCIATResponse"/>
+
+  <xs:element name="guardarServicioRegistro" type="tns:guardarServicioRegistro"/>
+
+  <xs:element name="guardarServicioRegistroResponse" type="tns:guardarServicioRegistroResponse"/>
+
+  <xs:element name="obtenerTarifa" type="tns:obtenerTarifa"/>
+
+  <xs:element name="obtenerTarifaResponse" type="tns:obtenerTarifaResponse"/>
+
+  <xs:element name="validarCentroCosto" type="tns:validarCentroCosto"/>
+
+  <xs:element name="validarCentroCostoResponse" type="tns:validarCentroCostoResponse"/>
+
+  <xs:element name="validarLogin" type="tns:validarLogin"/>
+
+  <xs:element name="validarLoginResponse" type="tns:validarLoginResponse"/>
+
+  <xs:element name="validarSolicitante" type="tns:validarSolicitante"/>
+
+  <xs:element name="validarSolicitanteResponse" type="tns:validarSolicitanteResponse"/>
+
+  <xs:element name="validarVehiculo" type="tns:validarVehiculo"/>
+
+  <xs:element name="validarVehiculoResponse" type="tns:validarVehiculoResponse"/>
+
+  <xs:complexType name="consultarValorTarifaCombustibleCALI">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarValorTarifaCombustibleCALIResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SiscarException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultCostCenters">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultCostCentersResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:voModel"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="voModel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="param" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarCostCenterFuelPorPlaca">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarCostCenterFuelPorPlacaResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:voCostCentersFuels"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="voCostCentersFuels">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ccfId" type="xs:long"/>
+      <xs:element minOccurs="0" name="costCenterNumber" type="xs:string"/>
+      <xs:element minOccurs="0" name="idCostCenterTypeFuel" type="xs:long"/>
+      <xs:element minOccurs="0" name="idCostsCenters" type="xs:long"/>
+      <xs:element minOccurs="0" name="idPrepaid" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="GWorkException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultCostCenterFuelByPlaca">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultCostCenterFuelByPlacaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:voCostCentersFuels"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="validarSolicitante">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:int"/>
+      <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="validarSolicitanteResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:validacionSolicitante"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="validacionSolicitante">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+      <xs:element minOccurs="0" name="tarifa" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="validarCentroCosto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="validarCentroCostoResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="guardarServicioRegistro">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:long"/>
+      <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg2" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg3" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg4" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg5" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg6" type="xs:float"/>
+      <xs:element minOccurs="0" name="arg7" type="xs:float"/>
+      <xs:element minOccurs="0" name="arg8" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg9" type="xs:long"/>
+      <xs:element minOccurs="0" name="arg10" type="xs:long"/>
+      <xs:element minOccurs="0" name="arg11" type="xs:long"/>
+      <xs:element minOccurs="0" name="arg12" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg13" type="xs:long"/>
+      <xs:element minOccurs="0" name="arg14" type="xs:long"/>
+      <xs:element minOccurs="0" name="arg15" type="xs:float"/>
+      <xs:element minOccurs="0" name="arg16" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="guardarServicioRegistroResponse">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="consultarValorTarifaCombustibleCIAT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarValorTarifaCombustibleCIATResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultPums">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultPumsResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:voModel"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="validarLogin">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="validarLoginResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarCentroCostoVO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarCentroCostoVOResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:voCostCenters"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="voCostCenters">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cocCodigo" type="xs:long"/>
+      <xs:element minOccurs="0" name="cocNumero" type="xs:string"/>
+      <xs:element minOccurs="0" name="cocValorPrepago" type="xs:float"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultTypeRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultTypeRequestResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:voModel"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="validarVehiculo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="validarVehiculoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:validacionVehiculo"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="validacionVehiculo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="capacidadTanque" type="xs:string"/>
+      <xs:element minOccurs="0" name="carneAsignado" type="xs:string"/>
+      <xs:element minOccurs="0" name="nombreAsignado" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoAsignacion" type="xs:string"/>
+      <xs:element name="tipoCombustible" type="xs:int"/>
+      <xs:element minOccurs="0" name="ultimoKilometraje" type="xs:string"/>
+      <xs:element minOccurs="0" name="valorTanqueada" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarAuxiliarCiat">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultarAuxiliarCiatResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultEmpleoyeeName">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="consultEmpleoyeeNameResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:voEmployee"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="voEmployee">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="empApellido" type="xs:string"/>
+      <xs:element minOccurs="0" name="empNombre" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="obtenerTarifa">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="obtenerTarifaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
