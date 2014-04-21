@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="com.genuitec.eclipse.j2eedt.core.J2EE14_CONTAINER"/>
+	<classpathentry exported="true" kind="lib" path="lib/about.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/browser.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/cssparser-0-9-4-fs.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/docbook.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/filebrowser.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/junit.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/looks-2.0.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/minium.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/photogallery.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/svg.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/Xilize.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/core-renderer.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/itext-paulo-155.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/tidy-yahp.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
