@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="config.files"/>
+	<classpathentry kind="src" path="src.test"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="con" path="melibrary.com.genuitec.eclipse.hibernate.MYECLIPSE_HIBERNATE3_2_CORE"/>
+	<classpathentry exported="true" kind="lib" path="lib/ojdbc14.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/p6spy.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/ejb3-persistence.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/hibernate-annotations.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/hibernate-commons-annotations.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/hibernate-entitymanager.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/gwork.exception.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/mail.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/log4j-1.2.8.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/activation.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/CGIARAuthenticate.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/jdbcappender.jar"/>
+	<classpathentry kind="lib" path="lib/classes12.jar"/>
+	<classpathentry kind="lib" path="/siscar.web/lib/commons-logging-1.0.3.jar"/>
+	<classpathentry kind="lib" path="lib/oracle9i.jar"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/geniar.hibernate.log"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

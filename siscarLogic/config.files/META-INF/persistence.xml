@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+    http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+	version="1.0">
+
+	<persistence-unit name="siscarLogicPU"
+		transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<non-jta-data-source>
+			java:comp/env/jdbc/siscar
+		</non-jta-data-source>
+		<class>geniar.siscar.model.Colors</class>
+		<class>geniar.siscar.model.Brands</class>
+		<class>geniar.siscar.model.SupplyingCatalogs</class>
+		<class>geniar.siscar.model.Models</class>
+		<class>geniar.siscar.model.Lines</class>
+		<class>geniar.siscar.model.CostCentersFuel</class>
+		<class>geniar.siscar.model.HeaderProof</class>
+		<class>geniar.siscar.model.CargaPrepago</class>
+		<class>geniar.siscar.model.Severity</class>
+		<class>geniar.siscar.model.VehiclesStates</class>
+		<class>geniar.siscar.model.Users</class>
+		<class>geniar.siscar.model.InvolvedVehicles</class>
+		<class>geniar.siscar.model.PoliciesVehicles</class>
+		<class>geniar.siscar.model.AssignationsTypes</class>
+		<class>geniar.siscar.model.RetirementsTypes</class>
+		<class>geniar.siscar.model.Devolutions</class>
+		<class>geniar.siscar.model.Acts</class>
+		<class>geniar.siscar.model.LegateesTypes</class>
+		<class>geniar.siscar.model.NoveltyTypes</class>
+		<class>geniar.siscar.model.RequestsTypes</class>
+		<class>geniar.siscar.model.ActsTypes</class>
+		<class>geniar.siscar.model.Zones</class>
+		<class>geniar.siscar.model.Accidents</class>
+		<class>geniar.siscar.model.Options</class>
+		<class>geniar.siscar.model.CostsCenters</class>
+		<class>geniar.siscar.model.FuelsTypes</class>
+		<class>geniar.siscar.model.Locations</class>
+		<class>geniar.siscar.model.RequestsClasses</class>
+		<class>geniar.siscar.model.AccidentsFiles</class>
+		<class>geniar.siscar.model.LegateesNewness</class>
+		<class>geniar.siscar.model.Countries</class>
+		<class>geniar.siscar.model.VehiclesTypes</class>
+		<class>geniar.siscar.model.Vehicles</class>
+		<class>geniar.siscar.model.AccidentsStates</class>
+		<class>geniar.siscar.model.Cities</class>
+		<class>geniar.siscar.model.Requests</class>
+		<class>geniar.siscar.model.MoneyType</class>
+		<class>geniar.siscar.model.CostsCentersVehicles</class>
+		<class>geniar.siscar.model.NotificationTypes</class>
+		<class>geniar.siscar.model.TariffsLegateeTypes</class>
+		<class>geniar.siscar.model.ParValoresparametros</class>
+		<class>geniar.siscar.model.Rolls</class>
+		<class>geniar.siscar.model.ControlAssignationPolicies</class>
+		<class>geniar.siscar.model.Tariffs</class>
+		<class>geniar.siscar.model.AssignationsStates</class>
+		<class>geniar.siscar.model.Witnesses</class>
+		<class>geniar.siscar.model.Notifications</class>
+		<class>geniar.siscar.model.Responsibility</class>
+		<class>geniar.siscar.model.TariffsTypes</class>
+		<class>geniar.siscar.model.CostsCentersNewness</class>
+		<class>geniar.siscar.model.RequestsStates</class>
+		<class>geniar.siscar.model.CurrencyTypes</class>
+		<class>geniar.siscar.model.VehiclesAssignation</class>
+		<class>geniar.siscar.model.Collections</class>
+		<class>geniar.siscar.model.FuelsControls</class>
+		<class>geniar.siscar.model.OptionsRolls</class>
+		<class>geniar.siscar.model.Assistants</class>
+		<class>geniar.siscar.model.ParParametros</class>
+		<class>geniar.siscar.model.PlainFileParameter</class>
+		<class>geniar.siscar.model.InjuredPersons</class>
+		<class>geniar.siscar.model.TapestriesTypes</class>
+		<class>geniar.siscar.model.PoliciesAplications</class>
+		<class>geniar.siscar.model.PoliciesTypes</class>
+		<class>geniar.siscar.model.TractionsTypes</class>
+		<class>geniar.siscar.model.Modules</class>
+		<class>geniar.siscar.model.TransmissionsTypes</class>
+		<class>geniar.siscar.model.Pumps</class>
+		<class>geniar.siscar.model.ClientsSalesVehicles</class>
+		<class>geniar.siscar.model.AccidentsResults</class>
+		<class>geniar.siscar.model.Policies</class>
+		<class>geniar.siscar.model.RetirementsReasons</class>
+		<class>geniar.siscar.model.LocationsNewness</class>
+		<class>geniar.siscar.model.InsurancesCar</class>
+		<class>geniar.siscar.model.LocationsTypes</class>
+		<class>geniar.siscar.model.OptionsRollsId</class>
+		<class>geniar.siscar.model.PoliciesVehiclesId</class>
+		<class>geniar.siscar.model.TariffsLegateeTypesId</class>
+		<class>geniar.siscar.model.DocumentOneType</class>
+		<class>geniar.siscar.model.Line</class>
+		<class>geniar.siscar.model.DescriptionType</class>
+		<class>geniar.siscar.model.DocumentTwo</class>
+		<class>geniar.siscar.model.ChargeType</class>
+		<class>geniar.siscar.model.DocumentTwoType</class>
+		<class>geniar.siscar.model.DocumentOne</class>
+		<class>geniar.siscar.model.ControlType</class>
+		<class>geniar.siscar.model.AccountingParameters</class>
+		<class>geniar.siscar.model.Attribute</class>
+		<class>geniar.siscar.model.Company</class>
+		<class>geniar.siscar.model.Future</class>
+		<class>geniar.siscar.model.MovementType</class>
+		<class>geniar.siscar.model.Auxiliar</class>
+		<class>geniar.siscar.model.Account</class>
+		<class>geniar.siscar.model.TransactionType</class>
+		<class>geniar.siscar.model.MonthTransacType</class>
+		<class>geniar.siscar.model.Inconsistencies</class>
+		<class>geniar.siscar.model.InconsistenciesTypes</class>
+		<class>geniar.siscar.model.Driver</class>
+		<class>geniar.siscar.model.PoliciesVehiclesHistoric</class>
+		<class>geniar.siscar.model.PoliciesHistoric</class>
+		<class>geniar.siscar.model.PoliciesInvoiceHistoric</class>
+		<class>geniar.siscar.model.PoliciesInvoice</class>
+		<class>geniar.siscar.model.FuelTypeRequest</class>
+		<class>geniar.siscar.model.FuelTanks</class>
+		<class>geniar.siscar.model.DialyMovementPumps</class>
+		<class>geniar.siscar.model.Prepaid</class>
+		<class>geniar.siscar.model.RevisionHour</class>
+		<class>geniar.siscar.model.FuelPerformance</class>
+		<class>geniar.siscar.model.PrepaidConsumption</class>
+		<class>geniar.siscar.model.DailyMovementTank</class>
+		<class>geniar.siscar.model.CostCenterTypeFuel</class>
+		<class>geniar.siscar.model.ChargeTo</class>
+		<class>geniar.siscar.model.ServiceRegistry</class>
+		<class>geniar.siscar.model.ControlsTanks</class>
+		<class>geniar.siscar.model.Period</class>
+		<class>geniar.siscar.model.ActualOthersApplications</class>
+		<class>geniar.siscar.model.InvoiceType</class>
+		<class>geniar.siscar.model.ProofType</class>
+		<class>geniar.siscar.model.FlatFile</class>
+		<class>geniar.siscar.model.VhaFf</class>
+		<class>geniar.siscar.model.InvoiceHeader</class>
+		<class>geniar.siscar.model.InvoiceDetail</class>
+		<class>geniar.siscar.model.VhaAoaApp</class>
+		<class>geniar.siscar.model.ProofState</class>
+		<class>geniar.siscar.model.ActsAccidents</class>
+
+		<properties>
+
+
+			<property name="hibernate.dialect"
+				value="org.hibernate.dialect.Oracle9iDialect" />
+			<property name="hibernate.connection.driver_class"
+				value="oracle.jdbc.OracleDriver" />
+
+			<property name="hibernate.bytecode.use_reflection_optimizer"
+				value="false" />
+			<property name="hibernate.cglib.use_reflection_optimizer"
+				value="false" />
+
+			<!-- Enable Hibernate's automatic session context management -->
+			<property name="hibernate.current_session_context_class"
+				value="managed" />
+
+		</properties>
+	</persistence-unit>
+
+	<persistence-unit name="siscarConsultasPU"
+		transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<non-jta-data-source>
+			java:comp/env/jdbc/siscarConsultas
+		</non-jta-data-source>
+
+	</persistence-unit>
+
+	<persistence-unit name="siscarFinancieroPU"
+		transaction-type="RESOURCE_LOCAL">
+		<non-jta-data-source>
+			java:comp/env/jdbc/siscarFinanciero
+		</non-jta-data-source>
+	</persistence-unit>
+
+</persistence>

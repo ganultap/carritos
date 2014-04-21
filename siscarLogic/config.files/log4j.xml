@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- configuracion de los archivos de log -->
+	<appender name="SiscarSqlLogAppender"
+		class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="C:/siscar-sql.log" />
+		<param name="Append" value="true" />
+		<param name="MaxFileSize" value="1024KB" />
+		<param name="MaxBackupIndex" value="1" />
+		<layout class="org.apache.log4j.SimpleLayout" />
+	</appender>
+
+	<appender name="SiscarLogAppender"
+		class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="C:/siscar-messages.log" />
+		<param name="Append" value="true" />
+		<param name="MaxFileSize" value="1024KB" />
+		<param name="MaxBackupIndex" value="1" />
+		<layout class="org.apache.log4j.SimpleLayout" />
+	</appender>
+
+	<appender name="SiscarMailLogAppender"
+		class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="C:/siscar-mail.log" />
+		<param name="Append" value="true" />
+		<param name="MaxFileSize" value="1024KB" />
+		<param name="MaxBackupIndex" value="1" />
+		<layout class="org.apache.log4j.SimpleLayout" />
+	</appender>
+
+
+	<!-- configuracion de los mensajes en consola -->
+	<appender name="ConsoleAppender"
+		class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.SimpleLayout" />
+	</appender>
+
+	<!--  logs -->
+	<category name="com.icesoft">
+		<priority value="error" />
+	</category>
+
+	<category name="org.hibernate">
+		<priority value="error" />
+	</category>
+
+	<!--  EntityManager -->
+	<category name="org.hibernate.ejb">
+		<priority value="error" />
+	</category>
+
+	<!--  SQL que genera hibernate -->
+	<category name="org.hibernate.SQL">
+		<priority value="error" />
+		<!--  envia al archivo de log -->
+		<appender-ref ref="SiscarSqlLogAppender" />
+	</category>
+
+	<!--  jdbc usado por hibernate -->
+	<category name="org.hibernate.jdbc">
+		<priority value="error" />
+	</category>
+
+	<!--  siscar -->
+	<category name="geniar.siscar">
+		<priority value="error" />
+		<!--  envia al archivo de log -->
+		<appender-ref ref="SiscarLogAppender" />
+	</category>
+
+	<category name="geniar.siscar.inicialization">
+		<priority value="error" />
+	</category>
+
+	<category name="geniar.siscar.taskmanager">
+		<priority value="error" />
+	</category>
+
+	<category name="geniar.siscar.mail.util">
+		<priority value="error" />
+		<appender-ref ref="SiscarMailLogAppender" />
+	</category>
+
+	<category name="geniar">
+		<priority value="error" />
+	</category>
+
+	<!--  todos los objetos que no estan en categorias -->
+	<root>
+		<priority value="error" />
+		<!-- 	
+			<priority value="off"/>
+			<priority value ="debug" />
+			<priority value ="fatal" />
+		-->
+		<!-- guarda en archivo -->
+		<appender-ref ref="SiscarLogAppender" />
+		<!--  muestra en consola -->
+		<appender-ref ref="ConsoleAppender" />
+	</root>
+
+</log4j:configuration>

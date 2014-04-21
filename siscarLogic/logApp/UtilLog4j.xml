@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="JDBCAppender"
+		class="org.apache.log4j.jdbcplus.JDBCAppender">
+		<param name="URL" value="jdbc:oracle:thin:@localhost:1521:XE" />
+		<param name="user" value="SISCAR" />
+		<param name="password" value="siscar" />
+		<param name="Driver" value="oracle.jdbc.driver.OracleDriver" />
+		<param name="sql"
+			value="INSERT INTO SISCAR.LOG_SISCAR (LOG_ID, LOG_LOGIN, LOG_DATE, LOG_TIPO_TRANSACCION, LOG_NOMBRE_TABLA, LOG_LLAVE_TABLA) VALUES(
+					SQ_LOG.NEXTVAL, '@MSG@', '@MSG@', '@MSG@', '@MSG@', '@ID@')" />
+	</appender>
+	<root>
+		<priority value="INFO" />
+		<appender-ref ref="JDBCAppender" />
+	</root>
+</log4j:configuration>
