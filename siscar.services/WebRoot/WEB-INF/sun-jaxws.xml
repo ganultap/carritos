@@ -1,0 +1,17 @@
+<?xml version = "1.0"?>
+<endpoints version="2.0"
+	xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime">
+
+
+	<endpoint name="SiscarPort"
+		implementation="ciat.siscarMobile.services.SiscarDelegate"
+		url-pattern="/SiscarService">
+	</endpoint>
+	<endpoint name="SiscarServicesPort"
+		implementation="geniar.siscar.services.SiscarServicesDelegate"
+		url-pattern="/SiscarServicesPort">
+	</endpoint>
+	<endpoint name="SiscarPort"
+		implementation="ciat.siscarMobile.services.SiscarDelegate"
+		url-pattern="/SiscarPort">
+	</endpoint></endpoints>
