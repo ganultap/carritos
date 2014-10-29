@@ -1,0 +1,41 @@
+<div class="navTree" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+	<ice:form partialSubmit="true">
+		<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+		<ice:panelPopup id="idModifyRequest" rendered="true" modal="true"
+			visible="#{trayUserPage.showModifyRequest}"
+			style="top: 45%; left: 35%; width: 300px;" styleClass="icePanelPopup">
+			<f:facet name="header">
+				<ice:outputText styleClass="icePanelPopupHeader"
+					value="#{lbl['label.confirmarModificarSolicitud'] }"
+					style="color: #FFFFFF;" />
+			</f:facet>
+			<f:facet name="body">
+				<center>
+
+					<div align="left">
+						<ice:outputText value="#{lbl['label.modificarSolicitudMensaje'] }" />
+					</div>
+					<ice:panelGrid columns="2">
+						<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+							<ice:graphicImage value="../images/b4a.gif" />
+							<ice:commandButton id="btnConfirmModifyRequest" value="#{lbl['label.aceptar'] }"
+								action="#{trayUserPage.action_navigationRuleSolicitud}" />
+							<ice:graphicImage value="../images/b4c.gif" />
+						</ice:panelGrid>
+						<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+							<ice:graphicImage value="../images/b4a.gif" />
+							<ice:commandButton value="#{lbl['label.cancelar'] }"
+								actionListener="#{trayUserPage.close_modifyRequest }" />
+							<ice:graphicImage value="../images/b4c.gif" />
+						</ice:panelGrid>
+
+					</ice:panelGrid>
+				</center>
+			</f:facet>
+		</ice:panelPopup>
+	</ice:form>
+</div>
+
+

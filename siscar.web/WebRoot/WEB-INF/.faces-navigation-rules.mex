@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JSFFlowViewLayout version="1.0">
+  <Drawing gridVisible="true" snapOn="true" />
+  <JSFFlowResource path="*" location="80,20" dimension="61,36" />
+  <JSFFlowResource path="/JSP/home.iface" location="180,30" dimension="122,36" />
+  <JSFFlowResource path="/JSP/login.iface" location="30,130" dimension="118,36" />
+  <JSFFlowResource path="/JSP/reserve.iface" location="480,30" dimension="133,36" />
+  <JSFFlowResource path="/JSP/assignment.iface" location="30,430" dimension="150,36" />
+  <JSFFlowResource path="/JSP/reserveReallocation.iface" location="330,130" dimension="191,36" />
+  <JSFFlowResource path="/JSP/trayadmin.iface" location="30,230" dimension="144,36" />
+  <JSFFlowResource path="/JSP/request.jspx" location="420,300" dimension="130,36" />
+  <JSFFlowResource path="/JSP/tray.jspx" location="100,300" dimension="113,36" />
+  <JSFFlowNavigationCase id="*,/JSP/home.iface,home,&lt;empty&gt;" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="141,38" />
+      <AbsolutePoint location="180,38" />
+    </AutomaticBendpoints>
+  </JSFFlowNavigationCase>
+  <JSFFlowNavigationCase id="*,/JSP/login.iface,inicio,&lt;empty&gt;" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="95,56" />
+      <AbsolutePoint location="95,130" />
+    </AutomaticBendpoints>
+  </JSFFlowNavigationCase>
+  <JSFFlowNavigationCase id="*,/JSP/reserve.iface,reserve,&lt;empty&gt;" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="141,22" />
+      <AbsolutePoint location="546,22" />
+      <AbsolutePoint location="546,30" />
+    </AutomaticBendpoints>
+  </JSFFlowNavigationCase>
+  <JSFFlowNavigationCase id="*,/JSP/assignment.iface,asignacion,&lt;empty&gt;" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="80,38" />
+      <AbsolutePoint location="-7,38" />
+      <AbsolutePoint location="-7,448" />
+      <AbsolutePoint location="30,448" />
+    </AutomaticBendpoints>
+  </JSFFlowNavigationCase>
+  <JSFFlowNavigationCase id="*,/JSP/reserveReallocation.iface,reserveReallocation,&lt;empty&gt;" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="110,56" />
+      <AbsolutePoint location="110,103" />
+      <AbsolutePoint location="425,103" />
+      <AbsolutePoint location="425,130" />
+    </AutomaticBendpoints>
+  </JSFFlowNavigationCase>
+  <JSFFlowNavigationCase id="*,/JSP/trayadmin.iface,bandeja,&lt;empty&gt;" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="141,53" />
+      <AbsolutePoint location="155,53" />
+      <AbsolutePoint location="155,230" />
+    </AutomaticBendpoints>
+  </JSFFlowNavigationCase>
+  <JSFFlowNavigationCase id="*,/JSP/request.jspx,requests,&lt;empty&gt;" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="125,56" />
+      <AbsolutePoint location="125,73" />
+      <AbsolutePoint location="528,73" />
+      <AbsolutePoint location="528,300" />
+    </AutomaticBendpoints>
+  </JSFFlowNavigationCase>
+  <JSFFlowNavigationCase id="*,/JSP/tray.jspx,userTray,&lt;empty&gt;" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="80,53" />
+      <AbsolutePoint location="7,53" />
+      <AbsolutePoint location="7,318" />
+      <AbsolutePoint location="100,318" />
+    </AutomaticBendpoints>
+  </JSFFlowNavigationCase>
+</JSFFlowViewLayout>
+

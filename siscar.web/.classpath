@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="lib" path="lib/gwork.presentation.icefaces.lib.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/gwork.exception.jar"/>
+	<classpathentry exported="true" kind="con" path="melibrary.com.genuitec.eclipse.j2eedt.core.MYECLIPSE_JAVAEE_5_CONTAINER"/>
+	<classpathentry exported="true" kind="lib" path="lib/ojdbc14.jar"/>
+	<classpathentry exported="true" kind="lib" path="/siscarLogic/lib/CGIARAuthenticate.jar"/>
+	<classpathentry exported="true" kind="lib" path="/siscarLogic/lib/jdbcappender.jar"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/siscarLogic">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="siscarLogic"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="lib/commons-logging-1.0.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="/siscarLogic/lib/hibernate-annotations.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/backport-util-concurrent.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-beanutils.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-collections.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-digester.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-fileupload.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/commons-logging.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/icefaces.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/icefaces-comps.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/icefaces-facelets.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/krysalis-jCharts-1.0.0-alpha-1.jar"/>
+	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/geniar.hibernate.log"/>
+	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
+</classpath>

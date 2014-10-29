@@ -1,0 +1,155 @@
+<ui:composition template="../inc-templates/main-template.jspx"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:gw="http://geniar.net/framework">
+
+
+	<!-- params for page titles-->
+	<ui:param name="pageTitle" value="#{lbl['label.tarifaAsignacion']}" />
+	<ui:param name="contentHeader" value="#{lbl['label.tarifaAsignacion']}" />
+	<ui:define name="content">
+		<script language="JavaScript" src="../js/controlDecimales.js"
+			type="text/javascript">
+</script>
+		<ui:decorate template="../inc-templates/content-template.jspx">
+			<!-- insert content here -->
+			<ui:define name="pageContent">
+				<ice:form partialSubmit="true" id="idTarifaAsignacion">
+					<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+					<center>
+						<ice:panelGrid columns="3" styleClass="siscarTitle">
+							<ice:graphicImage value="../images/t5a.gif" />
+							<ice:outputText style="font-size: 220%;"
+								value=" #{contentHeader}" />
+							<ice:graphicImage value="../images/t5c.gif" />
+						</ice:panelGrid>
+						<br />
+						<ice:panelGrid columns="2"
+							style="border:1px solid blue; text-align: left;">
+							<ice:outputLabel value="#{lbl['label.tipoCombustible']}" />
+							<ice:selectOneMenu value="#{tarriffPage.idFuelTypes }"
+								binding="#{tarriffPage.cbxFuelTypes }"
+								styleClass="siscarNotNull">
+								<f:selectItems
+									value="#{selectItemFuelsTypesPage.listFuelsTypes }" />
+							</ice:selectOneMenu>
+							<ice:outputLabel value="#{lbl['label.tipoTraccion']}" />
+							<ice:selectOneMenu value="#{tarriffPage.idTipoTraccion }"
+								binding="#{tarriffPage.cbxTipoTraccion }"
+								styleClass="siscarNotNull">
+								<f:selectItems
+									value="#{selectItemTractionsTypesPage.listTractionsTypes }" />
+							</ice:selectOneMenu>
+							<ice:outputText value="#{lbl['label.marca']}" />
+							<ice:selectOneMenu value="#{tarriffPage.idMarca }"
+								binding="#{tarriffPage.cbxMarca }"
+								valueChangeListener="#{selectItemBrandPage.changeBrand}"
+								partialSubmit="true" styleClass="siscarNotNull">
+								<f:selectItems value="#{selectItemBrandPage.brands }" />
+							</ice:selectOneMenu>
+							<ice:outputText value="#{lbl['label.linea']}" />
+							<ice:selectOneMenu value="#{tarriffPage.idLine }"
+								binding="#{tarriffPage.cbxLine}" partialSubmit="true"
+								rendered="true" styleClass="siscarNotNull">
+								<f:selectItems value="#{selectItemBrandPage.listLines }" />
+							</ice:selectOneMenu>
+							<ice:outputText value="#{lbl['label.vigencia']}" />
+							<ice:inputText value="#{tarriffPage.anhoVigencia }"
+								binding="#{tarriffPage.txtPeriodo}" maxlength="4" size="4"
+								rendered="true" partialSubmit="true" styleClass="siscarNotNull" />
+							<ice:outputLabel value="#{lbl['label.fechaDesde']}" />
+							<ice:selectInputDate value="#{tarriffPage.fechaInicio }"
+								binding="#{tarriffPage.txtFechaIni }" renderAsPopup="true">
+								<f:convertDateTime timeZone="GMT-5" />
+							</ice:selectInputDate>
+
+							<ice:outputLabel value="#{lbl['label.valorDepreciacion'] }" />
+							<ice:inputText value="#{tarriffPage.valorDepreciacion }"
+								binding="#{tarriffPage.txtValorDepreciacio }"
+								styleClass="siscarNotNull" maxlength="7"
+								valueChangeListener="#{tarriffPage.listenerValorDepreciacion }"
+								partialSubmit="true" onkeypress="decimales(this);">
+								<f:convertNumber pattern="0.00" maxFractionDigits="2"
+									minFractionDigits="0" />
+							</ice:inputText>
+
+
+							<ice:outputLabel value="#{lbl['label.valorAutoseguro'] }" />
+							<ice:inputText id="idValorAutoseguro"
+								value="#{tarriffPage.valorAutoseguro }"
+								binding="#{tarriffPage.txtValorAutoseguro }"
+								styleClass="siscarNotNull" maxlength="7"
+								valueChangeListener="#{tarriffPage.listenerValorAutoseguro }"
+								partialSubmit="true" onkeypress="decimales(this);">
+								<f:convertNumber pattern="0.00" maxFractionDigits="2"
+									minFractionDigits="0" />
+							</ice:inputText>
+
+							<ice:outputLabel value="#{lbl['label.valorMantenimiento'] }" />
+							<ice:inputText id="idValorMantenimiento"
+								value="#{tarriffPage.valorMantenimiento }"
+								binding="#{tarriffPage.txtValorMantenimiento }"
+								styleClass="siscarNotNull" maxlength="7"
+								valueChangeListener="#{tarriffPage.listenerValorMantenimiento}"
+								partialSubmit="true" onkeypress="decimales(this);">
+								<f:convertNumber pattern="0.00" maxFractionDigits="2"
+									minFractionDigits="0" />
+							</ice:inputText>
+
+							<ice:outputLabel value="#{lbl['label.valorEspacioFisico'] }" />
+							<ice:inputText id="idValorEspacioFisico"
+								value="#{tarriffPage.valorEspacioFisico}"
+								binding="#{tarriffPage.txtValorEspacioFisico}"
+								styleClass="siscarNotNull" maxlength="7"
+								valueChangeListener="#{tarriffPage.listenerValorEspacioFisico}"
+								partialSubmit="true" onkeypress="decimales(this);">
+								<f:convertNumber pattern="0.00" maxFractionDigits="2"
+									minFractionDigits="0" />
+							</ice:inputText>
+							<ice:outputLabel value="#{lbl['label.totalTarifa'] }" />
+							<ice:inputText value="#{tarriffPage.valorTotal }"
+								binding="#{tarriffPage.txtValorTotal }" readonly="true">
+								<f:convertNumber pattern="0.00" maxFractionDigits="2" />
+							</ice:inputText>
+							<ice:outputLabel value="#{lbl['label.totalTarifaAnho'] }" />
+							<ice:inputText value="#{tarriffPage.totalValorAnho }"
+								binding="#{tarriffPage.txtValorAnho }" readonly="true">
+								<f:convertNumber pattern="0.00" maxFractionDigits="2" />
+							</ice:inputText>
+
+
+						</ice:panelGrid>
+
+						<ice:panelGrid columns="3">
+
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.modificar']}"
+									actionListener="#{tarriffPage.action_crearTarifaAsignacion}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.consultar']}"
+									actionListener="#{tarriffPage.action_consultar}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.limpiar']}"
+									actionListener="#{tarriffPage.action_limpiar }" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+						</ice:panelGrid>
+						<ice:messages id="msg" />
+					</center>
+				</ice:form>
+			</ui:define>
+		</ui:decorate>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,142 @@
+<ui:composition template="../inc-templates/main-template.jspx"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:gw="http://geniar.net/framework">
+
+
+	<!-- params for page titles-->
+	<ui:param name="pageTitle" value="Reserva" />
+	<ui:param name="contentHeader" value="Reserva" />
+	<ui:define name="content">
+		<ui:decorate template="../inc-templates/content-template.jspx">
+
+			<!-- insert content here -->
+			<ui:define name="pageContent">
+				<center>
+
+					<ice:form partialSubmit="true">
+						<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+						<ice:panelGrid columns="3" styleClass="siscarTitle">
+							<ice:graphicImage value="../images/t5a.gif" />
+							<ice:outputText style="font-size: 220%;"
+								value=" #{contentHeader}" />
+							<ice:graphicImage value="../images/t5c.gif" />
+						</ice:panelGrid>
+						<br />
+						<h2>
+							<ice:outputLabel value="Datos de la solicitud" />
+						</h2>
+						<ice:panelGrid columns="1"
+							style="border:1px solid blue; text-align:left;">
+							<ice:panelGrid columns="4">
+								<ice:outputLabel value="#{lbl['label.codigo'] }" />
+								<ice:inputText readonly="true"
+									value="#{reservePage.codeRequest}" />
+								<ice:outputLabel value="#{lbl['label.claseSolicitud']}" />
+								<ice:inputText readonly="true"
+									value="#{reservePage.claseSolicitud}" />
+								<ice:outputLabel value="#{lbl['label.tipoSolicitud'] }" />
+								<ice:inputText readonly="true"
+									value="#{reservePage.tipoSolicitud}" />
+								<ice:outputLabel value="#{lbl['label.tipoAsignacion']}" />
+								<ice:inputText readonly="true"
+									value="#{reservePage.tipoAsignacion}" />
+								<ice:outputLabel value="#{lbl['label.estadoSolicitud'] }" />
+								<ice:inputText readonly="true"
+									value="#{reservePage.estadoSolicitud}" />
+								<ice:outputLabel value="#{lbl['label.tipoVehiculo'] }" />
+								<ice:inputText readonly="true"
+									value="#{reservePage.tipoVehiculo}" />
+								<ice:outputLabel value="#{lbl['label.carneAsignatario'] }" />
+								<ice:inputText readonly="true" value="#{reservePage.nombreAsig}" />
+								<ice:outputText value="#{lbl['label.nombreAsignatario'] }" />
+								<ice:inputText readonly="true" size="40"
+									value="#{reservePage.nombreAsignatario }" />
+
+								<ice:outputLabel value="#{lbl['label.fechaDesde']}" />
+								<ice:inputText readonly="true" value="#{reservePage.fechaDesde}">
+									<f:convertDateTime pattern="dd-MMM-yyyy" />
+								</ice:inputText>
+								<ice:outputLabel value="#{lbl['label.fechaHasta']}" />
+								<ice:inputText readonly="true" value="#{reservePage.fechaHasta}">
+									<f:convertDateTime pattern="dd-MMM-yyyy" />
+								</ice:inputText>
+								<ice:outputLabel value="#{lbl['label.fechaSolicitud'] }" />
+								<ice:inputText readonly="true"
+									value="#{reservePage.fechaSolicitud}">
+									<f:convertDateTime pattern="dd-MMM-yyyy" />
+								</ice:inputText>
+								<ice:outputLabel value="#{lbl['label.placaRemplazar'] }" />
+								<ice:inputText readonly="true"
+									value="#{reservePage.placaRemplazo}" />
+
+							</ice:panelGrid>
+							<div align="right">
+								<ice:panelGrid columns="2"
+									style="text-align:left; width: 391px; ">
+									<ice:outputLabel value="#{lbl['label.descripcion'] }" />
+									<ice:inputTextarea readonly="true"
+										value="#{reservePage.descripcion}" style="width: 360px; " />
+								</ice:panelGrid>
+							</div>
+						</ice:panelGrid>
+
+
+						<br />
+						<br />
+						<ice:panelGrid columns="5">
+							<ice:outputText value="#{lbl['label.placa']}" />
+							<ice:inputText maxlength="18" value="#{reservePage.placa}" />
+							<ice:outputText value="#{lbl['label.tipoVehiculo']}" />
+							<ice:selectOneMenu value="#{reservePage.idType}">
+								<f:selectItems
+									value="#{selectItemVehiclesTypesPage.listVehiclesTypes}" />
+							</ice:selectOneMenu>
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.consultarOcupacion'] }"
+									actionListener="#{reservePage.action_consultarAvailability}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+						</ice:panelGrid>
+						<br />
+						<br />
+						<ice:panelGrid columns="4">
+							<ice:outputText value="#{lbl['label.placa']}" />
+							<ice:inputText readonly="true" value="#{reservePage.sbplaca}" />
+							<ice:outputText value="#{lbl['label.tipoVehiculo']}" />
+							<ice:inputText readonly="true"
+								value="#{reservePage.sbTipoVehiculo}" />
+						</ice:panelGrid>
+
+						<br />
+						<ice:panelGrid columns="2">
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.reservar']}"
+									actionListener="#{reservePage.action_reservar}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.cancelar']}"
+									action="#{trayAdminPage.cancelar_action }" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+
+						</ice:panelGrid>
+
+						<ice:messages />
+					</ice:form>
+				</center>
+				<ui:include src="availability.jspx" />
+				<ui:include src="popupTrayAdmin.jspx" />
+			</ui:define>
+		</ui:decorate>
+	</ui:define>
+</ui:composition>

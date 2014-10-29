@@ -1,0 +1,123 @@
+<ui:composition template="../inc-templates/main-template.jspx"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:gw="/gw_core.tld">
+
+	<!-- params for page titles-->
+	<ui:param name="pageTitle" value="#{lbl['label.NovedadesAsignacion'] }" />
+	<ui:param name="contentHeader" value="#{lbl['label.NovedadesAsignacion'] }" />
+	<ui:define name="content">
+		<ui:decorate template="../inc-templates/content-template.jspx">
+			<!-- insert content here -->
+			<ui:define name="pageContent">
+				<ice:form>
+					<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+					<div align="center">
+						<ice:panelGrid columns="3" styleClass="siscarTitle">
+							<ice:graphicImage value="../images/t5a.gif" />
+							<ice:outputText style="font-size: 220%;"
+								value=" #{contentHeader}" />
+							<ice:graphicImage value="../images/t5c.gif" />
+						</ice:panelGrid>
+						<br />
+
+						<div style="border: 1px solid blue; width: 80%;">
+							<ice:panelGrid columns="4">
+
+								<ice:outputText value="#{lbl['label.placa']}" />
+								<ice:inputText styleClass="siscarNotNull" maxlength="18"
+									value="#{assignmentChangePage.placa}">
+								</ice:inputText>
+
+								<ice:outputText value="#{lbl['label.tipoAsignacion']}" />
+								<ice:inputText value="#{assignmentChangePage.tipoAsignacion}"
+									readonly="true" size="35">
+								</ice:inputText>
+
+								<ice:outputText value="#{lbl['label.tipoVehiculo']}" />
+								<ice:inputText value="#{assignmentChangePage.tipoVehiculo}"
+									readonly="true">
+								</ice:inputText>
+
+								<ice:outputText value="#{lbl['label.zona']}" />
+								<ice:selectOneMenu binding="#{assignmentChangePage.cbxZones }"
+									styleClass="siscarNotNull" rendered="true"
+									value="#{assignmentChangePage.idZone}">
+									<f:selectItems value="#{selectItemZonePage.listZone}" />
+								</ice:selectOneMenu>
+							</ice:panelGrid>
+							<h2>
+								<ice:outputText value="#{lbl['label.asignatario_asistente']}" />
+							</h2>
+							<ice:panelGrid columns="6" style="border:1px solid blue;">
+								<ice:outputText value="#{lbl['label.nombre']}" />
+								<ice:inputText value="#{assignmentChangePage.asignatario}"
+									readonly="true" size="35" />
+								<ice:outputText value="#{lbl['label.email']}" />
+								<ice:inputText value="#{assignmentChangePage.correoAsignatario}"
+									readonly="false" styleClass="siscarNotNull" size="35" />
+								<ice:outputText value="" />
+								<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+									<ice:graphicImage value="../images/b4a.gif" />
+									<ice:commandButton value="Limpiar"
+										actionListener="#{assignmentChangePage.action_clean_asignatario}" />
+									<ice:graphicImage value="../images/b4c.gif" />
+								</ice:panelGrid>
+								<ice:outputText value="#{lbl['label.nombre']}" />
+								<ice:inputText value="#{assignmentChangePage.asistente}"
+									readonly="true" size="35" />
+								<ice:outputText value="#{lbl['label.email']}" />
+								<ice:inputText value="#{assignmentChangePage.correoAsistente}"
+									readonly="false" size="35" />
+
+								<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+									<ice:graphicImage value="../images/b4a.gif" />
+									<ice:commandButton value="#{lbl['label.consultar']}"
+										actionListener="#{assignmentChangePage.action_consultar_asistente}" />
+									<ice:graphicImage value="../images/b4c.gif" />
+								</ice:panelGrid>
+
+								<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+									<ice:graphicImage value="../images/b4a.gif" />
+									<ice:commandButton value="Limpiar"
+										actionListener="#{assignmentChangePage.action_clean_asistente}" />
+									<ice:graphicImage value="../images/b4c.gif" />
+								</ice:panelGrid>
+
+							</ice:panelGrid>
+
+						</div>
+						<ice:panelGrid columns="3">
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.consultar']}"
+									actionListener="#{assignmentChangePage.action_consultar}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.limpiar']}"
+									actionListener="#{assignmentChangePage.action_limpiar}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.grabar']}"
+									actionListener="#{assignmentChangePage.action_guardar}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+						</ice:panelGrid>
+						<br />
+						<ice:messages />
+					</div>
+				</ice:form>
+				<ui:include src="employeeTableNovedadAsignacion.jspx" />
+			</ui:define>
+		</ui:decorate>
+	</ui:define>
+</ui:composition>

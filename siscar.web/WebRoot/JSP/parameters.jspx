@@ -1,0 +1,102 @@
+<ui:composition template="../inc-templates/main-template.jspx"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:gw="http://geniar.net/framework">
+
+
+	<!-- params for page titles-->
+	<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+	<ui:param name="pageTitle" value="#{lbl['label.parametro'] }" />
+	<ui:param name="contentHeader" value="#{lbl['label.parametro'] }" />
+	<ui:define name="content">
+		<ui:decorate template="../inc-templates/content-template.jspx">
+
+			<!-- insert content here -->
+			<ui:define name="pageContent">
+				<ice:form rendered="true" partialSubmit="true">
+					<center>
+						<ice:panelGrid columns="3" styleClass="siscarTitle">
+							<ice:graphicImage value="../images/t5a.gif" />
+							<ice:outputText style="font-size: 220%;"
+								value=" #{contentHeader}" />
+							<ice:graphicImage value="../images/t5c.gif" />
+						</ice:panelGrid>
+						<br />
+						<!-- Forumulario Parametros-->
+						<ice:panelGrid columns="2" visible="true"
+							style="border:1px solid blue; text-align: left;">
+							<ice:outputText value="#{lbl['label.idParametro']}" />
+							<ice:selectOneMenu value="#{parametersPage.idParametro }"
+								binding="#{parametersPage.cbxParametro }"
+								valueChangeListener="#{parametersPage.listener_parameter }"
+								partialSubmit="true" rendered="true">
+								<f:selectItem itemValue="-1" itemLabel="--SELECCIONAR--" />
+								<f:selectItems
+									value="#{selectItemParametersPage.listParameters}" />
+							</ice:selectOneMenu>
+							<ice:outputText value="#{lbl['label.nombreParametro']}"
+								partialSubmit="true" rendered="true" />
+							<ice:inputText value="#{parametersPage.strNombre}"
+								styleClass="siscarNotNull"
+								binding="#{parametersPage.txtNombre }"
+								validator="#{parametersPage.validateMinLenght }" maxlength="100" />
+							<ice:outputText value="#{lbl['label.valorFin']}" />
+							<ice:inputText value="#{parametersPage.strValorFin}"
+								binding="#{parametersPage.txtValorFin }"
+								styleClass="siscarNotNull" maxlength="20">
+							</ice:inputText>
+
+							<ice:outputText value="#{lbl['label.fechaParamater'] }" />
+							<ice:selectInputDate binding="#{parametersPage.txtFechaIni }"
+								renderAsPopup="true" disabled="true">
+								<f:convertDateTime timeZone="GMT-5" />
+							</ice:selectInputDate>
+							<ice:outputText value="#{lbl['label.descrpcionParametro']}" />
+							<ice:inputTextarea value="#{parametersPage.descripcion}"
+								cols="20" rows="4" styleClass="siscarNotNull"
+								style="width:200px;height:80px;overflow: auto;"
+								binding="#{parametersPage.txtDescripcion }" />
+
+						</ice:panelGrid>
+						<ice:panelGrid columns="2">
+
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.modificar']}"
+									actionListener="#{parametersPage.action_modificarParametro }" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.limpiar']}"
+									actionListener="#{parametersPage.action_limpiar}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+						</ice:panelGrid>
+
+
+
+
+						<ice:messages id="msg" />
+					</center>
+				</ice:form>
+
+			</ui:define>
+		</ui:decorate>
+	</ui:define>
+</ui:composition>
+
+
+
+
+
+
+
+
+
+
+

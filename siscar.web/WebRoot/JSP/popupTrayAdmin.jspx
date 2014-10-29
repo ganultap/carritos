@@ -1,0 +1,35 @@
+<div class="navTree" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+	<ice:form partialSubmit="true">
+		<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+		<ice:panelPopup id="idModifyRequest" rendered="true" modal="true"
+			visible="#{popupMessagePage.btnTrayAdmin}"
+			style="top: 45%; left: 35%; width: 300px;" styleClass="icePanelPopup">
+			<f:facet name="header">
+				<ice:outputText styleClass="icePanelPopupHeader"
+					value="#{lbl['label.popup'] }" style="color: #FFFFFF;" />
+			</f:facet>
+			<f:facet name="body">
+				<center>
+
+					<div align="left">
+						<ice:outputText value="#{popupMessagePage.mensaje }" />
+					</div>
+					<ice:panelGrid columns="1">
+						<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+							<ice:graphicImage value="../images/b4a.gif" />
+							<ice:commandButton value="#{lbl['label.aceptar'] }"
+								action="#{popupMessagePage.btnTrayAdmin_aceptar}" />
+							<ice:graphicImage value="../images/b4c.gif" />
+						</ice:panelGrid>
+
+
+					</ice:panelGrid>
+				</center>
+			</f:facet>
+		</ice:panelPopup>
+	</ice:form>
+</div>
+
+

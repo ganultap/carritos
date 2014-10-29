@@ -1,0 +1,98 @@
+<ui:composition template="../inc-templates/main-template.jspx"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:gw="http://geniar.net/framework">
+
+
+	<!-- params for page titles-->
+	<ui:param name="pageTitle" value="#{lbl['label.ubicacion']}" />
+	<ui:param name="contentHeader" value="#{lbl['label.ubicacion']}" />
+	<ui:define name="content">
+		<ui:decorate template="../inc-templates/content-template.jspx">
+			<!-- insert content here -->
+			<ui:define name="pageContent">
+
+				<center>
+
+					<ice:form rendered="true">
+						<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+						<ice:panelGrid columns="3" styleClass="siscarTitle">
+							<ice:graphicImage value="../images/t5a.gif" />
+							<ice:outputText style="font-size: 220%;"
+								value=" #{contentHeader}" />
+							<ice:graphicImage value="../images/t5c.gif" />
+						</ice:panelGrid>
+						<br />
+						<ice:panelGrid columns="2"
+							style="border:1px solid blue; text-align:left">
+							<ice:outputLabel value="#{lbl['label.tipoUbicacion']}" />
+							<ice:selectOneMenu styleClass="siscarNotNull"
+								partialSubmit="true" value="#{locationPage.locationsTypes}"
+								binding="#{locationPage.cbxTipoUbicacion}"
+								valueChangeListener="#{selectItemCountryPage.changeUbicationTypesCountries}">
+								<f:selectItems
+									value="#{selectItemLocationPage.listLocationsTypes}" />
+							</ice:selectOneMenu>
+
+							<ice:outputText value="#{lbl['label.pais']}" />
+							<ice:selectOneMenu styleClass="siscarNotNull"
+								partialSubmit="true" value="#{locationPage.idCoutry}"
+								binding="#{locationPage.selectCountry}"
+								valueChangeListener="#{selectItemCountryPage.changeCountries}">
+								<f:selectItems value="#{selectItemCountryPage.listCountry}" />
+							</ice:selectOneMenu>
+
+							<ice:outputText value="#{lbl['label.cuidad']}" />
+							<ice:selectOneMenu styleClass="siscarNotNull"
+								partialSubmit="true" binding="#{locationPage.selectCity}"
+								valueChangeListener="#{locationPage.listener_location}"
+								value="#{locationPage.idCity}">
+								<f:selectItems value="#{selectItemCountryPage.listCity}" />
+							</ice:selectOneMenu>
+
+							<ice:outputLabel value="#{lbl['label.descripcion']}" />
+							<ice:inputTextarea value="#{locationPage.lcnDescripcion}"
+								cols="20" rows="4" partialSubmit="true"
+								validator="#{locationPage.validateMinLenght }"
+								style="width:200px;height:80px;" maxlength="50"
+								binding="#{locationPage.txtDescripcion}"
+								styleClass="siscarNotNull" />
+						</ice:panelGrid>
+
+						<ice:panelGrid columns="4">
+
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.crear']}"
+									actionListener="#{locationPage.action_crearUbicacion}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.modificar']}"
+									actionListener="#{locationPage.action_modificarLugar}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.eliminar']}"
+									actionListener="#{locationPage.action_eliminarUbicaion}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.limpiar']}"
+									actionListener="#{locationPage.action_limpiar}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+						</ice:panelGrid>
+						<ice:messages />
+					</ice:form>
+				</center>
+			</ui:define>
+		</ui:decorate>
+	</ui:define>
+</ui:composition>

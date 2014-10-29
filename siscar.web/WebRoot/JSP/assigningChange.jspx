@@ -1,0 +1,86 @@
+<ui:composition template="../inc-templates/main-template.jspx"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:gw="http://geniar.net/framework">
+
+
+	<!-- params for page titles-->
+	<ui:param name="pageTitle" value="Cambio Asignatario" />
+	<ui:param name="contentHeader" value="Cambio Asignatario" />
+	<ui:define name="content">
+		<ui:decorate template="../inc-templates/content-template.jspx">
+			
+			<!-- insert content here -->
+			<ui:define name="pageContent">
+				<center>
+
+					<ice:form partialSubmit="true">
+						<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+						<ice:panelGrid columns="3" styleClass="siscarTitle">
+							<ice:graphicImage value="../images/t5a.gif" />
+							<ice:outputText style="font-size: 220%;" value=" #{contentHeader}" />
+							<ice:graphicImage value="../images/t5c.gif" />
+						</ice:panelGrid>
+						<br />
+						<ice:messages />
+
+						<ice:panelGrid columns="4" style="border:1px solid blue;">
+							<ice:outputLabel value="#{lbl['label.placa']}" />
+							<ice:inputText />
+							<ice:outputLabel value="#{lbl['label.asignatarioActual']}" />
+							<ice:inputText />
+							<ice:outputLabel value="#{lbl['label.fechaDesde']}" />
+							<ice:inputText />
+							<ice:outputLabel value="#{lbl['label.fechaHasta']}" />
+							<ice:inputText />
+
+						</ice:panelGrid>
+						<ice:outputLabel value="#{lbl['label.centroCostoActual']}" />
+						<ice:dataTable>
+						</ice:dataTable>
+
+						<ice:panelGrid colums="2">
+							<ice:outputLabel value="#{lbl['label.tipoAsignacion']}" />
+							<ice:selectOneMenu />
+						</ice:panelGrid>
+
+						<ice:panelGrid colums="2">
+							<ice:outputLabel value="#{lbl['label.carnetNuevo']}" />
+							<ice:inputText />
+							<ice:outputLabel value="#{lbl['label.nombre']}" />
+							<ice:inputText />
+							<ice:outputLabel value="#{lbl['label.email']}" />
+							<ice:inputText />
+							<ice:outputLabel value="#{lbl['label.carnetAsistente']}" />
+							<ice:inputText />
+							<ice:outputLabel value="#{lbl['label.nombre']}" />
+							<ice:inputText />
+							<ice:outputLabel value="#{lbl['label.email']}" />
+							<ice:inputText />
+						</ice:panelGrid>
+						<!-- Centro de Costo -->
+						<ice:panelGrid columns="2">
+							<ice:outputText value="#{lbl['label.numeroCentroCosto']}" />
+							<ice:inputText />
+							<ice:outputText value="#{lbl['label.porcentaje']}" />
+							<ice:inputText />
+						</ice:panelGrid>
+						<ice:dataTable>
+
+						</ice:dataTable>
+
+						<!-- Nit -->
+						<ice:panelGrid columns="2">
+							<ice:outputText value="#{lbl['label.nit']}" />
+							<ice:inputText />
+						</ice:panelGrid>
+
+						<ice:messages />
+					</ice:form>
+				</center>
+			</ui:define>
+		</ui:decorate>
+	</ui:define>
+</ui:composition>

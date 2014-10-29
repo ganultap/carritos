@@ -1,0 +1,402 @@
+<ui:composition template="../inc-templates/main-template.jspx"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:gw="/gw_core.tld">
+	<!-- params for page titles-->
+	<ui:param name="pageTitle" value="#{lbl['label.vehiculo']}" />
+	<ui:param name="contentHeader" value="#{lbl['label.vehiculo']}" />
+
+	<ui:define name="content">
+		<script type="text/javascript" src="../js/geniar.validator.js"></script>
+		<script language="JavaScript" src="../js/controlDecimales.js"
+			type="text/javascript"></script>
+		<ui:decorate template="../inc-templates/content-template.jspx">
+			<!-- header content here  -->
+			<!-- insert content here -->
+			<ui:define name="pageContent">
+				<ice:form id="formaVehiculo">
+					<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+					<center>
+						<ice:panelGrid columns="3" styleClass="siscarTitle">
+							<ice:graphicImage value="../images/t5a.gif" />
+
+							<ice:outputText style="font-size: 220%;"
+								value=" #{contentHeader}" />
+							<ice:graphicImage value="../images/t5c.gif" />
+						</ice:panelGrid>
+
+						<ice:panelGrid columns="1" cellpadding="2"
+							style="border:1px solid blue;">
+							<div align="center">
+								<ice:outputText value="#{lbl['label.modelo']}" />
+								<ice:selectOneMenu partialSubmit="true"
+									styleClass="siscarNotNull"
+									binding="#{vehiclePage.selectModelo}"
+									valueChangeListener="#{selectItemSuppliyngPage.cargarCatalogoModelo}"
+									value="#{vehiclePage.idModelo}">
+									<f:selectItems value="#{selectItemSuppliyngPage.listModels}" />
+								</ice:selectOneMenu>
+
+
+								<ice:selectOneMenu partialSubmit="true"
+									styleClass="siscarNotNull"
+									binding="#{vehiclePage.selectCatalogos}"
+									value="#{vehiclePage.idNumCatalogo}"
+									valueChangeListener="#{vehiclePage.seleccionarCamposCatalogo}">
+									<f:selectItems
+										value="#{selectItemSuppliyngPage.listSupplyingCatalogs}" />
+								</ice:selectOneMenu>
+
+
+
+							</div>
+						</ice:panelGrid>
+
+						<ice:panelGrid columns="1" cellpadding="2"
+							style="border:1px solid blue; text-align: left;">
+
+
+							<ice:panelGrid columns="6" cellpadding="2"
+								style="text-align: left;">
+								<ice:outputText value="#{lbl['label.tl']}" />
+								<ice:inputText maxlength="20" styleClass="siscarNotNull"
+									value="#{vehiclePage.vhcNumeroTl}" style="width: 160px; ">
+								</ice:inputText>
+
+
+								<ice:outputText value="#{lbl['label.placa']}" />
+								<ice:inputText maxlength="18" styleClass="siscarNotNull"
+									style="width: 160px; "
+									value="#{vehiclePage.vhcPlacaDiplomatica}">
+								</ice:inputText>
+
+								<ice:outputText value="#{lbl['label.activo']}" />
+								<ice:inputText maxlength="18" partialSubmit="true"
+									style="width: 160px; "
+									value="#{vehiclePage.vhcPlacaActivoFijo}"
+									valueChangeListener="#{vehiclePage.cargarFuncionesCiat}">
+								</ice:inputText>
+
+
+								<ice:outputText value="#{lbl['label.marca']}" />
+								<ice:inputText readonly="true" style="width: 160px; "
+									value="#{vehiclePage.marcaCatalogo}" />
+
+								<ice:outputText value="#{lbl['label.lineaCatalogo']}" />
+								<ice:inputText readonly="true" style="width: 160px; "
+									value="#{vehiclePage.lineaCatalogo}" />
+
+								<ice:outputText value="#{lbl['label.catalogado']}" />
+								<ice:inputText readonly="true" style="width: 160px; "
+									value="#{vehiclePage.numCatalogo}">
+								</ice:inputText>
+
+								<ice:outputText value="#{lbl['label.modelo']}" />
+								<ice:inputText readonly="true" style="width: 160px; "
+									value="#{vehiclePage.modeloCatalogo}">
+								</ice:inputText>
+
+								<ice:outputText value="#{lbl['label.tipoVehiculo']}" />
+								<ice:selectOneMenu styleClass="siscarNotNull"
+									style="width: 168px; " value="#{vehiclePage.idTipoVehiculo}">
+									<f:selectItems
+										value="#{selectItemVehiclesTypesPage.listVehiclesTypes}" />
+								</ice:selectOneMenu>
+
+								<ice:outputText value="#{lbl['label.tipoTraccion']}" />
+								<ice:selectOneMenu styleClass="siscarNotNull"
+									style="width: 168px; " value="#{vehiclePage.vhcIdTypeTraction}">
+									<f:selectItems
+										value="#{selectItemTractionsTypesPage.listTractionsTypes}" />
+								</ice:selectOneMenu>
+
+								<ice:outputText value="#{lbl['label.tipoTapiceria']}" />
+								<ice:selectOneMenu styleClass="siscarNotNull"
+									style="width: 168px; "
+									value="#{vehiclePage.vhcIdTypeTapestrie}">
+									<f:selectItems
+										value="#{selectItemTapestriesTypesPage.listTapestriesTypes}" />
+								</ice:selectOneMenu>
+
+								<ice:outputText value="#{lbl['label.tipoTransmisiones']}" />
+								<ice:selectOneMenu styleClass="siscarNotNull"
+									style="width: 168px; "
+									value="#{vehiclePage.vhcIdTypeTransmissions}">
+									<f:selectItems
+										value="#{selectItemTransmissionsTypesPage.listTransmissionsTypes}" />
+								</ice:selectOneMenu>
+
+
+								<ice:outputText value="#{lbl['label.combustible']}" />
+								<ice:selectOneMenu styleClass="siscarNotNull"
+									style="width: 168px; " value="#{vehiclePage.idTipoCombustible}">
+									<f:selectItems
+										value="#{selectItemFuelsTypesPage.listFuelsTypes}" />
+								</ice:selectOneMenu>
+
+								<ice:outputText value="#{lbl['label.tipoUbicacion']}" />
+								<ice:selectOneMenu styleClass="siscarNotNull"
+									style="width: 168px; " value="#{vehiclePage.idLocationType}"
+									binding="#{vehiclePage.selectOneMenuTipoUbicacion}"
+									valueChangeListener="#{selectItemLocationPage.changeLocation}"
+									partialSubmit="true">
+									<f:selectItems
+										value="#{selectItemLocationPage.listLocationsTypes}" />
+								</ice:selectOneMenu>
+
+								<ice:outputText value="#{lbl['label.ubicacion']}" />
+
+
+								<ice:selectOneMenu styleClass="siscarNotNull"
+									value="#{vehiclePage.idLocation}" partialSubmit="true"
+									style="width: 168px; "
+									valueChangeListener="#{selectItemLocationPage.mostrarPais}"
+									binding="#{vehiclePage.selectOneMenuUbicacion}">
+									<f:selectItems value="#{selectItemLocationPage.listLocations}" />
+								</ice:selectOneMenu>
+
+
+
+								<ice:outputText value="#{lbl['label.pais']}" />
+								<ice:inputText readonly="true" style="width: 160px; "
+									value="#{vehiclePage.countryName}" />
+
+
+								<ice:outputText value="#{lbl['label.taquimetro']}" />
+								<ice:selectOneMenu styleClass="siscarNotNull"
+									style="width: 168px; " value="#{vehiclePage.vhcOdometro}">
+									<f:selectItems value="#{selectItemOdometer.listOdometer}" />
+								</ice:selectOneMenu>
+
+
+
+								<ice:outputText value="#{lbl['label.cilindraje']}" />
+								<ice:inputText maxlength="6" styleClass="siscarNotNull"
+									style="width: 160px; " value="#{vehiclePage.vhcClilindraje}">
+								</ice:inputText>
+
+								<ice:outputText value="#{lbl['label.placaAnterior']}" />
+								<ice:inputText maxlength="30" style="width: 160px; "
+									value="#{vehiclePage.vhcRemplazaA}">
+								</ice:inputText>
+
+
+
+								<ice:outputText value="#{lbl['label.motor']}" />
+								<ice:inputText maxlength="20" styleClass="siscarNotNull"
+									style="width: 160px; " value="#{vehiclePage.vhcNumeroMotor}">
+								</ice:inputText>
+
+
+								<ice:outputText value="#{lbl['label.serie']}" />
+								<ice:inputText maxlength="20" styleClass="siscarNotNull"
+									style="width: 160px; " value="#{vehiclePage.vhcNumeroSerie}">
+								</ice:inputText>
+
+								<ice:outputText value="#{lbl['label.ano']}" />
+								<ice:inputText maxlength="4" styleClass="siscarNotNull"
+									style="width: 160px; " value="#{vehiclePage.vhcAno}">
+								</ice:inputText>
+
+
+								<ice:commandLink value="#{lbl['label.color']}"
+									actionListener="#{dataTableColor.llenarTablaColores}" />
+
+								<ice:inputText maxlength="20" styleClass="siscarNotNull"
+									value="#{vehiclePage.vhcColor}" style="width: 160px; "
+									binding="#{vehiclePage.txtColor}">
+								</ice:inputText>
+
+
+								<ice:outputText value="#{lbl['label.capacidad']}" />
+								<ice:inputText maxlength="3" styleClass="siscarNotNull"
+									style="width: 160px; " value="#{vehiclePage.vhcCapacidad}">
+								</ice:inputText>
+
+								<ice:outputText value="#{lbl['label.capacidadTanque']}" />
+								<ice:inputText maxlength="3" styleClass="siscarNotNull"
+									style="width: 160px; "
+									value="#{vehiclePage.vhcCapacidadTanque}">
+									<f:convertNumber pattern="0.00" maxFractionDigits="2" />
+								</ice:inputText>
+
+								<ice:outputText value="#{lbl['label.anoFab']}" />
+								<ice:inputText maxlength="4" styleClass="siscarNotNull"
+									style="width: 160px; " value="#{vehiclePage.vhcAnofabricacion}">
+								</ice:inputText>
+
+								<ice:outputText value="#{lbl['label.mesFab']}" />
+								<ice:inputText maxlength="2" styleClass="siscarNotNull"
+									style="width: 160px; " value="#{vehiclePage.vhcMesfabricacion}">
+								</ice:inputText>
+
+								<ice:outputText value="#{lbl['label.valorComercial']}($)" />
+								<ice:inputText maxlength="20" style="width: 160px; "
+									value="#{vehiclePage.vhcValorComercial}"
+									onkeyup="formatNmb(this)">
+								</ice:inputText>
+
+
+								<ice:outputText value="#{lbl['label.anoValorComercial']}" />
+								<ice:inputText maxlength="4" value="#{vehiclePage.vhcAnoValCom}"
+									style="width: 160px; ">
+								</ice:inputText>
+
+
+								<ice:outputText value="#{lbl['label.fechaProtocolo']}" />
+								<ice:selectInputDate value="#{vehiclePage.vhcFechaProtocolo}"
+									renderAsPopup="true" rendered="true" style="width: 160px; "
+									pattern="#{baseBean.dateFormat}">
+									<f:convertDateTime timeZone="GMT-5" />
+								</ice:selectInputDate>
+
+								<ice:outputText value="#{lbl['label.numeroManifiesto']}" />
+								<ice:inputText maxlength="30" style="width: 160px; "
+									value="#{vehiclePage.vhcNumeroManifiesto}">
+								</ice:inputText>
+
+								<ice:outputText value="#{lbl['label.fechaManifiesto']}" />
+								<ice:selectInputDate value="#{vehiclePage.vhcFechaManifiesto}"
+									renderAsPopup="true" rendered="true" style="width: 160px; "
+									pattern="#{baseBean.dateFormat}">
+									<f:convertDateTime timeZone="GMT-5" />
+								</ice:selectInputDate>
+
+
+								<ice:outputText value="#{lbl['label.numeroDeclaracion']}" />
+								<ice:inputText maxlength="30" style="width: 160px; "
+									value="#{vehiclePage.vhcNumDeclImpor}">
+								</ice:inputText>
+
+
+								<ice:outputText value="#{lbl['label.numeroLevante']}" />
+								<ice:inputText maxlength="20" style="width: 160px; "
+									value="#{vehiclePage.vhcNumeroLevante}">
+								</ice:inputText>
+
+								<ice:outputText value="#{lbl['label.fechaLevante']}" />
+								<ice:selectInputDate value="#{vehiclePage.vhcFechaLevante}"
+									renderAsPopup="true" rendered="true" style="width: 160px; "
+									pattern="#{baseBean.dateFormat}">
+									<f:convertDateTime timeZone="GMT-5" />
+								</ice:selectInputDate>
+
+								<ice:outputText value="#{lbl['label.docTransporte']}(BOL)" />
+								<ice:inputText maxlength="20" style="width: 160px; "
+									value="#{vehiclePage.vhcDocumentTrans}">
+								</ice:inputText>
+
+								<ice:commandLink value="#{lbl['label.cuidadAduana']}"
+									actionListener="#{vehiclePage.mostrarPopupCiudades}" />
+								<ice:inputText readonly="true" style="width: 160px; "
+									value="#{vehiclePage.vhcCiuAduan}">
+								</ice:inputText>
+
+
+								<ice:outputText value="#{lbl['label.proveedor']}" />
+								<ice:inputText maxlength="50" style="width: 160px; "
+									value="#{vehiclePage.vhcProveedor}"
+									binding="#{vehiclePage.txtProveedor}">
+								</ice:inputText>
+
+								<ice:outputText value="#{lbl['label.numeroFactura']}" />
+								<ice:inputText maxlength="20"
+									value="#{vehiclePage.vhcNumeroFactura}" style="width: 160px; ">
+								</ice:inputText>
+
+								<ice:outputText value="#{lbl['label.ordenCompra']}" />
+								<ice:inputText maxlength="20" style="width: 160px; "
+									value="#{vehiclePage.vhcOrderCompra}"
+									binding="#{vehiclePage.txtOrdenCompra}">
+								</ice:inputText>
+
+
+								<ice:outputText value="#{lbl['label.atInicial']}" />
+								<ice:inputText maxlength="30" style="width: 160px; "
+									value="#{vehiclePage.vhcAtInicial}">
+								</ice:inputText>
+
+
+								<ice:outputText value="#{lbl['label.vidaUtil']}" />
+								<ice:inputText maxlength="2" value="#{vehiclePage.vhcVidaUtil}"
+									style="width: 160px; " binding="#{vehiclePage.txtVidaUtil}" />
+
+								<ice:outputText value="#{lbl['label.valorCif']}" />
+
+
+								<ice:inputText id="idCIF" partialSubmit="true" maxlength="20"
+									value="#{vehiclePage.vhcValorCIF}" style="width: 160px; "
+									binding="#{vehiclePage.txtValorCIF}"
+									onkeypress="decimales(this);"
+									valueChangeListener="#{vehiclePage.sumarCargosEnCIF}">
+									<f:convertNumber pattern="0.00" maxFractionDigits="2" />
+								</ice:inputText>
+
+								<ice:outputText value="#{lbl['label.valorFob']}" />
+								<ice:inputText id="idFOB" partialSubmit="true" maxlength="20"
+									value="#{vehiclePage.vhcValorFOB}" style="width: 160px; "
+									binding="#{vehiclePage.txtValorFob}"
+									onkeypress="decimales(this);"
+									valueChangeListener="#{vehiclePage.sumarCargosEnFOB}">
+									<f:convertNumber pattern="0.00" maxFractionDigits="2" />
+								</ice:inputText>
+
+								<ice:outputText value="#{lbl['label.cargosImportacion']}" />
+								<ice:inputText id="idCargos" readonly="true" maxlength="20"
+									value="#{vehiclePage.vhcCargosImportacion}"
+									binding="#{vehiclePage.txtCargosImportacion}"
+									onkeypress="decimales(this);" style="width: 160px; ">
+									<f:convertNumber pattern="0.00" maxFractionDigits="2" />
+								</ice:inputText>
+
+							</ice:panelGrid>
+							<div align="right">
+								<ice:panelGrid columns="3">
+									<ice:outputText value="#{lbl['label.observaciones']}" />
+
+									<ice:inputTextarea value="#{vehiclePage.vhcObservaciones}"
+										style="width: 870px; height: 64px; " />
+								</ice:panelGrid>
+							</div>
+						</ice:panelGrid>
+						<br />
+						<br />
+						<ice:panelGrid columns="4">
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.crear']}"
+									actionListener="#{vehiclePage.action_crear}"
+									binding="#{vehiclePage.htmlButtonCrear}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.modificar']}"
+									actionListener="#{vehiclePage.mostrarConfirmacion}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.consultar']}"
+									actionListener="#{vehiclePage.action_consultar}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.limpiar']}"
+									actionListener="#{vehiclePage.action_limpiar}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+						</ice:panelGrid>
+						<ui:include src="tableColors.jspx" />
+						<ice:messages />
+					</center>
+
+				</ice:form>
+
+			</ui:define>
+		</ui:decorate>
+	</ui:define>
+</ui:composition>

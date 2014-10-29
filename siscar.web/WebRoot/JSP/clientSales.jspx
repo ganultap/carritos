@@ -1,0 +1,171 @@
+<ui:composition template="../inc-templates/main-template.jspx"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:gw="/WEB-INF/gw_core.tld">
+	<!-- params for page titles-->
+
+	<ui:param name="pageTitle" value="#{lbl['label.comprador']}" />
+	<ui:param name="contentHeader" value="#{lbl['label.comprador']}" />
+
+	<ui:define name="content">
+		<script type="text/javascript" src="../js/geniar.validator.js"></script>
+		<ui:decorate template="../inc-templates/content-template.jspx">
+			<!-- insert content here -->
+			<ui:define name="pageContent">
+				<ice:form>
+					<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+					<center>
+						<ice:panelGrid columns="3" styleClass="siscarTitle">
+							<ice:graphicImage value="../images/t5a.gif" />
+							<ice:outputText style="font-size: 220%;"
+								value=" #{contentHeader}" />
+							<ice:graphicImage value="../images/t5c.gif" />
+						</ice:panelGrid>
+						<br />
+
+						<ice:panelGrid columns="1" cellpadding="2"
+							style="border:1px solid blue;">
+							<div align="center" style="height: 24px">
+								<ice:outputText value="#{lbl['label.placa']}" />
+								<ice:inputText maxlength="8" value="#{clientSalesPage.placa}"
+									styleClass="siscarNotNull" partialSubmit="true"
+									binding="#{clientSalesPage.txtPlaca}"
+									valueChangeListener="#{clientSalesPage.consultarPlaca}" />
+							</div>
+						</ice:panelGrid>
+						<br />
+						<ice:panelGrid columns="1" style="border:1px solid blue;"
+							cellpadding="2">
+							<ice:panelGrid columns="6" cellpadding="1" style="text-align:left">
+								
+								<ice:outputText rendered="#{clientSalesPage.visibleCampos}"
+									value="#{lbl['label.cedula']}" />
+								<ice:inputText maxlength="12" partialSubmit="true"
+									rendered="#{clientSalesPage.visibleCampos}"
+									value="#{clientSalesPage.numeroIdentificacion}"
+									styleClass="siscarNotNull"
+									binding="#{clientSalesPage.txtNumeroIdentificacion}"
+									valueChangeListener="#{clientSalesPage.consultarNumeroDocumento}" />
+
+								<ice:outputText rendered="#{clientSalesPage.visibleCampos}"
+									value="#{lbl['label.nombreComprador']}" />
+								<ice:inputText maxlength="50"
+									rendered="#{clientSalesPage.visibleCampos}"
+									value="#{clientSalesPage.nombreComprador}"
+									styleClass="siscarNotNull"
+									binding="#{clientSalesPage.txtNombreComprador}" style="width: 212px; "/>
+
+								<ice:outputText rendered="#{clientSalesPage.visibleCampos}"
+									value="#{lbl['label.direccion']}" />
+								<ice:inputText maxlength="100"
+									rendered="#{clientSalesPage.visibleCampos}"
+									value="#{clientSalesPage.direccion}"
+									binding="#{clientSalesPage.txtDireccion}"
+									styleClass="siscarNotNull" style="width: 205px; "/>
+									
+								<ice:outputText rendered="#{clientSalesPage.visibleCampos}"
+									value="#{lbl['label.telefono']}" />
+								<ice:inputText maxlength="20"
+									rendered="#{clientSalesPage.visibleCampos}"
+									value="#{clientSalesPage.telefono}"
+									binding="#{clientSalesPage.txtTelefono}"
+									styleClass="siscarNotNull" />
+
+
+								<ice:outputText rendered="#{clientSalesPage.visibleCampos}"
+									value="#{lbl['label.email']}" />
+								<ice:inputText rendered="#{clientSalesPage.visibleCampos}"
+									maxlength="35" value="#{clientSalesPage.email}"
+									binding="#{clientSalesPage.txtEmail}"
+									styleClass="siscarNotNull" style="width: 210px; "/>
+
+								<ice:outputText rendered="#{clientSalesPage.visibleCampos}"
+									value="#{lbl['label.valorVenta']}" />
+								<ice:inputText maxlength="12"
+									rendered="#{clientSalesPage.visibleCampos}"
+									value="#{clientSalesPage.valorVenta}"
+									binding="#{clientSalesPage.txtValorVta}"
+									styleClass="siscarNotNull" onkeyup="formatNmb(this)" />
+
+								<ice:outputText rendered="#{clientSalesPage.visibleCampos}"
+									value="#{lbl['label.numeroLicitacion']}" />
+								<ice:inputText maxlength="20"
+									rendered="#{clientSalesPage.visibleCampos}"
+									value="#{clientSalesPage.numeroLicitacion}"
+									binding="#{clientSalesPage.txtNumeroLicitacion}" />
+
+								<ice:outputText rendered="#{clientSalesPage.visibleCampos}"
+									value="#{lbl['label.fechaLicitacion']}" />
+								<ice:selectInputDate rendered="#{clientSalesPage.visibleCampos}"
+									renderAsPopup="true" value="#{clientSalesPage.fechaLicitacion}"
+									binding="#{clientSalesPage.selectFechaLicitacion}" style="width: 125px; ">
+									<f:convertDateTime timeZone="GMT-5" />
+								</ice:selectInputDate>
+								
+								<ice:outputText value="#{lbl['label.atFinal']}" />
+								<ice:inputText maxlength="20" value="#{clientSalesPage.atFinal}"
+									styleClass="siscarNotNull" />
+
+								<ice:outputText value="#{lbl['label.fechaEntrega']}" />
+								<ice:selectInputDate renderAsPopup="true"
+									value="#{clientSalesPage.fechaEntrega}" style="width: 125px; ">
+									<f:convertDateTime timeZone="GMT-5" />
+								</ice:selectInputDate>
+
+								<ice:outputText rendered="#{clientSalesPage.visibleCampos}"
+									value="#{lbl['label.placaIntra']}" />
+								<ice:inputText maxlength="18"
+									rendered="#{clientSalesPage.visibleCampos}"
+									value="#{clientSalesPage.placaIntra}"
+									binding="#{clientSalesPage.txtPlacaIntra}" />
+								
+							</ice:panelGrid>
+							<div align="left">
+								<ice:panelGrid columns="3" style="width: 846px; ">
+									<ice:outputText value="#{lbl['label.observaciones']}" />
+									<ice:inputTextarea maxlength="100"
+										value="#{clientSalesPage.observaciones}"
+										binding="#{clientSalesPage.txtObservaciones}"
+										style="width: 835px; " />
+								</ice:panelGrid>
+							</div>
+						</ice:panelGrid>
+						<ice:messages />
+						<br />
+						<ice:panelGrid columns="6">
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.crear']}"
+									actionListener="#{clientSalesPage.action_crearCompradorVehiculo}"
+									binding="#{clientSalesPage.botonCrear}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.consultar']}"
+									actionListener="#{clientSalesPage.action_consultar}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton disabled="true"
+									value="#{lbl['label.modificar']}"
+									actionListener="#{clientSalesPage.action_modificar}" 
+									binding="#{clientSalesPage.botonModificar}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.limpiar']}"
+									actionListener="#{clientSalesPage.action_limpiar}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+						</ice:panelGrid>
+					</center>
+				</ice:form>
+			</ui:define>
+		</ui:decorate>
+	</ui:define>
+</ui:composition>

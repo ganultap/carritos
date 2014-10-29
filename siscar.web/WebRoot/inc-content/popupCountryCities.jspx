@@ -1,0 +1,58 @@
+<div class="navTree" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+	<ice:form partialSubmit="true">
+		<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+		<ice:panelPopup id="popupDiv" draggable="true" rendered="true"
+			modal="true" visible="#{vehiclePage.showPopupCities}"
+			style="z-index: 50000; top: 45%; left: 35%; position: absolute; width: 300px;"
+			styleClass="icePanelPopup">
+			<f:facet name="header">
+				<ice:outputText styleClass="icePanelPopupHeader"
+					value="#{lbl['label.popup']}" />
+			</f:facet>
+
+			<f:facet name="body">
+				<div align="left">
+					<ice:panelGrid columns="1" style="text-align: left;">
+						<ice:panelGrid columns="4">
+							<ice:outputText value="#{lbl['label.pais']}" />
+							<ice:selectOneMenu partialSubmit="true"
+								value="#{vehiclePage.idCountry}"
+								binding="#{vehiclePage.selectCountry}"
+								valueChangeListener="#{selectItemCountryPage.changeCountriesDefault}">
+								<f:selectItems
+									value="#{selectItemCountryPage.listCountryDefault}" />
+							</ice:selectOneMenu>
+
+							<ice:outputText value="#{lbl['label.cuidad']}" />
+							<ice:selectOneMenu binding="#{vehiclePage.selectCity}"
+								value="#{vehiclePage.idCuidad}"
+								valueChangeListener="#{selectItemCountryPage.changeCitesDefault}">
+								<f:selectItems value="#{selectItemCountryPage.listCityDefault}" />
+							</ice:selectOneMenu>
+						</ice:panelGrid>
+
+						<div align="center">
+							<ice:panelGrid columns="4">
+								<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+									<ice:graphicImage value="../images/b4a.gif" />
+									<ice:commandButton id="btnAceptar"
+										value="#{lbl['label.aceptar']}"
+										actionListener="#{vehiclePage.aceptar_onclick}" />
+									<ice:graphicImage value="../images/b4c.gif" />
+								</ice:panelGrid>
+								<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+									<ice:graphicImage value="../images/b4a.gif" />
+									<ice:commandButton value="#{lbl['label.cancelar']}"
+										actionListener="#{vehiclePage.action_cancelar}" />
+									<ice:graphicImage value="../images/b4c.gif" />
+								</ice:panelGrid>
+							</ice:panelGrid>
+						</div>
+					</ice:panelGrid>
+				</div>
+			</f:facet>
+		</ice:panelPopup>
+	</ice:form>
+</div>

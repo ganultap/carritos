@@ -1,0 +1,196 @@
+<ui:composition template="../inc-templates/main-template.jspx"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:gw="/gw_core.tld">
+	<!-- params for page titles-->
+	<ui:param name="pageTitle" value="#{lbl['label.controlTanques']}" />
+	<ui:param name="contentHeader" value="#{lbl['label.controlTanques']}" />
+	<ui:define name="content">
+		<script language="JavaScript" src="../js/controlDecimales.js"
+			type="text/javascript"></script>
+		<ui:decorate template="../inc-templates/content-template.jspx">
+			<!-- header content here  -->
+			<ui:define name="pageName">
+			</ui:define>
+			<!-- insert content here -->
+			<ui:define name="pageContent">
+				<center>
+					<ice:form>
+						<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+
+						<ice:panelGrid columns="3" styleClass="siscarTitle">
+							<ice:graphicImage value="../images/t5a.gif" />
+							<ice:outputText style="font-size: 220%;"
+								value=" #{contentHeader}" />
+							<ice:graphicImage value="../images/t5c.gif" />
+						</ice:panelGrid>
+						<br />
+						<ice:panelGrid columns="2"
+							style="border:1px solid blue; text-align:left;">
+
+							<ice:outputText value="#{lbl['label.nombreTanque']}" />
+							<ice:selectOneMenu value="#{fuelControlPage.idTanque}"
+								partialSubmit="true"
+								binding="#{fuelControlPage.selectNombreTanque}"
+								valueChangeListener="#{fuelControlPage.listener_FuelTank}"
+								style="width: 142px;" styleClass="siscarNotNull">
+								<f:selectItems value="#{selectItemFuelTanksPage.items}" />
+							</ice:selectOneMenu>
+
+							<ice:outputText value="#{lbl['label.tipoCombustible']}" />
+							<ice:selectOneMenu value="#{fuelControlPage.idFuelsTypes}"
+								binding="#{fuelControlPage.selectFuelTypes}" disabled="true"
+								style="width: 142px; " styleClass="siscarNotNull">
+								<f:selectItems
+									value="#{selectItemFuelsTypesPage.listFuelsTypes}" />
+							</ice:selectOneMenu>
+
+							<ice:outputText value="#{lbl['label.valorTanque']}" />
+							<ice:inputText value="#{fuelControlPage.valorActualTanque}"
+								maxlength="20" readonly="true" style="width: 142px; " />
+
+							<ice:outputText value="#{lbl['label.galonesSum']}" />
+							<ice:inputText id="idCantidad" value="#{fuelControlPage.cantidadGalones}"
+								styleClass="siscarNotNull" maxlength="15" style="width: 142px;"
+								onkeypress="decimales(this);">
+								<f:convertNumber pattern="0.00" maxFractionDigits="2" />
+							</ice:inputText>	
+							
+							<ice:outputLabel value="#{lbl['label.fechaTanqueada']}" />
+							<ice:selectInputDate value="#{fuelControlPage.fechaTanqueada}"
+								renderAsPopup="true" styleClass="siscarNotNull">
+								<f:convertDateTime pattern="dd-MMM-yyyy" timeZone="GMT-5"/>								
+							</ice:selectInputDate>
+
+						</ice:panelGrid>
+
+
+						<ice:panelGrid columns="5">
+
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+
+								<ice:commandButton value="#{lbl['label.crear']}"
+									actionListener="#{fuelControlPage.action_crearFuelTanksPage}"
+									disabled="#{fuelControlPage.disCrear}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+
+								<ice:commandButton value="#{lbl['label.modificar']}"
+									binding="#{fuelControlPage.buttonMod}"									
+									actionListener="#{fuelControlPage.action_modificarControlTanksPage}"
+									disabled="true">
+								</ice:commandButton>
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+
+								<ice:commandButton value="#{lbl['label.eliminar']}"
+									actionListener="#{fuelControlPage.action_eliminarFuelTanksPage}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+
+								<ice:commandButton value="#{lbl['label.limpiar']}"
+									actionListener="#{fuelControlPage.limpiar_action}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+
+								<ice:commandButton value="#{lbl['label.consultar']}"
+									actionListener="#{fuelControlPage.consultarControlTanks}"
+									disabled="false">
+								</ice:commandButton>
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+
+						</ice:panelGrid>
+						<ice:messages />
+
+						<ice:panelGrid columns="1">
+							<div align="center">
+								<ice:dataTable id="listCtrl"
+									value="#{fuelControlPage.listControlTnks}" border="1"
+									var="controlTnks" rows="10" width="20%" scrollHeight="true"
+									style="width: 651px; ">
+
+									<ice:column>
+										<f:facet name="header">
+											<ice:outputText styleClass=""
+												value="#{lbl['label.fechaTanqueada']}">												
+											</ice:outputText>
+										</f:facet>
+										<ice:panelGroup style="text-align:center;">
+											<ice:outputText value="#{controlTnks.cotFechaCarga}">
+												<f:convertDateTime pattern="dd-MMM-yyyy" />
+											</ice:outputText>
+										</ice:panelGroup>
+									</ice:column>
+
+
+									<ice:column>
+										<f:facet name="header">
+											<ice:outputText styleClass=""
+												value="#{lbl['label.galonesSum']}"></ice:outputText>
+										</f:facet>
+										<ice:panelGroup style="text-align:center;">
+											<ice:outputText value="#{controlTnks.cotGalonesActuales}"></ice:outputText>
+										</ice:panelGroup>
+									</ice:column>
+
+									<ice:column>
+										<f:facet name="header">
+											<ice:outputText styleClass=""
+												value="#{lbl['label.nombre.tanque']}"></ice:outputText>
+										</f:facet>
+										<ice:panelGroup style="text-align:center; width: 200px; ">
+											<ice:outputText value="#{controlTnks.fuelTanks.ftaNombre}"></ice:outputText>
+										</ice:panelGroup>
+									</ice:column>
+
+									<ice:column>
+										<f:facet name="header">
+											<ice:outputText styleClass=""
+												value="#{lbl['label.modificar']}"></ice:outputText>
+										</f:facet>
+										<ice:panelGroup style="text-align:center;">
+											<ice:commandLink styleClass=""
+												actionListener="#{fuelControlPage.mostrarCtrlTanks}">
+												<f:param value="#{controlTnks.cotCodigo}" name="idCtrlTkns" />
+												<ice:graphicImage url="../images/edit.gif" />
+											</ice:commandLink>
+										</ice:panelGroup>
+									</ice:column>
+
+								</ice:dataTable>
+
+								<ice:dataPaginator id="dataScroll" for="listCtrl"
+									paginator="true" fastStep="1" paginatorMaxPages="5">
+									<f:facet name="previous">
+										<ice:graphicImage url="../images/arrow-fr.gif"
+											style="border:none;" title="#{lbl['label.paginaAnterior']}" />
+									</f:facet>
+									<f:facet name="next">
+										<ice:graphicImage url="../images/arrow-ff.gif"
+											style="border:none;" title="#{lbl['label.paginaSiguiente']}" />
+									</f:facet>
+								</ice:dataPaginator>
+							</div>
+						</ice:panelGrid>
+
+					</ice:form>
+				</center>
+			</ui:define>
+		</ui:decorate>
+	</ui:define>
+</ui:composition>

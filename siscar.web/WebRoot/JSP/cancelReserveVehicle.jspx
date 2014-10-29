@@ -1,0 +1,49 @@
+<ui:composition template="../inc-templates/main-template.jspx"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:gw="/gw_core.tld">
+	<!-- params for page titles-->
+	<ui:param name="pageTitle" value="Cancelacion de Reservas" />
+	<ui:param name="contentHeader" value="Reservas" />
+	<ui:define name="content">
+		<ui:decorate template="../inc-templates/content-template.jspx">
+			<!-- insert content here -->
+			<ui:define name="pageContent">
+				<ice:form id="formaVehiculo" partialSubmit="true">
+					<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+					<center>
+						<ice:panelGrid columns="3" styleClass="siscarTitle">
+							<ice:graphicImage value="../images/t5a.gif" />
+							<ice:outputText style="font-size: 220%;"
+								value=" #{contentHeader}" />
+							<ice:graphicImage value="../images/t5c.gif" />
+						</ice:panelGrid>
+						<br />
+						<ice:messages />
+						<ice:panelGrid columns="4" cellpadding="2" border="1"
+							styleClass="">
+							<ice:outputText value="#{lbl['label.numerosolicitud']}" />
+							<ice:inputText
+								value="#{cancelReserveVehiclePage.numeroSolicitud}" />
+							<ice:outputText value="#{lbl['label.descripcion']}" />
+							<ice:inputTextarea
+								value="#{cancelReserveVehiclePage.descripcion}" />
+						</ice:panelGrid>
+						<br />
+						<br />
+						<ice:panelGrid columns="4">
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.grabar']}"
+									actionListener="#{cancelReserveVehiclePage.action_cancelarReserva}" />
+								<ice:graphicImage value="images/b4c.gif" />
+							</ice:panelGrid>
+						</ice:panelGrid>
+					</center>
+				</ice:form>
+			</ui:define>
+		</ui:decorate>
+	</ui:define>
+</ui:composition>

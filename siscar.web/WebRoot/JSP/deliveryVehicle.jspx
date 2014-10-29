@@ -1,0 +1,111 @@
+<ui:composition template="../inc-templates/main-template.jspx"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:gw="http://geniar.net/framework">
+
+
+	<!-- params for page titles-->
+	<ui:param name="pageTitle" value="#{lbl['label.entrega']}" />
+	<ui:param name="contentHeader" value="#{lbl['label.entrega']}" />
+	<ui:define name="content">
+		<ui:decorate template="../inc-templates/content-template.jspx">
+			<!-- insert content here -->
+			<ui:define name="pageContent">
+				<center>
+
+					<ice:form partialSubmit="true">
+						<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+						<ice:panelGrid columns="3" styleClass="siscarTitle">
+							<ice:graphicImage value="../images/t5a.gif" />
+							<ice:outputText style="font-size: 220%;"
+								value=" #{contentHeader}" />
+							<ice:graphicImage value="../images/t5c.gif" />
+						</ice:panelGrid>
+						<br />
+						<h2>
+							<ice:outputLabel value="#{lbl['label.datosSolicitud'] }" />
+						</h2>
+						<ice:panelGrid columns="1" style="border:1px solid blue;">
+							<ice:panelGrid columns="3" style="text-align:left;">
+								<ice:outputLabel value="#{lbl['label.carnetAsignatario']}" />
+								<ice:inputText value="#{deliveryPage.carnet }"
+									binding="#{deliveryPage.txtConsulta }" maxlength="15" size="8" />
+
+								<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+									<ice:graphicImage value="../images/b4a.gif" />
+									<ice:commandButton value="#{lbl['label.consultar']}"
+										action="#{deliveryPage.action_consultar}" />
+									<ice:graphicImage value="../images/b4c.gif" />
+								</ice:panelGrid>
+							</ice:panelGrid>
+
+							<ice:panelGrid columns="2" style="text-align: left">
+								<ice:outputLabel value="#{lbl['label.tipoAsignacion'] }" />
+								<ice:selectOneRadio value="#{deliveryPage.opcAsignacion}">
+									<f:selectItem itemValue="1"
+										itemLabel="#{lbl['label.asignacion'] }" />
+									<f:selectItem itemValue="2"
+										itemLabel="#{lbl['label.alquiler'] }" />
+								</ice:selectOneRadio>
+								<ice:outputLabel value="#{lbl['label.placa']}" />
+								<ice:inputText value="#{deliveryPage.placa}"
+									binding="#{deliveryPage.txtPlaca}" readonly="true" />
+								<ice:outputLabel value="#{lbl['label.kmInicial']}" />
+								<ice:inputText value="#{deliveryPage.vhaKilomeActual}"
+									binding="#{deliveryPage.txtKilometraje}"
+									styleClass="siscarNotNull" maxlength="20">
+									<f:convertNumber pattern="0.00" maxFractionDigits="2"
+									minFractionDigits="0" />
+								</ice:inputText>
+								<ice:outputText value="#{lbl['label.kilometrajeActual'] }" />
+								<ice:inputText value="#{deliveryPage.vhaKilometrajeInicial }"
+									binding="#{deliveryPage.txtKilometrajeInicial }"
+									readonly="true" />
+								<ice:outputLabel value="#{lbl['label.fechaDesde']}" />
+								<ice:selectInputDate disabled="true"
+									value="#{deliveryPage.vhaFechaInicio }"
+									binding="#{deliveryPage.txtFechaIni }" renderAsPopup="true" />
+								<ice:outputLabel value="#{lbl['label.fechaHasta']}" />
+								<ice:selectInputDate disabled="true"
+									value="#{deliveryPage.vhaFechaTermina }"
+									binding="#{deliveryPage.txtFechaFin }" renderAsPopup="true" />
+								<ice:outputLabel value="#{lbl['label.fechaEntrega']}" />
+								<ice:selectInputDate value="#{deliveryPage.vhaFechaEntrega}"
+									renderAsPopup="true" binding="#{deliveryPage.txtFechaEntrega}"
+									readonly="true">
+									<f:convertDateTime timeZone="GMT-5" />
+								</ice:selectInputDate>
+								<ice:outputLabel value="#{lbl['label.observaciones']}" />
+								<ice:inputTextarea value="#{deliveryPage.observacion }"
+									cols="15" rows="4"
+									style="width:150px;height:80px;overflow: auto;"
+									binding="#{deliveryPage.txtObservacion }" />
+							</ice:panelGrid>
+
+						</ice:panelGrid>
+
+						<ice:panelGrid columns="2">
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.entregar']}"
+									actionListener="#{deliveryPage.action_crearEntrega}" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+								<ice:graphicImage value="../images/b4a.gif" />
+								<ice:commandButton value="#{lbl['label.limpiar']}"
+									actionListener="#{deliveryPage.action_limpiar }" />
+								<ice:graphicImage value="../images/b4c.gif" />
+							</ice:panelGrid>
+						</ice:panelGrid>
+
+						<ice:messages />
+					</ice:form>
+				</center>
+				<ui:include src="asignationTable.jspx" />
+			</ui:define>
+		</ui:decorate>
+	</ui:define>
+</ui:composition>

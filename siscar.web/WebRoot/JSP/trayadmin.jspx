@@ -1,0 +1,223 @@
+<ui:composition template="../inc-templates/main-template.jspx"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component"
+	xmlns:gw="http://geniar.net/framework">
+
+	<ui:param name="pageTitle" value="Bandeja de solicitudes" />
+	<ui:param name="contentHeader" value="Bandeja de solicitudes" />
+	<ui:define name="content">
+		<ui:decorate template="../inc-templates/content-template.jspx">
+			<!-- insert content here -->
+			<ui:define name="pageContent">
+				<ice:form partialSubmit="true">
+					<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+					<center>
+						<ice:panelGrid columns="3" styleClass="siscarTitle">
+							<ice:graphicImage value="../images/t5a.gif" />
+							<ice:outputText value=" #{contentHeader}"
+								style="font-size: 220%;" />
+							<ice:graphicImage value="../images/t5c.gif" />
+						</ice:panelGrid>
+					</center>
+
+					<ice:panelTabSet>
+						<ice:panelTab label="#{lbl['label.busquedaSolicitud'] }">
+
+							<ice:panelGrid columns="4">
+								<ice:outputLabel value="#{lbl['label.carnetAsignatario']}" />
+								<ice:inputText value="#{trayAdminPage.carnetAsignatario}"
+									maxlength="20" />
+								<ice:outputLabel value="" />
+								<ice:outputLabel value="" />
+
+								<ice:outputLabel value="#{lbl['label.fechaDesde']}" />
+								<ice:selectInputDate value="#{trayAdminPage.fechaDesde }"
+									renderAsPopup="true" />
+								<ice:outputLabel value="#{lbl['label.fechaHasta']}" />
+								<ice:selectInputDate value="#{trayAdminPage.fechaHasta }"
+									renderAsPopup="true" />
+							</ice:panelGrid>
+
+
+							<ice:panelGrid columns="3">
+								<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+									<ice:graphicImage value="../images/b4a.gif" />
+									<ice:commandButton value="Consultar"
+										actionListener="#{trayAdminPage.action_consultar}" />
+									<ice:graphicImage value="../images/b4c.gif" />
+								</ice:panelGrid>
+								<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+									<ice:graphicImage value="../images/b4a.gif" />
+									<ice:commandButton value="Restaurar"
+										actionListener="#{trayAdminPage.action_restaurar}" />
+									<ice:graphicImage value="../images/b4c.gif" />
+								</ice:panelGrid>
+								<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
+									<ice:graphicImage value="../images/b4a.gif" />
+									<ice:commandButton value="#{lbl['label.limpiar'] }"
+										actionListener="#{trayAdminPage.action_limpiar }" />
+									<ice:graphicImage value="../images/b4c.gif" />
+								</ice:panelGrid>
+							</ice:panelGrid>
+							<ice:messages />
+						</ice:panelTab>
+					</ice:panelTabSet>
+
+					<ice:dataTable id="requestTable"
+						value="#{trayAdminPage.listRequest}" var="req" rows="10"
+						style="siscarDataTable" rendered="true">
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="#{lbl['label.codigo'] }" />
+							</f:facet>
+							<ice:commandLink
+								action="#{trayAdminPage.action_navigationRuleTray}">
+								<ice:outputText value="#{req.rqsCodigo}"
+									binding="#{trayAdminPage.idRequest}" />
+							</ice:commandLink>
+
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="#{lbl['label.tipoSolicitud'] }" />
+							</f:facet>
+							<ice:outputText value="#{req.requestsTypes.rqyNombre}" />
+						</ice:column>
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="#{lbl['label.claseSolicitud'] }" />
+							</f:facet>
+							<ice:outputText value="#{req.requestsClasses.rqcNombre}" />
+						</ice:column>
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="#{lbl['label.tipoAsignacion'] }" />
+							</f:facet>
+							<ice:outputText value="#{req.legateesTypes.lgtNombre}" />
+						</ice:column>
+
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value=" #{lbl['label.estadoSolicitud'] }" />
+							</f:facet>
+							<ice:outputText value="#{req.requestsStates.rqtNombre}" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="#{lbl['label.tipoVehiculo'] }" />
+							</f:facet>
+							<ice:outputText value="#{req.vehiclesTypes.vhtNombre}" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="#{lbl['label.placa'] }" />
+							</f:facet>
+							<ice:outputText value="#{req.vehicles.vhcPlacaDiplomatica}" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="#{lbl['label.placaRemplazoExtension'] }" />
+							</f:facet>
+							<ice:outputText value="#{req.rqsPlacaExtensionRemplazo}" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="#{lbl['label.asignatario'] }" />
+							</f:facet>
+							<ice:outputText value="#{req.rqsCarnetAsignatario}" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="#{lbl['label.nombre'] }" />
+							</f:facet>
+							<ice:outputText value="#{req.usersByRqsUser.usrNombre}" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="#{lbl['label.fechaSolicitud'] }" />
+							</f:facet>
+							<ice:outputText value="#{req.rqsFechaSolicitud}">
+								<f:convertDateTime pattern="dd-MMM-yyyy" />
+							</ice:outputText>
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="#{lbl['label.fechaDesde']}" />
+							</f:facet>
+							<ice:outputText value="#{req.rqsFechaInicial}">
+								<f:convertDateTime pattern="dd-MMM-yyyy" />
+							</ice:outputText>
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="#{lbl['label.fechaHasta'] }" />
+							</f:facet>
+							<ice:outputText value="#{req.rqsFechaFinal}">
+								<f:convertDateTime pattern="dd-MMM-yyyy" />
+							</ice:outputText>
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="#{lbl['label.descripcion'] }" />
+							</f:facet>
+							<ice:outputText value="#{req.rqsDescripcion}" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="Reasignar reserva" />
+							</f:facet>
+							<ice:commandButton value="" image="../images/1btnedit.png"
+								action="#{trayAdminPage.action_reasignar}" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="Devolver " />
+							</f:facet>
+							<ice:commandButton value="" image="../images/1btnedit.png"
+								actionListener="#{trayAdminPage.action_showDevolution}" />
+						</ice:column>
+
+						<ice:column>
+							<f:facet name="header">
+								<ice:outputText value="Cancelar" />
+							</f:facet>
+							<ice:commandButton value="" image="../images/1btndelete.png"
+								actionListener="#{trayAdminPage.action_showCancelacion}" />
+						</ice:column>
+					</ice:dataTable>
+
+					<ice:dataPaginator id="dataScroll" for="requestTable"
+						paginator="true" fastStep="1" paginatorMaxPages="5">
+						<f:facet name="previous">
+							<ice:graphicImage url="../images/arrow-fr.gif"
+								style="border:none;" title="Previous Page" />
+						</f:facet>
+						<f:facet name="next">
+							<ice:graphicImage url="../images/arrow-ff.gif"
+								style="border:none;" title="Next Page" />
+						</f:facet>
+					</ice:dataPaginator>
+				</ice:form>
+				<ui:include src="devolution.jspx" />
+				<ui:include src="cancelacion.jspx" />
+				<ui:include src="cancelConfirmRequest.jspx" />
+				<ui:include src="confirmDevolution.jspx" />
+			</ui:define>
+		</ui:decorate>
+	</ui:define>
+</ui:composition>

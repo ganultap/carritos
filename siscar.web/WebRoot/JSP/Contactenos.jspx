@@ -1,0 +1,255 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ice="http://www.icesoft.com/icefaces/component">
+	<ice:outputDeclaration doctypeRoot="HTML"
+		doctypePublic="-//W3C//DTD XHTML 1.0 Strict//EN"
+		doctypeSystem="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" />
+	<head>
+		<!-- page title param passed in by param -->
+		<title>#{lbl['label.Contactenos']}</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Language" content="en" />
+		<meta http-equiv="imagetoolbar" content="no" />
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+		<link rel="stylesheet" type="text/css"
+			href="../xmlhttp/css/royale/royale.css" />
+		<link rel="stylesheet" type="text/css" href="../css/estilos.css" />
+		<link rel="stylesheet" type="text/css" href="../css/ciat.siscar.css" />
+		<script language="JavaScript" src="../js/FuncionesJs.js"
+			type="text/javascript"></script>
+		<script language="JavaScript" src="../js/prototype.js"
+			type="text/javascript"></script>
+		<script type="text/javascript">
+		<!--
+		      window.onload(function() {
+		
+			if (window.application == 'undefined') {
+				if (self.name != '_refreshed_') {
+					self.name = '_refreshed_';
+					self.location.reload(true);
+				} else {
+					self.name = '';
+				}
+			}
+		
+		});//-->
+	</script>
+	</head>
+	<body>
+		<script language="JavaScript" src="../js/diableBrowserOptions.js"
+			type="text/javascript"></script>
+		<div class="page">
+			<div class="header">
+				<ui:include src="../inc-content/loginHeader.jspx" />
+			</div>
+			<div class="content">
+				<ui:insert name="content">
+					<br />
+					<br />
+					<br />
+					<center>
+						<ice:panelGrid columns="3" styleClass="siscarTitle">
+							<ice:graphicImage value="../images/t5a.gif" />
+							<ice:outputText
+									style="font-size: 20px; color: #003366; font-weight: bold; 
+									font-family: Verdana, Arial, Helvetica, sans-serif;"
+									value="Contactenos" />
+							<ice:graphicImage value="../images/t5c.gif" />
+						</ice:panelGrid>
+						<br />
+						<br />
+						<ice:panelGrid
+							columnClasses="siscarBoxCol1, siscarBoxCol2, siscarBoxCol3"
+							styleClass="siscarBox" style="align: center;" columns="3">
+
+							<ice:graphicImage value="../images/2-m1_esq.gif" />
+							<ice:graphicImage value="../images/2-m2_sup.gif"
+								styleClass="siscarBoxTop" />
+							<ice:graphicImage value="../images/2-m3_esq.gif" />
+
+							<ice:graphicImage value="../images/2-m8_lat_izq.gif"
+								styleClass="siscarBoxLeft" />
+							<ice:panelGroup>
+								<ice:form partialSubmit="false">
+									<f:loadBundle basename="geniar.siscar.messages.label" var="lbl" />
+									<center>
+										<br />
+										<table class="TablaContactenos" cellpadding="0"
+											cellspacing="0" border="1">
+											<tr>
+												<td>
+													Servicio
+												</td>
+												<td>
+													Contacto
+												</td>
+												<td>
+													#{lbl['label.Extencion']}
+												</td>
+												<td>
+													E-Mail
+												</td>
+											</tr>
+											<tr>
+												<td>
+													Alquiler y Combustible
+												</td>
+												<td align="center">
+													<table class="TablaContactenos">
+														<tr>
+															<th>
+																Guillermo Valencia
+															</th>
+														</tr>
+														<tr>
+															<th>
+																Armando Figueroa
+															</th>
+														</tr>
+													</table>
+												</td>
+												<td align="center">
+													<table class="TablaContactenos">
+														<tr>
+															<th>
+																3609
+															</th>
+														</tr>
+														<tr>
+															<th>
+																3616
+															</th>
+														</tr>
+													</table>
+												</td>
+												<td align="center">
+													<table class="TablaContactenos">
+														<tr>
+															<th>
+																GVALENCIA@LOCAL.CIAT.CGIAR.ORG
+															</th>
+														</tr>
+														<tr>
+															<th>
+																AFIGUEROA@LOCAL.CIAT.CGIAR.ORG
+															</th>
+														</tr>
+													</table>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													Accidentes y Seguros
+												</td>
+												<td align="center">
+													<table class="TablaContactenos">
+														<tr>
+															<th>
+																Luz Helena Restrepo
+															</th>
+														</tr>
+														<tr>
+															<th>
+																Jorge Uribe
+															</th>
+														</tr>
+													</table>
+												</td>
+												<td align="center">
+													<table class="TablaContactenos">
+														<tr>
+															<th>
+																3021
+															</th>
+														</tr>
+														<tr>
+															<th>
+																3604
+															</th>
+														</tr>
+													</table>
+												</td>
+												<td align="center">
+													<table class="TablaContactenos">
+														<tr>
+															<th>
+																LHRESTRE@LOCAL.CIAT.CGIAR.ORG
+															</th>
+														</tr>
+														<tr>
+															<th>
+																JURIBE@LOCAL.CIAT.CGIAR.ORG
+															</th>
+														</tr>
+													</table>
+												</td>
+											</tr>
+											<tr>
+												<td>
+													Solicitudes de Alquiler y Consultas
+												</td>
+												<td align="center">
+													<table class="TablaContactenos">
+														<tr>
+															<th>
+																Mesa de Ayuda
+															</th>
+														</tr>
+														<tr>
+															<th>
+																Guillermo Valencia
+															</th>
+														</tr>
+													</table>
+												</td>
+												<td align="center">
+													<table class="TablaContactenos">
+														<tr>
+															<th>
+																3097
+															</th>
+														</tr>
+														<tr>
+															<th>
+																3609
+															</th>
+														</tr>
+													</table>
+												</td>
+												<td align="center">
+													<table class="TablaContactenos">
+														<tr>
+															<th>
+																MESA@LOCAL.CIAT.EXCH.CGIAR.ORG
+															</th>
+														</tr>
+														<tr>
+															<th>
+																GVALENCIA@LOCAL.CIAT.CGIAR.ORG
+															</th>
+														</tr>
+													</table>
+												</td>
+											</tr>
+										</table>
+									</center>
+								</ice:form>
+							</ice:panelGroup>
+							<ice:graphicImage value="../images/2-m4_lat_der.gif"
+								styleClass="siscarBoxRight" />
+							<ice:graphicImage value="../images/2-m7_esq.gif" />
+							<ice:graphicImage value="../images/2-m6_lat_inf.gif"
+								styleClass="siscarBoxBottom" />
+							<ice:graphicImage value="../images/2-m5_esq.gif" />
+						</ice:panelGrid>
+					</center>
+				</ui:insert>
+			</div>
+		</div>
+		<div class="footer">
+			<ui:include src="../inc-content/footer.jspx" />
+		</div>
+	</body>
+</html>

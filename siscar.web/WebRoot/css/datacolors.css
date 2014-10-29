@@ -1,0 +1,182 @@
+/*
+----------- Data Table Component classes
+*/
+.iceDatTbl { /* was iceDataTblOutline */
+	background-color: #FFFFFF;
+	border: 2px solid #0056EA;
+	margin: 10px;
+}
+
+.iceDatTbl table {
+	border-collapse: collapse;
+}
+
+.iceDatTblColHdr,.iceDatTblColHdr1,.iceDatTblColHdr2,.iceDatTblColGrpHdrCol
+	{ /* was iceTblHeader */ /*the header of a data tables */
+	background-color: #026AFF;
+	background-image: url( "./css-images/table_col_header.gif" );
+	background-position: top;
+	background-repeat: repeat-x;
+	font-weight: normal;
+	text-align: center;
+	color: #FFFFFF;
+	border-right: 1px solid #026AFF;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	border-top: 1px solid #0056EA; /*border-right:1px solid #CCCCCC;*/
+}
+
+.iceDatTblColHdr .iceOutTxt,.iceDatTblColHdr1 .iceOutTxt,.iceDatTblColHdr2 .iceOutTxt
+	{
+	color: #FFFFFF;
+}
+
+.iceDatTblColHdr .iceOutLbl,.iceDatTblColHdr1 iceOutLbl,.iceDatTblColHdr2 .iceOutLbl
+	{
+	color: #FFFFFF;
+}
+
+
+/* data tables are rendered with alternating row colors */
+.iceDatTblRow1 { /* was iceTblRow1 */
+	background-color: #DEDEDE;
+}
+
+.iceDatTblRow2 { /* was iceTblRow2 */
+	background-color: #FFFFFF;
+}
+
+.iceDatTblRowRed { /* was iceDatTblRowRed */
+	background-color: red;
+	border: 3px solid #CCCCCC;
+}
+
+.iceDatTblRowBlue { /* was iceDatTblRowBlue */
+	background-color: blue;
+	border: 3px solid #CCCCCC;
+}
+
+.iceDatTblRowWhite { /* was iceDatTblRowWhite */
+	background-color: white;
+	border: 3px solid #CCCCCC;
+}
+
+.iceDatTblRowBlack { /* was iceDatTblRowBlack */
+	background-color: black;
+	border: 3px solid #CCCCCC;
+}
+
+.iceDatTblRowGray { /* was iceDatTblRowGray */
+	background-color: gray;
+	border: 3px solid #CCCCCC;
+}
+
+.iceDatTblRowDarkGray { /* was iceDatTblRowDarkGray */
+	background-color: silver;
+	border: 3px solid #CCCCCC;
+}
+
+.iceDatTblRowWhiteSmoke { /* was iceDatTblRowWhiteSmoke */
+	background-color: WhiteSmoke;
+	border: 3px solid #CCCCCC;
+}
+
+.iceDatTblRowBeige { /* was iceDatTblRowBeige */
+	background-color: #F5F5DC;
+	border: 3px solid #CCCCCC;
+}
+
+
+
+
+.icelnkRed { /* was icelnkRed */
+	color: red;
+}
+
+.icelnkBlue { /* was icelnkBlue */
+	color: blue;
+}
+
+.icelnkWhite { /* was icelnkWhite */
+	color: white;
+}
+
+.icelnkGray { /* was icelnkDarkGray */
+	color: gray;
+}
+
+.icelnkDarkGray { /* was icelnkDarkGray */
+	color: silver;
+}
+
+.icelnkWhiteSmoke { /* was icelnkWhiteSmoke */
+	color: WhiteSmoke;
+}
+
+.icelnkBlack { /* was icelnkBlack */
+	color: black;
+}
+.icelnkBeige { /* was icelnkBeige */
+	color: F5F5DC;
+}
+
+
+.iceDatTblRowSeashell { /* was iceDatTblRowSeashell */
+	background-color: Seashell;	
+}
+
+/* set the common attributes for the column classes */
+.iceDatTblCol,.iceDatTblCol1,.iceDatTblCol2 {
+	/*was column, column1, column2, column3*/
+	color: #000000;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	border-right: 1px solid #0056EA;
+	border-bottom: 1px solid #0056EA;
+}
+
+.iceDatTblHdr {
+	
+}  /*was iceTblHeader */
+.iceDatTblFtr {
+	
+}  /*was iceTblFooter */
+.iceDatTblScrlSpr {
+	background: url( './css-images/table_col_header.gif' ) repeat-x top left
+		;
+	background-color: #026AFF;
+	border-top: 1px solid #026AFF;
+	border-right: 1px solid #026AFF;
+}
+
+.iceDatTblScrlSpr .iceDatTblColHdr1,.iceDatTblScrlSpr .iceDatTblColHdr2
+	{
+	border-left-style: none;
+	border-top-style: none;
+}
+
+.iceDatTblResHdlr {
+	margin: 0px;;
+	padding: 0px;
+	border-width: 0px;
+	width: 2px;
+	background-color: transparent;
+}
+
+.iceDatTblResBor {
+	margin: 0px;;
+	padding: 0px;
+	width: 1px;
+	background-color: #026AFF;
+	background-position: bottom;
+	background-repeat: repeat-x;
+}
+
+.iceDatTblBlkTd {
+	border-bottom: 1px solid #0056EA;
+	background-color: #026AFF;
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
+                              "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+<faces-config>
+ <navigation-rule>
+  <from-view-id>*</from-view-id>
+  <navigation-case>
+   <from-outcome>home</from-outcome>
+   <to-view-id>/JSP/home.iface</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>inicio</from-outcome>
+   <to-view-id>/JSP/login.iface</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>reserve</from-outcome>
+   <to-view-id>/JSP/reserve.iface</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>asignacion</from-outcome>
+   <to-view-id>/JSP/assignment.iface</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>reserveReallocation</from-outcome>
+   <to-view-id>/JSP/reserveReallocation.iface</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>bandeja</from-outcome>
+   <to-view-id>/JSP/trayadmin.iface</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>requests</from-outcome>
+   <to-view-id>/JSP/request.jspx</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>userTray</from-outcome>
+   <to-view-id>/JSP/tray.jspx</to-view-id>
+   <redirect/>
+  </navigation-case>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/JSP/request.jspx</from-view-id>
+ </navigation-rule>
+ <navigation-rule>
+  <from-view-id>/JSP/tray.jspx</from-view-id>
+ </navigation-rule>
+</faces-config>
