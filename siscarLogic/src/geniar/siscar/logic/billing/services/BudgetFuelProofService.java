@@ -34,5 +34,5 @@ public interface BudgetFuelProofService {
 			String login, Float valor, Long tipoMovimiento, String centroCosto,
 			Long tipoCargo, String placa, Date fecha, Float galones,
 			FuelTypeRequest fuelTypeRequest, Period periodo,
-			HeaderProof headerProof) throws GWorkException;
+			HeaderProof headerProof, String idMaster, Long idDetail) throws GWorkException;
 }

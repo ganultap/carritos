@@ -129,7 +129,7 @@ public class InicializacionComponentes extends HttpServlet {
 			// Parametro de activacion de notificaciones
 			if (param.findParameterById(ParametersUtil.PARAM_GEN_NOTIFICACIONES_AUTOMATICAS).longValue() == 1L) {
 
-				log.info("INICIALIZANDO COMPONENTES");
+				/*log.info("INICIALIZANDO COMPONENTES");
 
 				log.info("############################################################");
 				log.info("         COMPONENTES siscar INCIALIZADOS CORRECTAMENTE");
@@ -166,7 +166,7 @@ public class InicializacionComponentes extends HttpServlet {
 				if (strDiaNotificacionActivosFijos.equals("11")) {
 					log.info("         [TAREA AUTOMATICA NOTIFICACION VEHICULOS CIAT VS ACTIVO FIJO....]");
 					inicializarTareaSiscarVsActivosFijos();
-				}
+				}*/
 			}
 		} catch (Exception e) {
 			log.error("Error SISCAR: ", e);

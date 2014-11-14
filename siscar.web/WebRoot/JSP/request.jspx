@@ -174,7 +174,7 @@
 							visible="#{requestPage.showCostCenter}">
 							<ice:outputText value="#{lbl['label.numeroCentroCosto']}" />
 							<ice:inputText value="#{requestPage.sbCodigoCentroCosto}"
-								styleClass="#{requestPage.siscarNotNull }" maxlength="8"
+								styleClass="#{requestPage.siscarNotNull }" maxlength="15"
 								binding="#{requestPage.txtCodCentroCosto }" />
 							<ice:outputText value="#{lbl['label.porcentaje']}" />
 							<ice:inputText value="#{requestPage.LPorcentajeCentroCosto}"

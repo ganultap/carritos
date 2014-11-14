@@ -29,7 +29,8 @@ public class GenerateProofServiceImpl implements GenerateProofService {
 			String PAttribute5, String PAttribute6, String PAttribute7,
 			String PAttribute8, String PAttribute9, String PAttribute10,
 			Long tipoMovimiento, Long tipoComprobante,
-			AccountingParameters parameters, HeaderProof headerProof)
+			AccountingParameters parameters, HeaderProof headerProof, 
+			String idMaster, Long idDetail)
 			throws GWorkException {
 
 		ActualOthersApplications actualOthersApplications = new ActualOthersApplications();
@@ -64,13 +65,12 @@ public class GenerateProofServiceImpl implements GenerateProofService {
 
 		new ActualOthersApplicationsDAO().save(actualOthersApplications);
 
-		
 		connection = ConsultsServiceImpl.insercionContableSinAutocommit(connection, PSob,
 				PAccdate, PCurr, PUser, PCategory, PSource, PConvDate,
 				PConvType, PConvRate, PCompany, PAccount, PCcenter, PAuxiliary,
 				PEntDr, PEntCr, PBname, PDescription, PNit, PAttribute2,
 				PAttribute5, PAttribute6, PAttribute7, PAttribute8,
-				PAttribute9, PAttribute10, headerProof.getHepGroupId());
+				PAttribute9, PAttribute10, headerProof.getHepGroupId(), idMaster, idDetail);
 		return connection;
 
 	}
@@ -119,13 +119,6 @@ public class GenerateProofServiceImpl implements GenerateProofService {
 
 		new ActualOthersApplicationsDAO().save(actualOthersApplications);
 
-		//modificado 5 de marzo
-//		connection = ConsultsServiceImpl.insercionContableSinAutocommit(connection, PSob,
-//				PAccdate, PCurr, PUser, PCategory, PSource, PConvDate,
-//				PConvType, PConvRate, PCompany, PAccount, PCcenter, PAuxiliary,
-//				PEntDr, PEntCr, PBname, PDescription, PNit, PAttribute2,
-//				PAttribute5, PAttribute6, PAttribute7, PAttribute8,
-//				PAttribute9, PAttribute10, headerProof.getHepGroupId());
 		return connection;
 
 	}
@@ -139,7 +132,7 @@ public class GenerateProofServiceImpl implements GenerateProofService {
 			String PAttribute5, String PAttribute6, String PAttribute7,
 			String PAttribute8, String PAttribute9, String PAttribute10,
 			Long tipoMovimiento, Long tipoComprobante,
-			AccountingParameters parameters, HeaderProof headerProof)
+			AccountingParameters parameters, HeaderProof headerProof, String idMaster, Long idDetail)
 			throws GWorkException {
 
 		ActualOthersApplications actualOthersApplications = new ActualOthersApplications();
@@ -180,7 +173,7 @@ public class GenerateProofServiceImpl implements GenerateProofService {
 				PConvType, PConvRate, PCompany, PAccount, PCcenter, PAuxiliary,
 				PEntDr, PEntCr, PBname, PDescription, PNit, PAttribute2,
 				PAttribute5, PAttribute6, PAttribute7, PAttribute8,
-				PAttribute9, PAttribute10, headerProof.getHepGroupId());
+				PAttribute9, PAttribute10, headerProof.getHepGroupId(), idMaster, idDetail);
 		return connection;
 
 	}
@@ -246,7 +239,8 @@ public class GenerateProofServiceImpl implements GenerateProofService {
 			String PAttribute5, String PAttribute6, String PAttribute7,
 			String PAttribute8, String PAttribute9, String PAttribute10,
 			Long tipoMovimiento, Long tipoComprobante,
-			AccountingParameters parameters, HeaderProof headerProof)
+			AccountingParameters parameters, HeaderProof headerProof,
+			String idMaster, Long idDetail)
 			throws GWorkException {
 
 		ActualOthersApplications actualOthersApplications = new ActualOthersApplications();
@@ -285,7 +279,8 @@ public class GenerateProofServiceImpl implements GenerateProofService {
 				PConvType, PConvRate, PCompany, PAccount, PCcenter, PAuxiliary,
 				PEntDr, PEntCr, PBname, PDescription, PNit, PAttribute2,
 				PAttribute5, PAttribute6, PAttribute7, PAttribute8,
-				PAttribute9, PAttribute10, headerProof.getHepGroupId());
+				PAttribute9, PAttribute10, headerProof.getHepGroupId(),
+				idMaster, idDetail);
 
 		new ActualOthersApplicationsDAO().save(actualOthersApplications);
 

@@ -26,7 +26,7 @@
 						<ice:panelGrid columns="3">
 							<ice:outputLabel value="#{lbl['label.filtroBusqueda'] }" />
 							<ice:inputText value="#{requestPage.parametroCentroCostos}"
-								maxlength="8" />
+								maxlength="15" />
 							<ice:panelGrid columns="3" styleClass="siscarCmdBtn">
 								<ice:graphicImage value="../images/b4a.gif" />
 								<ice:commandButton value="#{lbl['label.filtrar'] }"

@@ -72,7 +72,8 @@ public class PrepaidDevolutionServiceImpl implements PrepaidDevolutionService {
 
 	public Connection generarComprobanteDetalle(Connection connection, Long tipoComprobante,
 			String login, Float valor, Long tipoMovimiento, String centroCosto,
-			Period period, HeaderProof headerProof, Long cocCodigo, String placa)
+			Period period, HeaderProof headerProof, Long cocCodigo, String placa,
+			String idMaster, Long idDetail)
 			throws GWorkException {
 
 		ActualOthersApplications actualOthersApplications = new ActualOthersApplications();
@@ -245,8 +246,8 @@ public class PrepaidDevolutionServiceImpl implements PrepaidDevolutionService {
 				pSource, null, null, null, pCompany, pAccount, pCcenter,
 				pAuxiliary, pEntDr, pEntCr, pBname, PDescription, null,
 				headerProof.getHepId().toString(), pAttribute5, pAttribute6,
-				pAttribute7, null, pAttribute9, pAttribute10, headerProof
-						.getHepGroupId());
+				pAttribute7, null, pAttribute9, pAttribute10, 
+				headerProof.getHepGroupId(), idMaster, idDetail);
 
 		// Volver los saldos de prepago en cero
 		if (tipoMovimiento.longValue() == ParametersUtil.DEBITO.longValue()) {
@@ -281,12 +282,16 @@ public class PrepaidDevolutionServiceImpl implements PrepaidDevolutionService {
 							ParametersUtil.COMPRANTE_COMBUSTIBLE, periodo,
 							ParametersUtil.TRASACCTION_TYPE, ParametersUtil.DOLAR);
 
+			String idMaster = new ConsultsServiceImpl().getIdMaster();
+			Long idDetail = Long.valueOf(listaVOCargaPrepago.size() + 1);
+			
 			for (VOCostCenters cargaPrepago : listaVOCargaPrepago) {
 				valorDebito = cargaPrepago.getCocValorPrepago() * -1;
 				generarComprobanteDetalle(connection, ParametersUtil.PROOF_TYPE_COMBUSTIBLE,
-						login, valorDebito, ParametersUtil.DEBITO, cargaPrepago
-								.getCocNumero().trim(), periodo, headerProof,
-						cargaPrepago.getCocCodigo(), "");
+						login, valorDebito, ParametersUtil.DEBITO, 
+						cargaPrepago.getCocNumero().trim(), periodo, headerProof,
+						cargaPrepago.getCocCodigo(), "",
+						idMaster, idDetail);
 				valorCredito = valorCredito + cargaPrepago.getCocValorPrepago();
 
 				flagHP++;
@@ -295,9 +300,10 @@ public class PrepaidDevolutionServiceImpl implements PrepaidDevolutionService {
 					valorCredito = valorCredito * -1;
 					connection = generarComprobanteDetalle(connection,
 							ParametersUtil.PROOF_TYPE_COMBUSTIBLE, login,
-							valorCredito, ParametersUtil.CREDITO, cargaPrepago
-									.getCocNumero().trim(), periodo, headerProof,
-							cargaPrepago.getCocCodigo(), "");
+							valorCredito, ParametersUtil.CREDITO, 
+							cargaPrepago.getCocNumero().trim(), periodo, headerProof,
+							cargaPrepago.getCocCodigo(), "",
+							idMaster, idDetail);
 				}
 
 			}

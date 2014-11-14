@@ -133,12 +133,12 @@ public class LoginPage extends BaseBean {
 				throw new GWorkException(Util
 						.loadErrorMessageValue("ERROR.LIMPASSWORD"));
 
-			enLDAP = ControllerAuthentication.getInstance().validateUser(login,
+/*			enLDAP = ControllerAuthentication.getInstance().validateUser(login,
 					password);
 
 			 if (!enLDAP)
 				 throw new GWorkException(Util.loadErrorMessageValue("ERROR.CREDENOUSUARIO"));
-
+*/
 			LoginPage loginPage = (LoginPage) FacesUtils
 					.getManagedBean("loginPage");
 

@@ -33,7 +33,7 @@ public class PrepaidProofBoughtServiceImpl implements PrepaidProofBoughtService 
 	public Connection generarComprobanteDetalle(Connection connection, Long tipoComprobante,
 			String login, Float valor, Long tipoMovimiento, String centroCosto,
 			String placa, Date fecha, VehiclesAssignation vehiclesAssignation,
-			Period period, HeaderProof headerProof) throws GWorkException {
+			Period period, HeaderProof headerProof, String idMaster, Long idDetail) throws GWorkException {
 
 		AccountingParameters parameters = new AccountingParameters();
 
@@ -66,8 +66,7 @@ public class PrepaidProofBoughtServiceImpl implements PrepaidProofBoughtService 
 		String PDescription = "";
 		String pAttribute5 = "";
 		String pAttribute6 = "";
-		String pAttribute9 = parameters.getDocumentTwo().getDocumentTwoType()
-				.getDttName();
+		String pAttribute9 = parameters.getDocumentTwo().getDocumentTwoType().getDttName();
 		String pAttribute10 = ManipulacionFechas.getMes(fecha)
 				+ ManipulacionFechas.getDia(fecha);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
@@ -114,7 +113,7 @@ public class PrepaidProofBoughtServiceImpl implements PrepaidProofBoughtService 
 						PEntDr, PEntCr, pBname, PDescription, null, null,
 						pAttribute5, pAttribute6.trim(), null, null,
 						pAttribute9, pAttribute10.trim(), tipoMovimiento,
-						tipoComprobante, parameters, headerProof);
+						tipoComprobante, parameters, headerProof, idMaster, idDetail);
 
 		// Se relacion la cabecera del comprobante con una asignacion
 		// existente
@@ -128,6 +127,14 @@ public class PrepaidProofBoughtServiceImpl implements PrepaidProofBoughtService 
 		return connection;
 	}
 
+	/**
+	 * @param tipoComprobante
+	 * @param period
+	 * @param tipoTransaccion
+	 * @param tipoMoneda
+	 * @return
+	 * @throws GWorkException
+	 */
 	public HeaderProof generarCabeceraComprobante(Long tipoComprobante,
 			Period period, Long tipoTransaccion, Long tipoMoneda)
 			throws GWorkException {

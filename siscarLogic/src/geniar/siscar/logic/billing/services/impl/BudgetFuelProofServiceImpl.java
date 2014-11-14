@@ -25,7 +25,7 @@ public class BudgetFuelProofServiceImpl implements BudgetFuelProofService {
 			Long tipoMovimiento, String centroCosto, Long tipoCargo,
 			String placa, Date fecha, Float galones,
 			FuelTypeRequest fuelTypeRequest, Period periodo,
-			HeaderProof headerProof) throws GWorkException {
+			HeaderProof headerProof, String idMaster, Long idDetail) throws GWorkException {
 
 		ActualOthersApplications actualOthersApplications = new ActualOthersApplications();
 		// Date fechaActual = new Date();
@@ -260,8 +260,8 @@ public class BudgetFuelProofServiceImpl implements BudgetFuelProofService {
 				tipoMoneda, fecha, pCurr, login, pCategory, pSource, null,
 				null, null, pCompany, pAccount, pCcenter, pAuxiliary, pEntDr,
 				pEntCr, pBname, PDescription, null, pAttribute2, pAttribute5,
-				pAttribute6, null, null, pAttribute9, pAttribute10, headerProof
-						.getHepGroupId());
+				pAttribute6, null, null, pAttribute9, pAttribute10, 
+				headerProof.getHepGroupId(),idMaster, idDetail);
 
 		if (connection != null) {
 			new ActualOthersApplicationsDAO().save(actualOthersApplications);

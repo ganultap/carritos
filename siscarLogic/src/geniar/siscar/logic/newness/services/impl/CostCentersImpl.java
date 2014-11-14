@@ -112,27 +112,28 @@ public class CostCentersImpl implements CostCentersService {
 
 					PrepaidDevolutionServiceImpl devolutionServiceImpl = new PrepaidDevolutionServiceImpl();
 
+					String idMaster = new ConsultsServiceImpl().getIdMaster();
+					Long idDetail = Long.valueOf(2);
+
 					connection = devolutionServiceImpl.generarComprobanteDetalle(connection,
 							ParametersUtil.PROOF_TYPE_COMBUSTIBLE, login,
 							saldoDevCenCos, ParametersUtil.DEBITO,
-							costsCentersFuel.getCostsCenters().getCocNumero()
-									.trim(), periodo, headerProof,
+							costsCentersFuel.getCostsCenters().getCocNumero().trim(), 
+							periodo, headerProof,
 							costsCentersFuel.getCostsCenters().getCocCodigo(),
-							costsCentersFuel.getVehiclesAssignation()
-									.getVehicles().getVhcPlacaDiplomatica());
+							costsCentersFuel.getVehiclesAssignation().getVehicles().getVhcPlacaDiplomatica(),
+							idMaster, idDetail);
 
 					connection = devolutionServiceImpl
 							.generarComprobanteDetalle(connection,
 									ParametersUtil.PROOF_TYPE_COMBUSTIBLE,
 									login, saldoDevCenCos,
-									ParametersUtil.CREDITO, costsCentersFuel
-											.getCostsCenters().getCocNumero()
-											.trim(), periodo, headerProof,
-									costsCentersFuel.getCostsCenters()
-											.getCocCodigo(), costsCentersFuel
-											.getVehiclesAssignation()
-											.getVehicles()
-											.getVhcPlacaDiplomatica());
+									ParametersUtil.CREDITO, 
+									costsCentersFuel.getCostsCenters().getCocNumero().trim(), 
+									periodo, headerProof,
+									costsCentersFuel.getCostsCenters().getCocCodigo(), 
+									costsCentersFuel.getVehiclesAssignation().getVehicles().getVhcPlacaDiplomatica(),
+									idMaster, idDetail);
 
 					costsCenters.setValorPrepago(null);
 				}

@@ -48,7 +48,7 @@ public class RentProofServiceImpl implements RentProofService {
 			VehiclesAssignation vehiclesAssignation,
 			Double valorTarifa, String centroCostos, HeaderProof headerProof,
 			List<CostsCentersVehicles> listaCostCenters,
-			AccountingParameters parameters) throws GWorkException {
+			AccountingParameters parameters, String idMaster, Long idDetail) throws GWorkException {
 		
 		String validarPresupuesto = null;
 		Long tipoMoneda = 1L;
@@ -166,7 +166,7 @@ public class RentProofServiceImpl implements RentProofService {
 						.getHepId().toString(), pAttribute5,
 				pAttribute6.trim(), pAttribute7.trim(), null, pAttribute9, pAttribute10
 						.trim(), tipoMovimiento, tipoComprobante, parameters,
-				headerProof);
+				headerProof, idMaster, idDetail);
 		return connection;
 	}
 
@@ -177,7 +177,7 @@ public class RentProofServiceImpl implements RentProofService {
 			Long tipoComprobante, String login, Long tipoMovimiento,
 			Date fecha, VehiclesAssignation vehiclesAssignation, Float valor,
 			String CCenter, String msgKMAdicional, HeaderProof headerProof,
-			AccountingParameters parameters)
+			AccountingParameters parameters, String idMaster, Long idDetail)
 			throws GWorkException {
 
 		String tipoMoneda = Util.loadParametersValue("p.sob.dolar");
@@ -273,7 +273,7 @@ public class RentProofServiceImpl implements RentProofService {
 						.getHepId().toString(), pAttribute5,
 				pAttribute6.trim(), pAttribute7.trim(), null, pAttribute9, pAttribute10
 						.trim(), tipoMovimiento, tipoComprobante, parameters,
-				headerProof);
+				headerProof, idMaster, idDetail);
 
 		return connection;
 	}

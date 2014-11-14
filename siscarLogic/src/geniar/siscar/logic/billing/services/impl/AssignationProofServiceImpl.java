@@ -37,9 +37,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Vector;
-
-import javax.swing.JOptionPane;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -115,7 +112,6 @@ public class AssignationProofServiceImpl implements AssignationProofService {
 
 			List<VOAssignationProof> lisVOAssignation = new ArrayList<VOAssignationProof>();
 			List<AccountingParameters> listAccountingParameters = new ArrayList<AccountingParameters>();
-			VehiclesAssignationDAO objVehiclesAssignationDAO = new VehiclesAssignationDAO();
 			CostsCentersVehiclesDAO objCostsCentersVehiclesDAO = new CostsCentersVehiclesDAO();
 			Period period = new PeriodDAO().findById(idPeriodo);
 
@@ -722,32 +718,12 @@ public class AssignationProofServiceImpl implements AssignationProofService {
 			//List<ActualOthersApplications> listActualOApp = dao.findByCriteria("HEP_ID = "+ hepId);
 			List<ActualOthersApplications> listActualOApp = dao.findByCriteria(hepId);
 			
-//			Vector<ActualOthersApplications> ordenado=new Vector<ActualOthersApplications>();
-//			
-//			int tamaño=listActualOApp.size();
-//			ActualOthersApplications temp;
-//			ActualOthersApplications temp2;
-//			for(int i=0;i<tamaño;i++)
-//				for(int j=i+1;j<tamaño-1;j++)
-//				{
-//				
-//					if(listActualOApp.get(i).getAoaCodigo()>listActualOApp.get(j).getAoaCodigo()){
-//				
-//						
-//						temp=listActualOApp.get(i);
-//						listActualOApp.set(i,listActualOApp.get(j));
-//						listActualOApp.set(j, temp);
-//						//temp2=listActualOApp.get(j+1);
-//						//listActualOApp..r.get(j).set(index)
-//					}
-//				}
 			tamaño=listActualOApp.size();
+			Long idDetail = Long.valueOf(tamaño);
+			String idMaster = new ConsultsServiceImpl().getIdMaster();
 			for(int i=0;i<tamaño;i++){
 				connection = ConsultsServiceImpl.getConnection(Util.loadParametersValue("DATASOURCE.FINANCIERO"));
-				//System.out.println("---------------"+listActualOApp.get(i).getAoaCodigo()+"---------------");
-			
 			//aqui va grabar en financiero
-			//connection=				
 				ConsultsServiceImpl.insercionContableSinAutocommit(connection, listActualOApp.get(i).getPSob(), listActualOApp.get(i).getPAccdate(), 
 					listActualOApp.get(i).getPCurr(), listActualOApp.get(i).getPUser(), listActualOApp.get(i).getPCategory(), listActualOApp.get(i).getPSource(), 
 					listActualOApp.get(i).getPConvDate(), listActualOApp.get(i).getPConvType(), listActualOApp.get(i).getPConvRate(), 
@@ -755,20 +731,15 @@ public class AssignationProofServiceImpl implements AssignationProofService {
 					listActualOApp.get(i).getPAuxiliary(), listActualOApp.get(i).getPEntDr(), listActualOApp.get(i).getPEntCr(), listActualOApp.get(i).getPBname(), 
 					listActualOApp.get(i).getPDescription(), listActualOApp.get(i).getPNit(), listActualOApp.get(i).getPAttribute2(), listActualOApp.get(i).getPAttribute5(), 
 					listActualOApp.get(i).getPAttribute6(), listActualOApp.get(i).getPAttribute7(), listActualOApp.get(i).getPAttribute8(), listActualOApp.get(i).getPAttribute9(), 
-					listActualOApp.get(i).getPAttribute10(),listActualOApp.get(i).getHeaderProof().getHepGroupId());// ""+hepId
+					listActualOApp.get(i).getPAttribute10(),listActualOApp.get(i).getHeaderProof().getHepGroupId(),
+					idMaster, idDetail);// ""+hepId
 			connection.commit();
 			connection.close();
 			}
-			
-			
-			//			ActualOthersApplications obj = listActualOApp.get(0);
-//			String a=" "+obj.getHeaderProof().getHepId();
-//			
-			
+
 			EntityManagerHelper.getEntityManager().getTransaction().commit();
 
 			if (connection != null){
-				log.info("Grabando en la interfaz...");
 				//connection.commit();
 				log.info("Ok grabado en la interfaz...");
 			}
@@ -810,7 +781,7 @@ public class AssignationProofServiceImpl implements AssignationProofService {
 			Connection connection, AccountingParameters parameters,
 			Long tipoComprobante, String login, Date fecha,
 			VehiclesAssignation vehiclesAssignation, Float valor,
-			String CCenter, HeaderProof headerProof) throws GWorkException {
+			String CCenter, HeaderProof headerProof, String idMaster, Long idDetail) throws GWorkException {
 
 		GenerateProofService generateProofService = new GenerateProofServiceImpl();
 
@@ -876,7 +847,7 @@ public class AssignationProofServiceImpl implements AssignationProofService {
 				PEntDr, PEntCr, pBname, PDescription, null, null, pAttribute5,
 				pAttribute6.trim(), null, null, pAttribute9, pAttribute10
 						.trim(), ParametersUtil.CREDITO, tipoComprobante,
-				parameters, headerProof);
+				parameters, headerProof, idMaster, idDetail);
 		return connection;
 	}
 
@@ -899,7 +870,8 @@ public class AssignationProofServiceImpl implements AssignationProofService {
 			AccountingParameters parameters,
 			Long tipoComprobante, String login, Date fecha,
 			VehiclesAssignation vehiclesAssignation, Float valor,
-			String CCenter, HeaderProof headerProof) throws GWorkException {
+			String CCenter, HeaderProof headerProof,
+			String idMaster, Long idDetail) throws GWorkException {
 
 		long codigoAsignatario = vehiclesAssignation.getRequests()
 				.getLegateesTypes().getLgtCodigo().longValue();
@@ -979,7 +951,8 @@ public class AssignationProofServiceImpl implements AssignationProofService {
 						PDescription, null, null, pAttribute5, pAttribute6
 								.trim(), null, null, pAttribute9, pAttribute10
 								.trim(), ParametersUtil.DEBITO,
-						tipoComprobante, parameters, headerProof);
+						tipoComprobante, parameters, headerProof,
+						idMaster, idDetail);
 
 				VhaAoaApp vhaAoaApp = new VhaAoaApp();
 				vhaAoaApp.setAoaFechaIni(period.getPerFechaIni());
@@ -1010,7 +983,8 @@ public class AssignationProofServiceImpl implements AssignationProofService {
 	public Connection detallarActualOthersApplicationsAsignacion(
 			Connection connection, HeaderProof headerProof,
 			VOAssignationProof assignationProof, Period period, String login,
-			Double valor, AccountingParameters parameters)
+			Double valor, AccountingParameters parameters,
+			String idMaster, Long idDetail)
 			throws GWorkException {
 		
 		VehiclesAssignation vehiclesAssignation = new VehiclesAssignationDAO()
@@ -1096,7 +1070,7 @@ public class AssignationProofServiceImpl implements AssignationProofService {
 				pAttribute5, pAttribute6.trim(), null, null, pAttribute9,
 				pAttribute10.trim(), parameters.getMovementType().getMvmId(),
 				ParametersUtil.TRASACCTION_TYPE_ASSIGNATION,
-				parameters, headerProof);
+				parameters, headerProof, idMaster, idDetail);
 
 		if (parameters.getMovementType().getMvmId().longValue() == ParametersUtil.DEBITO) {
 			VhaAoaApp vhaAoaApp = new VhaAoaApp();

@@ -37,7 +37,7 @@ public interface RentProofService {
 			VehiclesAssignation vehiclesAssignation,
 			Double valorTarifa, String centroCostos, HeaderProof headerProof,
 			List<CostsCentersVehicles> listaCostCenters,
-			AccountingParameters parameters) throws GWorkException;
+			AccountingParameters parameters, String idMaster, Long idDetail) throws GWorkException;
 
 	/**
 	 * Permite generar un comprobante por la devolucion de un alquiler.
@@ -60,6 +60,6 @@ public interface RentProofService {
 			Long tipoComprobante, String login, Long tipoMovimiento,
 			Date fecha, VehiclesAssignation vehiclesAssignation, Float valor,
 			String centroCosto, String msgKMAdicional, HeaderProof headerProof,
-			AccountingParameters parameters)
+			AccountingParameters parameters, String idMaster, Long idDetail)
 			throws GWorkException;
 }

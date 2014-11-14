@@ -110,6 +110,8 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 
 			connection = ConsultsServiceImpl.getConnection(Util.loadParametersValue("DATASOURCE.FINANCIERO"));
 
+			String idMaster = new ConsultsServiceImpl().getIdMaster();
+			
 			VehiclesAssignation vehiclesAssignation = new VehiclesAssignation();
 			IVehiclesAssignationDAO vehiclesAssignationDAO = new VehiclesAssignationDAO();
 			vehiclesAssignation = vehiclesAssignationDAO
@@ -347,6 +349,8 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 
 							valorTarifaDebito = valorTarifaDebito + valorTarifa;
 							
+							Long idDetail = Long.valueOf(5);
+
 							listAccountingParameters = searchAccountingParameters
 								.consultarParametrizacionContableActivos(
 										vehiclesAssignation.getRequests().getLegateesTypes().getLgtCodigo(),
@@ -358,14 +362,14 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 								for (AccountingParameters accountingParameters : listAccountingParameters) {
 									if (accountingParameters.getChargeType().getCgtId()
 											.longValue() == ParametersUtil.CARGO_MANTENIMIENTO.longValue()) {
-								
+
 										connection = new RentProofServiceImpl().generarComprobanteAlquiler(connection,
 											ParametersUtil.COMPRANTE_ALQUILER,
 											loginUser, ParametersUtil.CREDITO,
 											new Date(), vehiclesAssignation,
 											valorMantenimiento.doubleValue(),
 											"", headerProof, listaCostCenters,
-											accountingParameters);
+											accountingParameters, idMaster, idDetail);
 								
 									} else if (accountingParameters.getChargeType().getCgtId().longValue() == 
 										ParametersUtil.CARGO_DEPRECIACION.longValue()) {
@@ -376,18 +380,18 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 											new Date(), vehiclesAssignation,
 											valorDepreciacion.doubleValue(),
 											"", headerProof, listaCostCenters,
-											accountingParameters);
+											accountingParameters, idMaster, idDetail);
 								
 									} else if (accountingParameters.getChargeType().getCgtId().longValue() == 
 										ParametersUtil.CARGO_AUTOSEGURO.longValue()) {
-								
+
 										connection = new RentProofServiceImpl().generarComprobanteAlquiler(connection,
 											ParametersUtil.COMPRANTE_ALQUILER,
 											loginUser, ParametersUtil.CREDITO,
 											new Date(), vehiclesAssignation,
 											valorAutoSeguro.doubleValue(),
 											"", headerProof, listaCostCenters,
-											accountingParameters);
+											accountingParameters, idMaster, idDetail);
 
 									} else if (accountingParameters.getChargeType().getCgtId().longValue() == 
 										ParametersUtil.CARGO_ESPACIO_FISICO.longValue()) {
@@ -398,7 +402,7 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 											new Date(), vehiclesAssignation,
 											valorEspacioFisico.doubleValue(),
 											"", headerProof, listaCostCenters,
-											accountingParameters);
+											accountingParameters, idMaster,idDetail);
 									}
 								}
 							}
@@ -419,7 +423,7 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 											new Date(), vehiclesAssignation,
 											valorTarifaDebito.doubleValue(),
 											costsCentersVehicles.getCostsCenters().getCocNumero(),
-											headerProof, listaCostCenters, accountingParameters);
+											headerProof, listaCostCenters, accountingParameters, idMaster,idDetail);
 								}
 							}else{
 								throw new GWorkException(Util.loadErrorMessageValue(
@@ -445,51 +449,53 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 								ParametersUtil.CREDITO,
 								vehicles.getLocations().getLocationsTypes().getLctCodigo());
 
+						Long idDetail = Long.valueOf(5);
+						
 						if(listAccountingParameters != null && listAccountingParameters.size() > 0){
 							for (AccountingParameters accountingParameters : listAccountingParameters) {
 								if (accountingParameters.getChargeType().getCgtId()
 										.longValue() == ParametersUtil.CARGO_MANTENIMIENTO.longValue()) {
-							
+
 									connection = new RentProofServiceImpl().generarComprobanteAlquiler(connection,
 										ParametersUtil.COMPRANTE_ALQUILER,
 										loginUser, ParametersUtil.CREDITO,
 										new Date(), vehiclesAssignation,
 										valorMantenimiento.doubleValue(),
 										"", headerProof, listaCostCenters,
-										accountingParameters);
+										accountingParameters, idMaster,idDetail);
 							
 								} else if (accountingParameters.getChargeType().getCgtId().longValue() == 
 									ParametersUtil.CARGO_DEPRECIACION.longValue()) {
-	
+
 									connection = new RentProofServiceImpl().generarComprobanteAlquiler(connection,
 										ParametersUtil.COMPRANTE_ALQUILER,
 										loginUser, ParametersUtil.CREDITO,
 										new Date(), vehiclesAssignation,
 										valorDepreciacion.doubleValue(),
 										"", headerProof, listaCostCenters,
-										accountingParameters);
+										accountingParameters, idMaster,idDetail);
 							
 								} else if (accountingParameters.getChargeType().getCgtId().longValue() == 
 									ParametersUtil.CARGO_AUTOSEGURO.longValue()) {
-							
+
 									connection = new RentProofServiceImpl().generarComprobanteAlquiler(connection,
 										ParametersUtil.COMPRANTE_ALQUILER,
 										loginUser, ParametersUtil.CREDITO,
 										new Date(), vehiclesAssignation,
 										valorAutoSeguro.doubleValue(),
 										"", headerProof, listaCostCenters,
-										accountingParameters);
+										accountingParameters, idMaster,idDetail);
 	
 								} else if (accountingParameters.getChargeType().getCgtId().longValue() == 
 									ParametersUtil.CARGO_ESPACIO_FISICO.longValue()) {
-	
+
 									connection = new RentProofServiceImpl().generarComprobanteAlquiler(connection,
 										ParametersUtil.COMPRANTE_ALQUILER,
 										loginUser, ParametersUtil.CREDITO,
 										new Date(), vehiclesAssignation,
 										valorEspacioFisico.doubleValue(),
 										"", headerProof, listaCostCenters,
-										accountingParameters);
+										accountingParameters, idMaster,idDetail);
 								}
 							}
 						}
@@ -510,7 +516,7 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 										new Date(), vehiclesAssignation,
 										valorTarifa.doubleValue(),
 										"", headerProof, listaCostCenters, 
-										accountingParameters);
+										accountingParameters, idMaster,idDetail);
 							}
 						}else{
 							throw new GWorkException(Util.loadErrorMessageValue(

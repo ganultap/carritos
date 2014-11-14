@@ -58,6 +58,7 @@ public interface GenerateProofService {
 			String PAttribute5, String PAttribute6, String PAttribute7,
 			String PAttribute8, String PAttribute9, String PAttribute10,
 			Long tipoMovimiento, Long tipoComprobante,
-			AccountingParameters parameters, HeaderProof headerProof)
+			AccountingParameters parameters, HeaderProof headerProof, 
+			String idMaster, Long idDetail)
 			throws GWorkException;
 }

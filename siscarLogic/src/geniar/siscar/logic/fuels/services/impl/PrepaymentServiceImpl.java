@@ -95,13 +95,15 @@ public class PrepaymentServiceImpl implements PrepaymentService {
 								ParametersUtil.COMPRANTE_COMBUSTIBLE, period,
 								ParametersUtil.TRASACCTION_TYPE,
 								ParametersUtil.DOLAR);
+				String idMaster = new ConsultsServiceImpl().getIdMaster();
+				Long idDetail = Long.valueOf(2);
 
 				connection = new PrepaidProofBoughtServiceImpl().generarComprobanteDetalle(connection, 
 						ParametersUtil.TRASACCTION_TYPE, login, costCentersFuel
 								.getCcfValor(), ParametersUtil.DEBITO,
 						costCentersFuel.getCostsCenters().getCocNumero(),
 						prePlaca, fechaIni, vehiclesAssignation, period,
-						headerProof);
+						headerProof, idMaster, idDetail);
 
 				connection = new PrepaidProofBoughtServiceImpl()
 						.generarComprobanteDetalle(connection, 
@@ -110,7 +112,7 @@ public class PrepaymentServiceImpl implements PrepaymentService {
 								ParametersUtil.CREDITO, costCentersFuel
 										.getCostsCenters().getCocNumero(),
 								prePlaca, fechaIni, vehiclesAssignation,
-								period, headerProof);
+								period, headerProof, idMaster, idDetail);
 
 				prepaid.setHeaderProof(headerProof);
 				new PrepaidDAO().update(prepaid);

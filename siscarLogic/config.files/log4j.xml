@@ -6,7 +6,7 @@
 	<!-- configuracion de los archivos de log -->
 	<appender name="SiscarSqlLogAppender"
 		class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="C:/siscar-sql.log" />
+		<param name="File" value="C:/log/siscar-sql.log" />
 		<param name="Append" value="true" />
 		<param name="MaxFileSize" value="1024KB" />
 		<param name="MaxBackupIndex" value="1" />
@@ -15,7 +15,7 @@
 
 	<appender name="SiscarLogAppender"
 		class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="C:/siscar-messages.log" />
+		<param name="File" value="C:/log/siscar-messages.log" />
 		<param name="Append" value="true" />
 		<param name="MaxFileSize" value="1024KB" />
 		<param name="MaxBackupIndex" value="1" />
@@ -24,7 +24,7 @@
 
 	<appender name="SiscarMailLogAppender"
 		class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="C:/siscar-mail.log" />
+		<param name="File" value="C:/log/siscar-mail.log" />
 		<param name="Append" value="true" />
 		<param name="MaxFileSize" value="1024KB" />
 		<param name="MaxBackupIndex" value="1" />

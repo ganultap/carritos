@@ -160,7 +160,8 @@ public class FuelProofInitialServiceImpl implements FuelProofInitialService {
 			String centroCosto, String placa, Period period,
 			String tipoCombustible, HeaderProof headerProof,
 			CostCentersFuel costCentersFuel,
-			VehiclesAssignation vehiclesAssignation) throws GWorkException {
+			VehiclesAssignation vehiclesAssignation,
+			String idMaster, Long idDetail) throws GWorkException {
 
 		ActualOthersApplications actualOthersApplications = new ActualOthersApplications();
 		AccountingParameters parameters = new AccountingParameters();
@@ -251,7 +252,6 @@ public class FuelProofInitialServiceImpl implements FuelProofInitialService {
 
 		String PDescription = null;
 		String tipoAsignacion = null;
-		System.out.println(placa);
 
 		if (vehiclesAssignation.getRequests().getLegateesTypes() != null)
 			tipoAsignacion = vehiclesAssignation.getRequests()
@@ -325,8 +325,8 @@ public class FuelProofInitialServiceImpl implements FuelProofInitialService {
 				pSource, null, null, null, pCompany, pAccount, pCcenter,
 				pAuxiliary, pEntDr, pEntCr, pBname, PDescription, null,
 				headerProof.getHepId().toString(), pAttribute5, pAttribute6,
-				pAttribute7, null, pAttribute9, pAttribute10, headerProof
-						.getHepGroupId());
+				pAttribute7, null, pAttribute9, pAttribute10, 
+				headerProof.getHepGroupId(), idMaster, idDetail);
 
 		if (tipoMovimiento.longValue() == DEBITO.longValue()) {
 			generarCompraPrepago(
@@ -375,26 +375,29 @@ public class FuelProofInitialServiceImpl implements FuelProofInitialService {
 							ParametersUtil.COMPRANTE_COMBUSTIBLE, periodo,
 							ParametersUtil.TRASACCTION_TYPE, ParametersUtil.DOLAR);
 
+			String idMaster = new ConsultsServiceImpl().getIdMaster(); 
+			Long idDetail = Long.valueOf(listaVOCargaPrepago.size() + 1);
+
 			for (VOPrepagoInicial cargaPrepago : listaVOCargaPrepago) {
 
 				generarComprobanteDetalle(connection, tipoComprobante, login, cargaPrepago
 						.getValorPrepago(), DEBITO, cargaPrepago.getCentroCosto()
 						.trim(), cargaPrepago.getPlaca().trim(), periodo,
 						cargaPrepago.getTipoCombustible().trim(), headerProof,
-						cargaPrepago.getCostCentersFuel(), cargaPrepago
-								.getVehiclesAssignation());
+						cargaPrepago.getCostCentersFuel(), cargaPrepago.getVehiclesAssignation(),
+						idMaster,idDetail);
 				valorCredito = valorCredito + cargaPrepago.getValorPrepago();
 				
 				flagHP++;
 				flagCredito++;
 				if (listaVOCargaPrepago.size() == flagCredito) {
-
 					connection = generarComprobanteDetalle(connection, tipoComprobante, login,
 							valorCredito, CREDITO, cargaPrepago.getCentroCosto()
 									.trim(), cargaPrepago.getPlaca().trim(),
 							periodo, cargaPrepago.getTipoCombustible().trim(),
 							headerProof, cargaPrepago.getCostCentersFuel(),
-							cargaPrepago.getVehiclesAssignation());
+							cargaPrepago.getVehiclesAssignation(),
+							idMaster,idDetail);
 
 				}
 

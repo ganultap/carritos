@@ -3,14 +3,14 @@
 	<Manager className="org.apache.catalina.session.StandardManager"
 		pathname="" />
 	<Resource name="jdbc/siscar" auth="Container"
-		type="javax.sql.DataSource" username="siscar" password="siscar"
+		type="javax.sql.DataSource" username="siscartest" password="siscartest"
 		driverClassName="oracle.jdbc.driver.OracleDriver" testOnBorrow="true"
 		testOnReturn="true" removeAbandoned="true"
 		url="jdbc:oracle:thin:@gamma.ciat.cgiarad.org:1521:draco" maxActive="8"
 		maxIdle="4" validationQuery="Select 1 from dual" />
 
 	<Resource name="jdbc/siscarConsultas" auth="Container"
-		type="javax.sql.DataSource" username="siscar" password="siscar"
+		type="javax.sql.DataSource" username="siscartest" password="siscartest"
 		driverClassName="oracle.jdbc.driver.OracleDriver" testOnBorrow="true"
 		testOnReturn="true" removeAbandoned="true"
 		url="jdbc:oracle:thin:@gamma.ciat.cgiarad.org:1521:draco" maxActive="8"
@@ -18,7 +18,7 @@
 
 
 	<Resource name="jdbc/siscarFinanciero" auth="Container"
-		type="javax.sql.DataSource" username="siscar" password="siscar"
+		type="javax.sql.DataSource" username="siscartest" password="siscartest"
 		driverClassName="oracle.jdbc.driver.OracleDriver" testOnBorrow="true"
 		testOnReturn="true" removeAbandoned="true"
 		url="jdbc:oracle:thin:@gamma.ciat.cgiarad.org:1521:draco" maxActive="8"
@@ -30,7 +30,7 @@
 
 
 <Resource name="jdbc/siscarConsultas" auth="Container"
-		type="javax.sql.DataSource" username="siscar" password="siscar"
+		type="javax.sql.DataSource" username="siscartest" password="siscartest"
 		driverClassName="oracle.jdbc.driver.OracleDriver" testOnBorrow="true"
 		testOnReturn="true" removeAbandoned="true"
 		url="jdbc:oracle:thin:@kappa.ciat.cgiar.org:1521:draco" maxActive="8"
@@ -38,7 +38,7 @@
 
 
 	<Resource name="jdbc/siscarFinanciero" auth="Container"
-		type="javax.sql.DataSource" username="siscar" password="siscar"
+		type="javax.sql.DataSource" username="siscartest" password="siscartest"
 		driverClassName="oracle.jdbc.driver.OracleDriver" testOnBorrow="true"
 		testOnReturn="true" removeAbandoned="true"
 		url="jdbc:oracle:thin:@kappa.ciat.cgiar.org:1521:draco" maxActive="8"

@@ -11,8 +11,6 @@ import gwork.exception.GWorkException;
 public interface PrepaidProofBoughtService {
 
 	/**
-	 * Permite generar un detalle para un comprobante por compras de prepago
-	 * 
 	 * @param connection
 	 * @param tipoComprobante
 	 * @param login
@@ -24,6 +22,8 @@ public interface PrepaidProofBoughtService {
 	 * @param vehiclesAssignation
 	 * @param period
 	 * @param headerProof
+	 * @param idMaster
+	 * @param idDetail
 	 * @return
 	 * @throws GWorkException
 	 */
@@ -31,5 +31,5 @@ public interface PrepaidProofBoughtService {
 			Long tipoComprobante, String login,
 			Float valor, Long tipoMovimiento, String centroCosto, String placa,
 			Date fecha, VehiclesAssignation vehiclesAssignation, Period period,
-			HeaderProof headerProof) throws GWorkException;
+			HeaderProof headerProof, String idMaster, Long idDetail) throws GWorkException;
 }

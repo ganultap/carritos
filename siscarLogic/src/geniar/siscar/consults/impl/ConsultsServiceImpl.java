@@ -206,7 +206,7 @@ public class ConsultsServiceImpl implements ConsultsService {
 		}finally{
 			EntityManagerHelper.getEntityManager().close();
 		}
-		
+		result = null;
 		return result;
 	}
 
@@ -746,11 +746,8 @@ public class ConsultsServiceImpl implements ConsultsService {
 
 		try {
 
-			String sbQuery = "select cost_center from CIATAPPS.V_COST_CENTER_INFO"
-					+ Util.loadMessageValue("DBLINK")
-					+ " where enabled_flag = 'Y'"
-					+ " AND cost_center LIKE '%"
-					+ parametroCentroCosto + "%'";
+			String sbQuery = "select ATTR_VALUE from FINANZAS_INTERFAZ.V_ABW_ACTIVE_AEC " +
+					"where ATTR_VALUE like '%" + parametroCentroCosto + "%'";
 			Query query = EntityManagerHelper.getEntityManager()
 					.createNativeQuery(sbQuery);
 			arreglo = query.getResultList();
@@ -1231,7 +1228,8 @@ public class ConsultsServiceImpl implements ConsultsService {
 				//throw new GWorkException(ex2.getMessage(), ex2);
 			}
 		}
-		return null;
+		String retorno = "S";
+		return retorno;
 	}
 
 	/**
@@ -1383,13 +1381,12 @@ public class ConsultsServiceImpl implements ConsultsService {
 			String PDescription, String PNit, String PAttribute2,
 			String PAttribute5, String PAttribute6, String PAttribute7,
 			String PAttribute8, String PAttribute9, String PAttribute10,
-			String pGroupId) throws GWorkException {
+			String pGroupId, String idMaster, Long idDetail) throws GWorkException {
 
 		try {
 			
-			final String queryString = "call CIATAPPS.P_ACTUAL_OTHERS_APPLICATIONS"
-					+ Util.loadMessageValue("DBLINK.FINANCIERO")
-					+ "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			final String queryString = "call FINANZAS_INTERFAZ.P_ABW_INSERTGL_OTHERAPP"
+				+ "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 			CallableStatement statement = connection.prepareCall(queryString);		
 			java.sql.Date date = new java.sql.Date(PAccdate.getTime());
@@ -1412,28 +1409,39 @@ public class ConsultsServiceImpl implements ConsultsService {
 			statement.setString(10, PCompany);
 			statement.setString(11, PAccount);
 			statement.setString(12, PCcenter.trim());
-			statement.setString(13, PAuxiliary);
-			statement.setFloat(14, PEntDr);
-			statement.setFloat(15, PEntCr);
-			statement.setString(16, PBname);
-			statement.setString(17, PDescription);
-			statement.setString(18, PNit);
-			statement.setString(19, PAttribute2);
-			statement.setString(20, PAttribute5);
-			statement.setString(21, PAttribute6);
-			statement.setString(22, PAttribute7);
-			statement.setString(23, PAttribute8);
-			statement.setString(24, PAttribute9);
-			statement.setString(25, PAttribute10);
-			statement.setLong(26, new Long(pGroupId));
-			statement.registerOutParameter(27, Types.VARCHAR);
+			statement.setString(13, null); //bline P_BLINE 
+			statement.setString(14, PAuxiliary);
+			statement.setString(15, null); //tipo de control P_CTYPE 
+			statement.setString(16, null); // futuro P_FUTURE 
+			statement.setFloat(17, PEntDr);
+			statement.setFloat(18, PEntCr);
+			statement.setString(19, PBname);
+			statement.setString(20, PDescription);
+			statement.setString(21, PNit);
+			statement.setString(22, PAttribute2);
+			statement.setString(23, PAttribute5);
+			statement.setString(24, PAttribute6);
+			statement.setString(25, PAttribute7);
+			statement.setString(26, PAttribute8);
+			statement.setString(27, PAttribute9);
+			statement.setString(28, PAttribute10);
+			statement.setLong(29, new Long(pGroupId));
+			statement.setObject (30,null ); //P_ENCUMB_ID  number
+			statement.setString(31, null);//P_BALANCE_TYPE
+			statement.setString(32, null);//P_REFERENCE6
+			statement.setString(33, null);//P_REFERENCE23
+			statement.setString(34, null);//P_REFERENCE24
+			statement.setString(35, null);//P_REFERENCE25
+			statement.setString(36, idMaster);//P_ID_MASTER se debe llamar a la funcion FINANZAS_INTERFAZ.F_ABW_GET_MASTER_ID('VEHICLES')
+			statement.setString(37, idDetail.toString());//P_ID_DETAIL
+			statement.setString(38, "GL");//P_TYPE
+			statement.registerOutParameter(39, Types.VARCHAR);
 			connection.setAutoCommit(false);
 			statement.execute();
-
-			log.info("Dato: " + statement.getString(27) + "-" + PBname + "-"
+			log.info("Dato: " + statement.getString(39) + "-" + PBname + "-"
 					+ PDescription);
 
-			if (statement.getString(27) == null){
+			if (statement.getString(39) == null){
 				return connection;
 			}else{
 				connection = null;
@@ -1449,6 +1457,31 @@ public class ConsultsServiceImpl implements ConsultsService {
 		}
 	}
 
+	public String getIdMaster() throws GWorkException {      
+		String result = "";
+		try {
+			
+			String sbQuery = "select FINANZAS_INTERFAZ.F_ABW_GET_MASTER_ID('VEHICLES') MASTERID from dual";
+			Query query = null;
+			query = EntityManagerHelper.getEntityManager().createNativeQuery(
+					sbQuery);
+			
+			try {
+				if (query.getResultList().size() > 0)
+					result = query.getSingleResult().toString();
+			} catch (Exception e) {
+				throw new GWorkException(Util
+						.loadErrorMessageValue("ERRORCONEXION")
+						+ "\n" + e.getCause().getCause().getMessage());
+			}
+			
+		} catch (RuntimeException e) {
+			log.error("ERROR: getIdMaster -> " + e.getMessage(), e);
+		}
+		return result;
+    }
+	
+	
 	/**
 	 * Consulta los vehiculos de activos fijos.
 	 *
