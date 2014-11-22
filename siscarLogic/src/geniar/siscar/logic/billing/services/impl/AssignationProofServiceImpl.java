@@ -719,9 +719,10 @@ public class AssignationProofServiceImpl implements AssignationProofService {
 			List<ActualOthersApplications> listActualOApp = dao.findByCriteria(hepId);
 			
 			tamaño=listActualOApp.size();
-			Long idDetail = Long.valueOf(tamaño);
+			Long idDetail = Long.valueOf(0);
 			String idMaster = new ConsultsServiceImpl().getIdMaster();
 			for(int i=0;i<tamaño;i++){
+				idDetail++;
 				connection = ConsultsServiceImpl.getConnection(Util.loadParametersValue("DATASOURCE.FINANCIERO"));
 			//aqui va grabar en financiero
 				ConsultsServiceImpl.insercionContableSinAutocommit(connection, listActualOApp.get(i).getPSob(), listActualOApp.get(i).getPAccdate(), 

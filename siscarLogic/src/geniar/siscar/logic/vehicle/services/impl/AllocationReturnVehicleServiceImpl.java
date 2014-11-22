@@ -1919,7 +1919,7 @@ public class AllocationReturnVehicleServiceImpl implements
 						ParametersUtil.CREDITO,
 						vehicles.getLocations().getLocationsTypes().getLctCodigo());
 
-						if(listAccountingParameters == null || listAccountingParameters.size() == 0){
+						/*if(listAccountingParameters == null || listAccountingParameters.size() == 0){
 							throw new GWorkException(Util.loadErrorMessageValue(
 									"ERROR.ALQUILER.NO_EXISTEN_PARAMETROS_CREDITO") 
 									+ " Tipo de localización: " + vehicles.getLocations().getLocationsTypes().getLctNombre()
@@ -1937,9 +1937,10 @@ public class AllocationReturnVehicleServiceImpl implements
 									idDetail++;
 								}
 							}
-						}
+						}*/
 
-						idDetail = (idDetail * listCostsCentersVehicles.size()) + listCostsCentersVehicles.size();
+						//idDetail = (idDetail * listCostsCentersVehicles.size()) + listCostsCentersVehicles.size();
+						String status = "P";
 
 						if (valor != null
 								&& listCostsCentersVehicles != null
@@ -1964,7 +1965,7 @@ public class AllocationReturnVehicleServiceImpl implements
 								}
 									for (AccountingParameters accountingParameters : listAccountingParameters) {
 										if (accountingParameters.getChargeType().getCgtId().longValue() == ParametersUtil.CARGO_MANTENIMIENTO.longValue()) {
-									
+											idDetail++;
 											Float valorTemp = Util.redondearFloat(((valorMantenimiento * Long.valueOf(
 													costsCentersVehicles.getCcrPorcentaje())) / 100F),2);
 											valorCC = Util.redondearFloat((valorCC + valorTemp),2); 
@@ -1978,7 +1979,7 @@ public class AllocationReturnVehicleServiceImpl implements
 
 										} else if (accountingParameters.getChargeType().getCgtId().longValue() == 
 											ParametersUtil.CARGO_DEPRECIACION.longValue()) {
-
+											idDetail++;
 											Float valorTemp = Util.redondearFloat(((valorDepreciacion * Long.valueOf(
 													costsCentersVehicles.getCcrPorcentaje())) / 100F),2);
 											valorCC = Util.redondearFloat((valorCC + valorTemp),2);
@@ -1992,7 +1993,7 @@ public class AllocationReturnVehicleServiceImpl implements
 									
 										} else if (accountingParameters.getChargeType().getCgtId().longValue() == 
 											ParametersUtil.CARGO_AUTOSEGURO.longValue()) {
-									
+											idDetail++;
 											Float valorTemp = Util.redondearFloat(((valorAutoSeguro * Long.valueOf(
 													costsCentersVehicles.getCcrPorcentaje())) / 100F),2);
 											valorCC = Util.redondearFloat((valorCC + valorTemp),2);
@@ -2006,7 +2007,7 @@ public class AllocationReturnVehicleServiceImpl implements
 
 										} else if (accountingParameters.getChargeType().getCgtId().longValue() == 
 											ParametersUtil.CARGO_ESPACIO_FISICO.longValue()) {
-
+											idDetail++;
 											Float valorTemp = Util.redondearFloat(((valorEspacioFisico * Long.valueOf(
 													costsCentersVehicles.getCcrPorcentaje())) / 100F),2);
 											valorCC = Util.redondearFloat((valorCC + valorTemp),2);
@@ -2030,7 +2031,7 @@ public class AllocationReturnVehicleServiceImpl implements
 
 								if(listAccountingParameters != null && listAccountingParameters.size() > 0){
 									for (AccountingParameters accountingParameters : listAccountingParameters) {
-	
+										idDetail++;
 										rentProofService.generarComprobanteDevolucionAlquiler(connection,
 												ParametersUtil.COMPRANTE_ALQUILER,
 												login, ParametersUtil.DEBITO,
@@ -2049,6 +2050,8 @@ public class AllocationReturnVehicleServiceImpl implements
 								}
 							}
 
+							connection = ConsultsServiceImpl.insertTMaster(connection, idMaster, status, idDetail.intValue());
+
 						} else if ((asignacion.getRequests().getRequestsClasses().getRqcCodigo().longValue() == ParametersUtil.CLASE_ALQUILER_TERCEROS.longValue()
 								|| (asignacion.getRequests().getRequestsClasses().getRqcCodigo().longValue() == ParametersUtil.CLASE_ALQUILER.longValue() 
 										&& (asignacion.getRequests().getLegateesTypes().getLgtCodigo().longValue() == ParametersUtil.LGT_CONVENIO.longValue()))
@@ -2063,25 +2066,25 @@ public class AllocationReturnVehicleServiceImpl implements
 											ParametersUtil.TRASACCTION_TYPE_RENT,
 											ParametersUtil.DOLAR);
 
-								valor = 0F;
+							valor = 0F;
+							idDetail = Long.valueOf(0);
+							
+							for (AccountingParameters accountingParameters : listAccountingParameters) {
+								if (accountingParameters.getChargeType().getCgtId().longValue() == ParametersUtil.CARGO_MANTENIMIENTO.longValue()) {
 								
-								for (AccountingParameters accountingParameters : listAccountingParameters) {
-									if (accountingParameters.getChargeType().getCgtId()
-											.longValue() == ParametersUtil.CARGO_MANTENIMIENTO.longValue()) {
-								
-										connection = rentProofService
-											.generarComprobanteDevolucionAlquiler(connection,
-												ParametersUtil.COMPRANTE_ALQUILER,
+									idDetail++;
+									connection = rentProofService.generarComprobanteDevolucionAlquiler(
+											connection,ParametersUtil.COMPRANTE_ALQUILER,
 												login, ParametersUtil.CREDITO,
 												fechaEntrega, asignacion, valorMantenimiento,
 												"", msgKMAdicional, headerProof, accountingParameters, 
 												idMaster, idDetail);
 										
-										valor = Util.redondearFloat(valor + valorMantenimiento,2);
+									valor = Util.redondearFloat(valor + valorMantenimiento,2);
 										
-									} else if (accountingParameters.getChargeType().getCgtId().longValue() == 
-										ParametersUtil.CARGO_DEPRECIACION.longValue()) {
-
+								} else if (accountingParameters.getChargeType().getCgtId().longValue() == 
+									ParametersUtil.CARGO_DEPRECIACION.longValue()) {
+									idDetail++;
 										connection = rentProofService
 											.generarComprobanteDevolucionAlquiler(connection,
 											ParametersUtil.COMPRANTE_ALQUILER,
@@ -2094,7 +2097,7 @@ public class AllocationReturnVehicleServiceImpl implements
 								
 									} else if (accountingParameters.getChargeType().getCgtId().longValue() == 
 										ParametersUtil.CARGO_AUTOSEGURO.longValue()) {
-								
+										idDetail++;
 										connection = rentProofService
 											.generarComprobanteDevolucionAlquiler(connection,
 											ParametersUtil.COMPRANTE_ALQUILER,
@@ -2107,7 +2110,7 @@ public class AllocationReturnVehicleServiceImpl implements
 										
 									} else if (accountingParameters.getChargeType().getCgtId().longValue() == 
 										ParametersUtil.CARGO_ESPACIO_FISICO.longValue()) {
-
+										idDetail++;
 										connection = rentProofService
 											.generarComprobanteDevolucionAlquiler(connection,
 											ParametersUtil.COMPRANTE_ALQUILER,
@@ -2120,9 +2123,8 @@ public class AllocationReturnVehicleServiceImpl implements
 									}
 								}
 
-							listAccountingParameters = searchAccountingParameters
-							.consultarParametrizacionContableActivos(
-									asignacion.getRequests().getLegateesTypes().getLgtCodigo(),
+							listAccountingParameters = searchAccountingParameters.consultarParametrizacionContableActivos(
+								asignacion.getRequests().getLegateesTypes().getLgtCodigo(),
 								ParametersUtil.COMPRANTE_ALQUILER,
 								ParametersUtil.DEBITO,
 								vehicles.getLocations().getLocationsTypes().getLctCodigo());
@@ -2130,7 +2132,7 @@ public class AllocationReturnVehicleServiceImpl implements
 							if(listAccountingParameters != null && listAccountingParameters.size() > 0){
 
 								for (AccountingParameters accountingParameters : listAccountingParameters) {
-
+									idDetail++;
 									rentProofService.generarComprobanteDevolucionAlquiler(connection,
 											ParametersUtil.TRASACCTION_TYPE_RENT,
 											login, ParametersUtil.DEBITO,
@@ -2146,6 +2148,8 @@ public class AllocationReturnVehicleServiceImpl implements
 								+ " Tipo de asignatario: " + asignacion.getRequests().getLegateesTypes().getLgtNombre()
 								+ ", Por favor verificar.");
 							}
+							
+							connection = ConsultsServiceImpl.insertTMaster(connection, idMaster, status, idDetail.intValue());
 							
 							if (asignacion.getRequests()
 									.getRequestsClasses().getRqcCodigo().longValue() == ParametersUtil.CLASE_ALQUILER

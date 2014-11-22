@@ -349,8 +349,8 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 
 							valorTarifaDebito = valorTarifaDebito + valorTarifa;
 							
-							Long idDetail = Long.valueOf(5);
-
+							//Long idDetail = Long.valueOf(0);
+							Long idDetail = Long.valueOf(0);
 							listAccountingParameters = searchAccountingParameters
 								.consultarParametrizacionContableActivos(
 										vehiclesAssignation.getRequests().getLegateesTypes().getLgtCodigo(),
@@ -362,7 +362,7 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 								for (AccountingParameters accountingParameters : listAccountingParameters) {
 									if (accountingParameters.getChargeType().getCgtId()
 											.longValue() == ParametersUtil.CARGO_MANTENIMIENTO.longValue()) {
-
+										idDetail++;
 										connection = new RentProofServiceImpl().generarComprobanteAlquiler(connection,
 											ParametersUtil.COMPRANTE_ALQUILER,
 											loginUser, ParametersUtil.CREDITO,
@@ -373,7 +373,7 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 								
 									} else if (accountingParameters.getChargeType().getCgtId().longValue() == 
 										ParametersUtil.CARGO_DEPRECIACION.longValue()) {
-
+										idDetail++;
 										connection = new RentProofServiceImpl().generarComprobanteAlquiler(connection,
 											ParametersUtil.COMPRANTE_ALQUILER,
 											loginUser, ParametersUtil.CREDITO,
@@ -384,7 +384,7 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 								
 									} else if (accountingParameters.getChargeType().getCgtId().longValue() == 
 										ParametersUtil.CARGO_AUTOSEGURO.longValue()) {
-
+										idDetail++;
 										connection = new RentProofServiceImpl().generarComprobanteAlquiler(connection,
 											ParametersUtil.COMPRANTE_ALQUILER,
 											loginUser, ParametersUtil.CREDITO,
@@ -395,7 +395,7 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 
 									} else if (accountingParameters.getChargeType().getCgtId().longValue() == 
 										ParametersUtil.CARGO_ESPACIO_FISICO.longValue()) {
-
+										idDetail++;
 										connection = new RentProofServiceImpl().generarComprobanteAlquiler(connection,
 											ParametersUtil.COMPRANTE_ALQUILER,
 											loginUser, ParametersUtil.CREDITO,
@@ -416,7 +416,7 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 
 							if(listAccountingParameters != null && listAccountingParameters.size() > 0){
 								for (AccountingParameters accountingParameters : listAccountingParameters) {
-
+									idDetail++;
 									connection = new RentProofServiceImpl().generarComprobanteAlquiler(connection,
 											ParametersUtil.COMPRANTE_ALQUILER,
 											loginUser, ParametersUtil.DEBITO,

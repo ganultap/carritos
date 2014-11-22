@@ -188,7 +188,7 @@ public class ConsultsServiceImpl implements ConsultsService {
 	public String consultCostCenter(String costCenter) throws GWorkException {
 		String result = null;
 		Query query = null;
-		try {
+		/*try {
 			final String queryString = "select ciatapps.f_valida_ccosto_enabled_fechas"
 					+ Util.loadMessageValue("DBLINK")
 					+ "(:costCenter) from dual";
@@ -205,8 +205,8 @@ public class ConsultsServiceImpl implements ConsultsService {
 					+ "\n" + e.getCause().getCause().getMessage(), e);
 		}finally{
 			EntityManagerHelper.getEntityManager().close();
-		}
-		result = null;
+		}*/
+		
 		return result;
 	}
 
@@ -747,7 +747,7 @@ public class ConsultsServiceImpl implements ConsultsService {
 		try {
 
 			String sbQuery = "select ATTR_VALUE from FINANZAS_INTERFAZ.V_ABW_ACTIVE_AEC " +
-					"where ATTR_VALUE like '%" + parametroCentroCosto + "%'";
+					"where ATTR_VALUE like '%" + parametroCentroCosto + "%' AND STATUS = 'N'";
 			Query query = EntityManagerHelper.getEntityManager()
 					.createNativeQuery(sbQuery);
 			arreglo = query.getResultList();
@@ -1187,7 +1187,7 @@ public class ConsultsServiceImpl implements ConsultsService {
 	public String validarPresupuesto(Integer anho, String codigoCentroCosto,
 			String cuenta, String auxiliar, Double valor) {
 		
-		Connection connection = null;
+		/*Connection connection = null;
 		
 		try {
 			String strlog = " Ejecutando \"call BEXEC01.P_VALIDACION_PPTAL_ORACLE_INIC(?,?,?,?,?,?)\" con los siguientes parámetros:\n"+
@@ -1227,7 +1227,7 @@ public class ConsultsServiceImpl implements ConsultsService {
 				log.error("Error: " + ex2.getMessage(), ex2);
 				//throw new GWorkException(ex2.getMessage(), ex2);
 			}
-		}
+		}*/
 		String retorno = "S";
 		return retorno;
 	}
@@ -1383,6 +1383,8 @@ public class ConsultsServiceImpl implements ConsultsService {
 			String PAttribute8, String PAttribute9, String PAttribute10,
 			String pGroupId, String idMaster, Long idDetail) throws GWorkException {
 
+		String error = "";
+		
 		try {
 			
 			final String queryString = "call FINANZAS_INTERFAZ.P_ABW_INSERTGL_OTHERAPP"
@@ -1434,34 +1436,72 @@ public class ConsultsServiceImpl implements ConsultsService {
 			statement.setString(35, null);//P_REFERENCE25
 			statement.setString(36, idMaster);//P_ID_MASTER se debe llamar a la funcion FINANZAS_INTERFAZ.F_ABW_GET_MASTER_ID('VEHICLES')
 			statement.setString(37, idDetail.toString());//P_ID_DETAIL
-			statement.setString(38, "GL");//P_TYPE
+			statement.setString(38, "VH");//P_TYPE
 			statement.registerOutParameter(39, Types.VARCHAR);
 			connection.setAutoCommit(false);
 			statement.execute();
-			log.info("Dato: " + statement.getString(39) + "-" + PBname + "-"
-					+ PDescription);
 
+			error = statement.getString(39) + "-" + PBname + "-";
+			
 			if (statement.getString(39) == null){
 				return connection;
 			}else{
-				connection = null;
-				throw new Exception("Error grabando en la interfaz contable...");
+				connection = null;				
+				throw new Exception(error);
 			}
+		} catch (Exception e) {			
+			log.error("Error grabando en la interfaz contable.... Descripcion: "
+					+ PDescription + " Error: " + error, e);			
+			throw new GWorkException(e.getMessage(), e);
+		}finally{
+			return connection;
+		}
+	}
+	
+	@SuppressWarnings("finally")
+	public static Connection insertTMaster(Connection connection, String idMaster, 
+			String status, int numRows) throws GWorkException {
 
-		} catch (Exception e) {
-			log.error("Error grabando la inserccion contable, descripcion: "
-					+ PDescription + " Error: " + e.getMessage(), e);
+		String error = "";
+		
+		try {
+			
+			final String queryString = "CALL finanzas_interfaz.P_ABW_INSERT_T_MASTER (?, ?, ?, ?)";
+
+			CallableStatement statement = connection.prepareCall(queryString);		
+			//Parametros de entrada
+
+            statement.setString(1, idMaster);
+            statement.setString(2, status);
+            statement.setInt(3, numRows);
+
+            statement.registerOutParameter(4,Types.VARCHAR);                         
+			connection.setAutoCommit(false);
+			statement.execute();
+
+			error = statement.getString(4);
+			 
+			if (statement.getString(4) == null){
+				return connection;
+			}else{
+				connection = null;				
+				throw new Exception(error);
+			}
+		} catch (Exception e) {			
+			log.error("Error grabando en insertTMaster: Error: " + error, e);			
 			throw new GWorkException(e.getMessage(), e);
 		}finally{
 			return connection;
 		}
 	}
 
+	
+	
 	public String getIdMaster() throws GWorkException {      
 		String result = "";
 		try {
 			
-			String sbQuery = "select FINANZAS_INTERFAZ.F_ABW_GET_MASTER_ID('VEHICLES') MASTERID from dual";
+			String sbQuery = "select FINANZAS_INTERFAZ.F_ABW_GET_MASTER_ID('VH') MASTERID from dual";
 			Query query = null;
 			query = EntityManagerHelper.getEntityManager().createNativeQuery(
 					sbQuery);
@@ -1480,6 +1520,8 @@ public class ConsultsServiceImpl implements ConsultsService {
 		}
 		return result;
     }
+	
+	
 	
 	
 	/**
