@@ -114,8 +114,7 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 			
 			VehiclesAssignation vehiclesAssignation = new VehiclesAssignation();
 			IVehiclesAssignationDAO vehiclesAssignationDAO = new VehiclesAssignationDAO();
-			vehiclesAssignation = vehiclesAssignationDAO
-					.findById(numeroAsignacion);
+			vehiclesAssignation = vehiclesAssignationDAO.findById(numeroAsignacion);
 			Requests requests = vehiclesAssignation.getRequests();
 
 			List<CostsCentersVehicles> listaCostCenters = null;
@@ -123,8 +122,7 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 			EntityManagerHelper.getEntityManager().refresh(vehiclesAssignation);
 			/** Validar que la asignacion del vehiculo exista */
 			if (vehiclesAssignation == null)
-				throw new GWorkException(Util
-						.loadErrorMessageValue("ASIGNACIONNOEXISTE"));
+				throw new GWorkException(Util.loadErrorMessageValue("ASIGNACIONNOEXISTE"));
 
 			if (fechaEntrega.compareTo(requests.getRqsFechaInicial()) < 0)
 				throw new GWorkException(Util
@@ -281,8 +279,7 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 								.getLgtCodigo().longValue() == ParametersUtil.LGT_PERSONAL
 								.longValue()))
 						|| (vehiclesAssignation.getAssignationsTypes()
-								.getAstCodigo().longValue() == ParametersUtil.ASIG_ALQUILER
-								.longValue()
+								.getAstCodigo().longValue() == ParametersUtil.ASIG_ALQUILER.longValue()
 								&& vehiclesAssignation.getCostsCentersVehicleses() != null
 								&& vehiclesAssignation.getCostsCentersVehicleses().size() > 0)) {
 
@@ -295,6 +292,8 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 									ParametersUtil.TRASACCTION_TYPE_RENT,
 									ParametersUtil.DOLAR);
 
+					Long idDetail = Long.valueOf(0);
+					
 					if (listaCostCenters != null && listaCostCenters.size() > 0) {
 						for (CostsCentersVehicles costsCentersVehicles : listaCostCenters) {
 
@@ -348,9 +347,7 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 							}
 
 							valorTarifaDebito = valorTarifaDebito + valorTarifa;
-							
-							//Long idDetail = Long.valueOf(0);
-							Long idDetail = Long.valueOf(0);
+
 							listAccountingParameters = searchAccountingParameters
 								.consultarParametrizacionContableActivos(
 										vehiclesAssignation.getRequests().getLegateesTypes().getLgtCodigo(),
@@ -425,13 +422,14 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 											costsCentersVehicles.getCostsCenters().getCocNumero(),
 											headerProof, listaCostCenters, accountingParameters, idMaster,idDetail);
 								}
-							}else{
+							} else {
 								throw new GWorkException(Util.loadErrorMessageValue(
 								"ERROR.ALQUILER.NO_EXISTEN_PARAMETROS_DEBITO") 
 								+ " Tipo de localización: " + vehicles.getLocations().getLocationsTypes().getLctNombre()
 								+ " Tipo de asignatario: " + vehiclesAssignation.getRequests().getLegateesTypes().getLgtNombre()
 								+ ", Por favor verificar.");
 							}
+							connection = ConsultsServiceImpl.insertTMaster(connection, idMaster, "P", idDetail.intValue());
 						}
 					}else{
 						valorDepreciacion = valorDepreciacion * cantDiasAlquiler;
@@ -449,13 +447,11 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 								ParametersUtil.CREDITO,
 								vehicles.getLocations().getLocationsTypes().getLctCodigo());
 
-						Long idDetail = Long.valueOf(5);
-						
 						if(listAccountingParameters != null && listAccountingParameters.size() > 0){
 							for (AccountingParameters accountingParameters : listAccountingParameters) {
 								if (accountingParameters.getChargeType().getCgtId()
 										.longValue() == ParametersUtil.CARGO_MANTENIMIENTO.longValue()) {
-
+									idDetail++;
 									connection = new RentProofServiceImpl().generarComprobanteAlquiler(connection,
 										ParametersUtil.COMPRANTE_ALQUILER,
 										loginUser, ParametersUtil.CREDITO,
@@ -466,7 +462,7 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 							
 								} else if (accountingParameters.getChargeType().getCgtId().longValue() == 
 									ParametersUtil.CARGO_DEPRECIACION.longValue()) {
-
+									idDetail++;
 									connection = new RentProofServiceImpl().generarComprobanteAlquiler(connection,
 										ParametersUtil.COMPRANTE_ALQUILER,
 										loginUser, ParametersUtil.CREDITO,
@@ -477,7 +473,7 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 							
 								} else if (accountingParameters.getChargeType().getCgtId().longValue() == 
 									ParametersUtil.CARGO_AUTOSEGURO.longValue()) {
-
+									idDetail++;
 									connection = new RentProofServiceImpl().generarComprobanteAlquiler(connection,
 										ParametersUtil.COMPRANTE_ALQUILER,
 										loginUser, ParametersUtil.CREDITO,
@@ -488,7 +484,7 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 	
 								} else if (accountingParameters.getChargeType().getCgtId().longValue() == 
 									ParametersUtil.CARGO_ESPACIO_FISICO.longValue()) {
-
+									idDetail++;
 									connection = new RentProofServiceImpl().generarComprobanteAlquiler(connection,
 										ParametersUtil.COMPRANTE_ALQUILER,
 										loginUser, ParametersUtil.CREDITO,
@@ -509,7 +505,7 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 
 						if(listAccountingParameters != null && listAccountingParameters.size() > 0){
 							for (AccountingParameters accountingParameters : listAccountingParameters) {
-
+								idDetail++;
 								connection = new RentProofServiceImpl().generarComprobanteAlquiler(connection,
 										ParametersUtil.COMPRANTE_ALQUILER,
 										loginUser, ParametersUtil.DEBITO,
@@ -525,19 +521,18 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 							+ " Tipo de asignatario: " + vehiclesAssignation.getRequests().getLegateesTypes().getLgtNombre()
 							+ ", Por favor verificar.");
 						}
-						
-						if (vehiclesAssignation.getRequests()
-								.getLegateesTypes().getLgtCodigo().longValue() == ParametersUtil.LGT_PERSONAL
-								.longValue()) {
 
-							Tariffs tariff = tariffRentService
-							.consultarTarifaActualAlquilerPorTipoTarifaYTipoVehiculo(
+						connection = ConsultsServiceImpl.insertTMaster(connection, idMaster, "P", idDetail.intValue());
+
+						if (vehiclesAssignation.getRequests().getLegateesTypes().getLgtCodigo().longValue() == 
+								ParametersUtil.LGT_PERSONAL.longValue()) {
+
+							Tariffs tariff = tariffRentService.consultarTarifaActualAlquilerPorTipoTarifaYTipoVehiculo(
 									tipoVehiculo,
 									ParametersUtil.TARIFA_ALQUILER);
 							
 							if (tariff == null)
-								throw new GWorkException(Util
-										.loadErrorMessageValue("TARIFADISPONIBILIDAD")
+								throw new GWorkException(Util.loadErrorMessageValue("TARIFADISPONIBILIDAD")
 										+ ":" + nomTipoVehiculo);
 							
 							valorTarifa = Util.redondear((valorTarifa.doubleValue()),2);
@@ -608,19 +603,15 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 							.longValue() == ParametersUtil.LGT_OFS)
 					&& vehiclesAssignation.getVehicles().getLocations()
 							.getLocationsTypes().getLctCodigo().longValue() == ParametersUtil.SEDE
-					&& validarCobroAutoSeguroCarne(vehiclesAssignation
-							.getRequests().getUsersByRqsUser()
-							.getUsrIdentificacion(), ManipulacionFechas
-							.getAgno(fechaEntrega)) != true)
+					&& validarCobroAutoSeguroCarne(vehiclesAssignation.getRequests().getUsersByRqsUser()
+							.getUsrIdentificacion(), ManipulacionFechas.getAgno(fechaEntrega)) != true)
 				insercionFlatFileAutoseguroNuevo(vehiclesAssignation, loginUser);
 		} catch (Exception e) {
 			if (connection != null && !connection.isClosed())
 				connection.rollback();
 
-			if (EntityManagerHelper.getEntityManager().getTransaction()
-					.isActive())
-				EntityManagerHelper.getEntityManager().getTransaction()
-						.rollback();
+			if (EntityManagerHelper.getEntityManager().getTransaction().isActive())
+				EntityManagerHelper.getEntityManager().getTransaction().rollback();
 			throw new GWorkException(e.getMessage());
 		} finally{
 			try{
@@ -839,10 +830,6 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 			new RequestsDAO().update(requestsObj);
 			new LocationsNewnessDAO().save(locationsNewness);
 			new VehiclesDAO().update(vehicles);
-
-			System.out
-					.println("********* VERIFICAR ESTADO DEL VEHICULO ************"
-							+ vehicles.getVehiclesStates().getVhsNombre());
 
 			new VehiclesAssignationDAO().update(vehiclesAssignation);
 

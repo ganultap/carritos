@@ -1393,11 +1393,11 @@ public class ConsultsServiceImpl implements ConsultsService {
 			CallableStatement statement = connection.prepareCall(queryString);		
 			java.sql.Date date = new java.sql.Date(PAccdate.getTime());
 
-			if (PEntCr == null)
+			/*if (PEntCr == null)
 				PEntCr = 0F;
 
 			if (PEntDr == null)
-				PEntDr = 0F;
+				PEntDr = 0F;*/
 
 			statement.setLong(1, PSob);
 			statement.setDate(2, date);
@@ -1414,9 +1414,24 @@ public class ConsultsServiceImpl implements ConsultsService {
 			statement.setString(13, null); //bline P_BLINE 
 			statement.setString(14, PAuxiliary);
 			statement.setString(15, null); //tipo de control P_CTYPE 
-			statement.setString(16, null); // futuro P_FUTURE 
-			statement.setFloat(17, PEntDr);
-			statement.setFloat(18, PEntCr);
+			statement.setString(16, null); // futuro P_FUTURE
+			
+			if (PEntDr == null)
+				statement.setString(17, null);
+			else{
+				if(PEntDr < 0) PEntDr = PEntDr * -1;
+				statement.setFloat(17, PEntDr);
+			}
+			
+			if (PEntCr == null)
+				statement.setString(18, null);
+			else{
+				if(PEntCr < 0) PEntCr = PEntCr * -1;
+				statement.setFloat(18, PEntCr);
+			}
+			
+			/*statement.setFloat(17, PEntDr);
+			statement.setFloat(18, PEntCr);*/
 			statement.setString(19, PBname);
 			statement.setString(20, PDescription);
 			statement.setString(21, PNit);
