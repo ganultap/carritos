@@ -58,8 +58,7 @@ public class GenerateProofServiceImpl implements GenerateProofService {
 		actualOthersApplications.setPAttribute8(null);
 		actualOthersApplications.setPAttribute9(PAttribute9);
 		actualOthersApplications.setPAttribute10(PAttribute10);
-		actualOthersApplications.setAoaState(Util
-				.loadMessageValue("ESTADO.ACTIVO"));
+		actualOthersApplications.setAoaState(Util.loadMessageValue("ESTADO.ACTIVO"));
 		actualOthersApplications.setPBname(PBname);
 		actualOthersApplications.setHeaderProof(headerProof);
 
@@ -160,8 +159,7 @@ public class GenerateProofServiceImpl implements GenerateProofService {
 		actualOthersApplications.setPAttribute8(null);
 		actualOthersApplications.setPAttribute9(PAttribute9);
 		actualOthersApplications.setPAttribute10(PAttribute10);
-		actualOthersApplications.setAoaState(Util
-				.loadMessageValue("ESTADO.ACTIVO"));
+		actualOthersApplications.setAoaState(Util.loadMessageValue("ESTADO.ACTIVO"));
 		actualOthersApplications.setPBname(PBname);
 		actualOthersApplications.setHeaderProof(headerProof);
 
@@ -176,8 +174,7 @@ public class GenerateProofServiceImpl implements GenerateProofService {
 				PAttribute9, PAttribute10, headerProof.getHepGroupId(), idMaster, idDetail);
 		return connection;
 
-	}
-	
+	}	
 	
 	/**
 	 * Guarda los datos en un archivo
@@ -187,8 +184,6 @@ public class GenerateProofServiceImpl implements GenerateProofService {
 	 */
 	
 	public void guardaArchivo(){
-		
-		
 		
 	}
 
@@ -268,12 +263,10 @@ public class GenerateProofServiceImpl implements GenerateProofService {
 		actualOthersApplications.setPAttribute8(null);
 		actualOthersApplications.setPAttribute9(PAttribute9);
 		actualOthersApplications.setPAttribute10(PAttribute10);
-		actualOthersApplications.setAoaState(Util
-				.loadMessageValue("ESTADO.ACTIVO"));
+		actualOthersApplications.setAoaState(Util.loadMessageValue("ESTADO.ACTIVO"));
 		actualOthersApplications.setPBname(PBname);
 		actualOthersApplications.setHeaderProof(headerProof);
 
-		//modificado 5 de marzo
 		connection = ConsultsServiceImpl.insercionContableSinAutocommit(connection, PSob,
 				PAccdate, PCurr, PUser, PCategory, PSource, PConvDate,
 				PConvType, PConvRate, PCompany, PAccount, PCcenter, PAuxiliary,
@@ -285,6 +278,5 @@ public class GenerateProofServiceImpl implements GenerateProofService {
 		new ActualOthersApplicationsDAO().save(actualOthersApplications);
 
 		return connection;
-
 	}
 }

@@ -143,7 +143,7 @@ public class FuelProofInitialServiceImpl implements FuelProofInitialService {
 		headerProof.setHepGroupId(nuevoGroupId);
 
 		try {
-						EntityManagerHelper.getEntityManager().getTransaction().begin();
+			EntityManagerHelper.getEntityManager().getTransaction().begin();
 			new HeaderProofDAO().update(headerProof);
 			EntityManagerHelper.getEntityManager().getTransaction().commit();
 
@@ -376,10 +376,10 @@ public class FuelProofInitialServiceImpl implements FuelProofInitialService {
 							ParametersUtil.TRASACCTION_TYPE, ParametersUtil.DOLAR);
 
 			String idMaster = new ConsultsServiceImpl().getIdMaster(); 
-			Long idDetail = Long.valueOf(listaVOCargaPrepago.size() + 1);
+			Long idDetail = Long.valueOf(0);
 
 			for (VOPrepagoInicial cargaPrepago : listaVOCargaPrepago) {
-
+				idDetail++;
 				generarComprobanteDetalle(connection, tipoComprobante, login, cargaPrepago
 						.getValorPrepago(), DEBITO, cargaPrepago.getCentroCosto()
 						.trim(), cargaPrepago.getPlaca().trim(), periodo,
@@ -392,8 +392,8 @@ public class FuelProofInitialServiceImpl implements FuelProofInitialService {
 				flagCredito++;
 				if (listaVOCargaPrepago.size() == flagCredito) {
 					connection = generarComprobanteDetalle(connection, tipoComprobante, login,
-							valorCredito, CREDITO, cargaPrepago.getCentroCosto()
-									.trim(), cargaPrepago.getPlaca().trim(),
+							valorCredito, CREDITO, cargaPrepago.getCentroCosto().trim(), 
+							cargaPrepago.getPlaca().trim(),
 							periodo, cargaPrepago.getTipoCombustible().trim(),
 							headerProof, cargaPrepago.getCostCentersFuel(),
 							cargaPrepago.getVehiclesAssignation(),
@@ -402,6 +402,10 @@ public class FuelProofInitialServiceImpl implements FuelProofInitialService {
 				}
 
 			}
+			
+			connection = ConsultsServiceImpl.insertTMaster(connection, idMaster, "P", idDetail.intValue());
+			
+			
 			try {
 
 				if (headerProof != null)
@@ -423,11 +427,9 @@ public class FuelProofInitialServiceImpl implements FuelProofInitialService {
 					connection.close();
 				}
 			}catch(Exception ex2){
-				//log.error("Error: " + ex2.getMessage(), ex2);
 				throw new GWorkException(ex2.getMessage(), ex2);
 			}
 		}
-
 	}
 
 	public static String generarGroupId() throws GWorkException {

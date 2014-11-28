@@ -283,10 +283,11 @@ public class PrepaidDevolutionServiceImpl implements PrepaidDevolutionService {
 							ParametersUtil.TRASACCTION_TYPE, ParametersUtil.DOLAR);
 
 			String idMaster = new ConsultsServiceImpl().getIdMaster();
-			Long idDetail = Long.valueOf(listaVOCargaPrepago.size() + 1);
+			Long idDetail = Long.valueOf(0);
 			
 			for (VOCostCenters cargaPrepago : listaVOCargaPrepago) {
-				valorDebito = cargaPrepago.getCocValorPrepago() * -1;
+				idDetail++;
+				valorDebito = cargaPrepago.getCocValorPrepago();// * -1;
 				generarComprobanteDetalle(connection, ParametersUtil.PROOF_TYPE_COMBUSTIBLE,
 						login, valorDebito, ParametersUtil.DEBITO, 
 						cargaPrepago.getCocNumero().trim(), periodo, headerProof,
@@ -297,7 +298,8 @@ public class PrepaidDevolutionServiceImpl implements PrepaidDevolutionService {
 				flagHP++;
 				flagCredito++;
 				if (listaVOCargaPrepago.size() == flagCredito) {
-					valorCredito = valorCredito * -1;
+					//valorCredito = valorCredito * -1;
+					idDetail++;
 					connection = generarComprobanteDetalle(connection,
 							ParametersUtil.PROOF_TYPE_COMBUSTIBLE, login,
 							valorCredito, ParametersUtil.CREDITO, 
@@ -305,8 +307,9 @@ public class PrepaidDevolutionServiceImpl implements PrepaidDevolutionService {
 							cargaPrepago.getCocCodigo(), "",
 							idMaster, idDetail);
 				}
-
 			}
+			connection = ConsultsServiceImpl.insertTMaster(connection, idMaster, "P", idDetail.intValue());
+
 			try {
 
 				if (headerProof != null)

@@ -582,7 +582,7 @@ public class AssignationProofServiceImpl implements AssignationProofService {
 				//prueba con la placa
 				//listaAsignaciones.get(0).getIdAsignacion();
 //				if(assignationProof.getPlaca().equals("OI0569"))
-//						System.out.println("-----------------placa"+"OI0569");
+
 				 valorMantenimiento = 0D;
 				 valorAutoseguro = 0D;
 				 valorDepreciacion = 0D;
@@ -637,15 +637,13 @@ public class AssignationProofServiceImpl implements AssignationProofService {
 				valorDepreciacion = Util.redondear(valorDepreciacion, 2);
 				valorMantenimiento = Util.redondear(valorMantenimiento, 2);
 				valorEspacioFisico = Util.redondear(valorEspacioFisico, 2);
-			
-	
+
 					totalCredito = valorAutoseguro + valorDepreciacion
 					+ valorMantenimiento + valorEspacioFisico;
 
 					// Redondear totales
 //					if(assignationProof.getPlaca().equals("OI0808"))
-//						System.out.println("empieza prueba");
-	
+
 					totalCredito = Util.redondear(totalCredito, 2);
 					totalDebito = Util.redondear(totalDebito, 2);
 					diferenciaCombrobante = totalCredito - totalDebito;
@@ -670,9 +668,7 @@ public class AssignationProofServiceImpl implements AssignationProofService {
 					valorDepreciacion=Util.redondear(valorDepreciacion, 2);
 					
 					assignationProof.setValorDepreciacion(valorDepreciacion);
-					
-					log.info("VALOR ASIGNACION CREDITO : " + valorAsignacion);
-	
+
 					listAccountingParameters = searchAccountingParameters
 					.consultarParametrizacionContableActivos(
 							assignationProof.getLgtCodigo(),
@@ -710,8 +706,7 @@ public class AssignationProofServiceImpl implements AssignationProofService {
 										accountingParameters);
 							}
 						}
-					}
-					
+					}					
 			}
 			
 			ActualOthersApplicationsDAO dao = new ActualOthersApplicationsDAO();
@@ -734,10 +729,15 @@ public class AssignationProofServiceImpl implements AssignationProofService {
 					listActualOApp.get(i).getPAttribute6(), listActualOApp.get(i).getPAttribute7(), listActualOApp.get(i).getPAttribute8(), listActualOApp.get(i).getPAttribute9(), 
 					listActualOApp.get(i).getPAttribute10(),listActualOApp.get(i).getHeaderProof().getHepGroupId(),
 					idMaster, idDetail);// ""+hepId
+
+				connection.commit();
+				connection.close();
+			}
+			connection = ConsultsServiceImpl.getConnection(Util.loadParametersValue("DATASOURCE.FINANCIERO"));
+			connection = ConsultsServiceImpl.insertTMaster(connection, idMaster, "P", idDetail.intValue());
 			connection.commit();
 			connection.close();
-			}
-
+			
 			EntityManagerHelper.getEntityManager().getTransaction().commit();
 
 			if (connection != null){
@@ -786,13 +786,11 @@ public class AssignationProofServiceImpl implements AssignationProofService {
 
 		GenerateProofService generateProofService = new GenerateProofServiceImpl();
 
-		String placa = vehiclesAssignation.getVehicles()
-				.getVhcPlacaDiplomatica();
+		String placa = vehiclesAssignation.getVehicles().getVhcPlacaDiplomatica();
 		String tipoMoneda = Util.loadParametersValue("p.sob.dolar");
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-		String periodo = dateFormat.format(vehiclesAssignation
-				.getVhaFechaEntrega())
+		String periodo = dateFormat.format(vehiclesAssignation.getVhaFechaEntrega())
 				+ "-" + dateFormat.format(fecha);
 
 		String aoaState = ParametersUtil.ESTADO_ACTIVO;
@@ -1012,8 +1010,7 @@ public class AssignationProofServiceImpl implements AssignationProofService {
 		String pAttribute6 = "";
 		String pAttribute9 = parameters.getDocumentTwo().getDocumentTwoType()
 				.getDttName();
-		String pAttribute10 = ManipulacionFechas.getMes(period
-				.getPerFechaIni())
+		String pAttribute10 = ManipulacionFechas.getMes(period.getPerFechaIni())
 				+ ManipulacionFechas.getDia(period.getPerFechaIni());
 
 		String periodoDesc = dateFormat.format(period.getPerFechaIni()) + "-"
@@ -1023,8 +1020,7 @@ public class AssignationProofServiceImpl implements AssignationProofService {
 
 			pCcenter = assignationProof.getCentroCosto();
 			PEntDr = valor.floatValue();
-			pAttribute5 = parameters.getDocumentOne().getDocumentOneType()
-					.getDotName();
+			pAttribute5 = parameters.getDocumentOne().getDocumentOneType().getDotName();
 			pAttribute6 = assignationProof.getPlaca();
 
 			PDescription = parameters.getDescriptionType().getDstValor() + ":"

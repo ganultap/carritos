@@ -146,7 +146,7 @@ public class ConsultsServiceImpl implements ConsultsService {
 		String strQuery = "";
 		String result = null;
 		Query query = null;
-		try {
+		/*try {
 			log.info("Inicia validateCostCenter con parámetro " + costCenter);
 			
 			strQuery = "select ciatapps.f_valida_ccosto_enabled_fechas"
@@ -172,7 +172,7 @@ public class ConsultsServiceImpl implements ConsultsService {
 		if (result != null && result.length() > 0){
 			log.debug("ValidateCostCenter retorna false con parametro " + costCenter);
 			return false;
-		}
+		}*/
 
 		log.debug("ValidateCostCenter retorna true con parametro " + costCenter);
 		return true;
@@ -1412,7 +1412,7 @@ public class ConsultsServiceImpl implements ConsultsService {
 			statement.setString(11, PAccount);
 			statement.setString(12, PCcenter.trim());
 			statement.setString(13, null); //bline P_BLINE 
-			statement.setString(14, PAuxiliary);
+			statement.setString(14, null);//PAuxiliary
 			statement.setString(15, null); //tipo de control P_CTYPE 
 			statement.setString(16, null); // futuro P_FUTURE
 			

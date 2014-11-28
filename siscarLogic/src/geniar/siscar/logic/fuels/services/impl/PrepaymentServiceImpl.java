@@ -55,10 +55,9 @@ public class PrepaymentServiceImpl implements PrepaymentService {
 			connection = ConsultsServiceImpl.getConnection("jdbc/siscarFinanciero");
 			
 			EntityManagerHelper.getEntityManager().getTransaction().begin();
+			
 			for (CostCentersFuel costCentersFuel : lstCCF) {
 				VehiclesAssignation vehiclesAssignation = null;
-				// Set<CostCentersFuel> set = updateCostCenterFuel(lstCCF,
-				// fechaIni);
 				Prepaid prepaid = updatePrepaid(costCentersFuel,
 						carneAsignatario, fechaIni, prePlaca, costCentersFuel
 								.getCcfValor());
@@ -68,8 +67,7 @@ public class PrepaymentServiceImpl implements PrepaymentService {
 								ParametersUtil.NOVEDAD_COMB);
 				HeaderProof headerProof = null;
 
-				vehiclesAssignation = SearchVehicles
-						.consultarAsignacionVehiculo(prePlaca);
+				vehiclesAssignation = SearchVehicles.consultarAsignacionVehiculo(prePlaca);
 
 				if (vehiclesAssignation == null)
 					throw new GWorkException(Util
@@ -95,8 +93,9 @@ public class PrepaymentServiceImpl implements PrepaymentService {
 								ParametersUtil.COMPRANTE_COMBUSTIBLE, period,
 								ParametersUtil.TRASACCTION_TYPE,
 								ParametersUtil.DOLAR);
+
 				String idMaster = new ConsultsServiceImpl().getIdMaster();
-				Long idDetail = Long.valueOf(2);
+				Long idDetail = Long.valueOf(1);
 
 				connection = new PrepaidProofBoughtServiceImpl().generarComprobanteDetalle(connection, 
 						ParametersUtil.TRASACCTION_TYPE, login, costCentersFuel
@@ -105,6 +104,7 @@ public class PrepaymentServiceImpl implements PrepaymentService {
 						prePlaca, fechaIni, vehiclesAssignation, period,
 						headerProof, idMaster, idDetail);
 
+				idDetail++;
 				connection = new PrepaidProofBoughtServiceImpl()
 						.generarComprobanteDetalle(connection, 
 								ParametersUtil.TRASACCTION_TYPE, login,
@@ -113,6 +113,8 @@ public class PrepaymentServiceImpl implements PrepaymentService {
 										.getCostsCenters().getCocNumero(),
 								prePlaca, fechaIni, vehiclesAssignation,
 								period, headerProof, idMaster, idDetail);
+
+				connection = ConsultsServiceImpl.insertTMaster(connection, idMaster, "P", idDetail.intValue());
 
 				prepaid.setHeaderProof(headerProof);
 				new PrepaidDAO().update(prepaid);

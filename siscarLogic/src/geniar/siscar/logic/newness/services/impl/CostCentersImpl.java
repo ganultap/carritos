@@ -66,7 +66,7 @@ public class CostCentersImpl implements CostCentersService {
 			Date fechaIni, Date FechaAsignacion) throws GWorkException {
 		
 		Connection connection = null;
-		
+
 		try {
 			for (CostCentersFuel costsCentersFuel : list) {
 				
@@ -90,16 +90,18 @@ public class CostCentersImpl implements CostCentersService {
 								.getCocCodigo().longValue());
 
 				// Verifica que el centro de costo solo tenga asociado una placa
-				if (SearchCostCenters.veficarCCFAsociacionPlaca(costsCenters
-						.getCocNumero())
+				if (SearchCostCenters.veficarCCFAsociacionPlaca(costsCenters.getCocNumero())
 						&& costsCenters.getValorPrepago() != null) {
 
 					Float saldoDevCenCos = costsCenters.getValorPrepago();
 
-					Period periodo = FlatFileFuelServiceImpl
-							.consultarPeriodoByNovedad(new Date(),
-									ParametersUtil.NOVEDAD_COMB);
+					Period periodo = FlatFileFuelServiceImpl.consultarPeriodoByNovedad(
+							new Date(),
+							ParametersUtil.NOVEDAD_COMB);
 
+					String idMaster = new ConsultsServiceImpl().getIdMaster();
+					Long idDetail = Long.valueOf(0);
+					
 					HeaderProof headerProof = null;
 					headerProof = new PrepaidProofBoughtServiceImpl()
 							.generarCabeceraComprobante(
@@ -108,13 +110,10 @@ public class CostCentersImpl implements CostCentersService {
 									ParametersUtil.DOLAR);
 
 					// Asignar los valores a los comprobantes
-					saldoDevCenCos = saldoDevCenCos * -1;
+					//saldoDevCenCos = saldoDevCenCos * -1;
 
 					PrepaidDevolutionServiceImpl devolutionServiceImpl = new PrepaidDevolutionServiceImpl();
-
-					String idMaster = new ConsultsServiceImpl().getIdMaster();
-					Long idDetail = Long.valueOf(2);
-
+					idDetail++;
 					connection = devolutionServiceImpl.generarComprobanteDetalle(connection,
 							ParametersUtil.PROOF_TYPE_COMBUSTIBLE, login,
 							saldoDevCenCos, ParametersUtil.DEBITO,
@@ -123,7 +122,7 @@ public class CostCentersImpl implements CostCentersService {
 							costsCentersFuel.getCostsCenters().getCocCodigo(),
 							costsCentersFuel.getVehiclesAssignation().getVehicles().getVhcPlacaDiplomatica(),
 							idMaster, idDetail);
-
+					idDetail++;
 					connection = devolutionServiceImpl
 							.generarComprobanteDetalle(connection,
 									ParametersUtil.PROOF_TYPE_COMBUSTIBLE,
@@ -136,6 +135,8 @@ public class CostCentersImpl implements CostCentersService {
 									idMaster, idDetail);
 
 					costsCenters.setValorPrepago(null);
+					
+					connection = ConsultsServiceImpl.insertTMaster(connection, idMaster, "P", idDetail.intValue());
 				}
 
 				crearNovedadCambioCentroCostos(login, costsCentersFuel
@@ -173,8 +174,7 @@ public class CostCentersImpl implements CostCentersService {
 				centersNewness.setVehicles(vehicles);
 
 				new CostsCentersNewnessDAO().save(centersNewness);
-				EntityManagerHelper.getEntityManager().getTransaction()
-						.commit();
+				EntityManagerHelper.getEntityManager().getTransaction().commit();
 				EntityManagerHelper.getEntityManager().clear();
 
 				if (connection != null)
@@ -351,6 +351,7 @@ public class CostCentersImpl implements CostCentersService {
 
 		saveCentroDeCostosVehiculos(centersVehicles);
 		return 1;
+		
 	}
 
 	@SuppressWarnings("unchecked")

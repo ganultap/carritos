@@ -660,9 +660,8 @@ public class ServiceAllocationImpl implements ServiceAllocation {
 								.findById(3L));
 
 			if (requests.getRequestsClasses().getRqcCodigo().longValue() == 3L)
-				vehiclesAssignation
-						.setAssignationsTypes(new AssignationsTypesDAO()
-								.findById(3L));
+				vehiclesAssignation.setAssignationsTypes(
+						new AssignationsTypesDAO().findById(3L));
 
 			vehiclesAssignation.setRequests(requests);
 			requests.setRequestsStates(new RequestsStatesDAO().findById(3l));

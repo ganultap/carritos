@@ -666,7 +666,7 @@ public class ServiceRegistryImp implements ServiceRegistryService {
 	
 					String idMaster = new ConsultsServiceImpl().getIdMaster();
 					
-					Long idDetail = Long.valueOf(2);
+					Long idDetail = Long.valueOf(1);
 
 					connection = new BudgetFuelProofServiceImpl().generarComprobanteDetalle(connection,
 							carneAsignatario, ParametersUtil.COMPRANTE_COMBUSTIBLE,
@@ -674,16 +674,19 @@ public class ServiceRegistryImp implements ServiceRegistryService {
 							tipoCargo, placa, fechaActual, numeroGalones,
 							fuelTypeRequest, period, headerProof,
 							idMaster, idDetail);
-	
+					idDetail++;
 					connection = new BudgetFuelProofServiceImpl().generarComprobanteDetalle(connection, 
 							carneAsignatario,ParametersUtil.COMPRANTE_COMBUSTIBLE, 
 							login, total, ParametersUtil.CREDITO, null, 
 							tipoCargo, placa, fechaActual, numeroGalones,
 							fuelTypeRequest, period, headerProof,
 							idMaster, idDetail);
-					}else {					
-						throw new GWorkException("Centro de Costo nulo, por favor verificar.");
-					}
+					
+					connection = ConsultsServiceImpl.insertTMaster(connection, idMaster, "P", idDetail.intValue());
+				}else {					
+					throw new GWorkException("Centro de Costo nulo, por favor verificar.");
+				}
+				
 			}
 			// EntityManagerHelper.getEntityManager().getTransaction().begin();
 			if (headerProof != null)
