@@ -104,9 +104,9 @@ public class RentProofServiceImpl implements RentProofService {
 		String periodo = dateFormat.format(vehiclesAssignation.getRequests()
 				.getRqsFechaInicial())
 				+ "-"
-				+ dateFormat.format(vehiclesAssignation.getRequests()
-						.getRqsFechaFinal());
-
+				+ dateFormat.format(vehiclesAssignation.getRequests().getRqsFechaFinal());
+		
+		pAuxiliary = vehiclesAssignation.getRequests().getRqsCarnetAsignatario();
 		if (tipoMovimiento.longValue() == ParametersUtil.DEBITO.longValue()) {
 			PEntDr = valorTarifa.floatValue();
 			PDescription = parameters.getDescriptionType().getDstValor() + ":"
@@ -115,13 +115,12 @@ public class RentProofServiceImpl implements RentProofService {
 			pAttribute5 = parameters.getDocumentOne().getDocumentOneType()
 					.getDotName();
 			pAttribute6 = placa;
-
+			pAuxiliary = vehiclesAssignation.getRequests().getRqsCarnetAsignatario();
 			if (vehiclesAssignation.getRequests().getRequestsClasses()
 					.getRqcCodigo().longValue() == ParametersUtil.CLASE_ALQUILER) {
-				pAuxiliary = parameters.getAuxiliar().getAuxValor();
+				//pAuxiliary = parameters.getAuxiliar().getAuxValor();
 				if (vehiclesAssignation.getRequests().getLegateesTypes()
-						.getLgtCodigo().longValue() == ParametersUtil.LGT_CONVENIO
-						.longValue() 
+						.getLgtCodigo().longValue() == ParametersUtil.LGT_CONVENIO.longValue() 
 					|| vehiclesAssignation.getRequests().getLegateesTypes()
 						.getLgtCodigo().longValue() == ParametersUtil.LGT_PERSONAL.longValue()){
 					if(parameters.getAuxiliar().getAuxId().longValue() == ParametersUtil.TipoAuxAsignatario.longValue())
@@ -129,12 +128,11 @@ public class RentProofServiceImpl implements RentProofService {
 					pCcenter = parameters.getCostsCenters().getCocNumero();
 				} else {
 					pCcenter = centroCostos;
-					pAuxiliary = parameters.getAuxiliar().getAuxValor();
+					//pAuxiliary = parameters.getAuxiliar().getAuxValor();
 				}
 			} else if (vehiclesAssignation.getRequests().getRequestsClasses()
 					.getRqcCodigo().longValue() == ParametersUtil.CLASE_ALQUILER_TERCEROS) {
-				pAuxiliary = vehiclesAssignation.getRequests()
-						.getRqsCarnetAsignatario();
+				pAuxiliary = vehiclesAssignation.getRequests().getRqsCarnetAsignatario();
 				pCcenter = parameters.getCostsCenters().getCocNumero();
 			}
 		}
@@ -148,7 +146,7 @@ public class RentProofServiceImpl implements RentProofService {
 					.getDotName();
 			pAttribute6 = placa;
 			pCcenter = parameters.getCostsCenters().getCocNumero();
-			pAuxiliary = parameters.getAuxiliar().getAuxValor();
+			//pAuxiliary = parameters.getAuxiliar().getAuxValor();
 		}
 
 		pAttribute7 = vehiclesAssignation.getVhaCodigo().toString();
@@ -214,33 +212,29 @@ public class RentProofServiceImpl implements RentProofService {
 				.getVhaFechaEntrega())
 				+ "-" + dateFormat.format(fecha);
 
+		pAuxiliary = vehiclesAssignation.getRequests().getRqsCarnetAsignatario();
 		if (tipoMovimiento.longValue() == ParametersUtil.DEBITO.longValue()) {
 			PEntDr = valor;
 			PDescription = parameters.getDescriptionType().getDstValor() + ":"
 					+ placa + " " + Util.loadMessageValue("PERIODO") + periodo
 					+ "-" + Util.loadMessageValue("DEVOLUCION") + " "
 					+ msgKMAdicional;
-			pAttribute5 = parameters.getDocumentOne().getDocumentOneType()
-					.getDotName();
+			pAttribute5 = parameters.getDocumentOne().getDocumentOneType().getDotName();
 			pAttribute6 = placa;
 
-			if (vehiclesAssignation.getRequests().getRequestsClasses()
-					.getRqcCodigo().longValue() == ParametersUtil.CLASE_ALQUILER) {
-				pAuxiliary = parameters.getAuxiliar().getAuxValor();
+			if (vehiclesAssignation.getRequests().getRequestsClasses().getRqcCodigo().longValue() == ParametersUtil.CLASE_ALQUILER) {
 				if (vehiclesAssignation.getRequests().getLegateesTypes().getLgtCodigo().longValue() == ParametersUtil.LGT_CONVENIO.longValue()
 						|| vehiclesAssignation.getRequests().getLegateesTypes().getLgtCodigo().longValue() == ParametersUtil.LGT_PERSONAL.longValue()){
 					
-					if(parameters.getAuxiliar().getAuxId().longValue() == ParametersUtil.TipoAuxAsignatario.longValue())
+					if(parameters.getAuxiliar().getAuxId().longValue() == ParametersUtil.TipoAuxAsignatario.longValue())//9 - Terceros
 						pAuxiliary = vehiclesAssignation.getRequests().getRqsCarnetAsignatario();
 					pCcenter = parameters.getCostsCenters().getCocNumero();
 				} else {
-					pAuxiliary = parameters.getAuxiliar().getAuxValor();
+					//pAuxiliary = parameters.getAuxiliar().getAuxValor();
 					pCcenter = CCenter;
 				}
-			} else if (vehiclesAssignation.getRequests().getRequestsClasses()
-					.getRqcCodigo().longValue() == ParametersUtil.CLASE_ALQUILER_TERCEROS) {
-				pAuxiliary = vehiclesAssignation.getRequests()
-						.getRqsCarnetAsignatario();
+			} else if (vehiclesAssignation.getRequests().getRequestsClasses().getRqcCodigo().longValue() == ParametersUtil.CLASE_ALQUILER_TERCEROS) {
+				pAuxiliary = vehiclesAssignation.getRequests().getRqsCarnetAsignatario();
 				pCcenter = parameters.getCostsCenters().getCocNumero();
 			}
 		}
@@ -251,11 +245,10 @@ public class RentProofServiceImpl implements RentProofService {
 					+ placa + " " + Util.loadMessageValue("PERIODO") + periodo
 					+ "-" + Util.loadMessageValue("DEVOLUCION")
 					+ msgKMAdicional;
-			pAttribute5 = parameters.getDocumentOne().getDocumentOneType()
-					.getDotName();
+			pAttribute5 = parameters.getDocumentOne().getDocumentOneType().getDotName();
 			pAttribute6 = placa;
 			pCcenter = parameters.getCostsCenters().getCocNumero();
-			pAuxiliary = parameters.getAuxiliar().getAuxValor();
+			//pAuxiliary = parameters.getAuxiliar().getAuxValor();
 		}
 
 		pAttribute7 = vehiclesAssignation.getVhaCodigo().toString();

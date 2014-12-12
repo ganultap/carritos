@@ -577,14 +577,12 @@ public class ServiceRegistryImp implements ServiceRegistryService {
 						lastServiceRegistryPlaca(placa)
 								.getSerKilometrajeActual());
 
-			if (kilometrajeActual != null
-					&& (kilometrajeHistorico == null || kilometrajeHistorico
-							.floatValue() == 0F))
-				registry
-						.setSerKilometrajeAnterior(kilometrajeActual.toString());
+			if (kilometrajeActual != null && 
+					(kilometrajeHistorico == null || kilometrajeHistorico.floatValue() == 0F))
+
+				registry.setSerKilometrajeAnterior(kilometrajeActual.toString());
 			else if (kilometrajeHistorico != null)
-				registry.setSerKilometrajeAnterior(kilometrajeHistorico
-						.toString());
+				registry.setSerKilometrajeAnterior(kilometrajeHistorico.toString());
 
 			registry.setSerFecha(fechaActual);
 			registry.setSerHora(hora);

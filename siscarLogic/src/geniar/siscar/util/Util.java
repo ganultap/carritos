@@ -687,6 +687,21 @@ public class Util {
 		return d;
 	}
 
+	public static Double convertirDecimalConDouble(String param) {
+		String r = "";
+		for (char c : param.toCharArray()) {
+			if (c == ',') {
+				c = '.';
+			}
+			r = r + c;
+		}
+
+		Double d = new Double(r);
+
+		return d;
+	}
+
+	
 	/**
 	 * Convertir cadena decimal.
 	 *

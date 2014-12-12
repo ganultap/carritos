@@ -1123,34 +1123,34 @@ public class AssignationProofServiceImpl implements AssignationProofService {
 
 			pCcenter = assignationProof.getCentroCosto();
 			PEntDr = valor.floatValue();
-			pAttribute5 = parameters.getDocumentOne().getDocumentOneType()
-					.getDotName();
+			pAttribute5 = parameters.getDocumentOne().getDocumentOneType().getDotName();
 			pAttribute6 = assignationProof.getPlaca();
 
 			PDescription = parameters.getDescriptionType().getDstValor() + ":"
 					+ assignationProof.getPlaca() + " "
 					+ Util.loadMessageValue("PERIODO") + periodoDesc;
 
-			if (vehiclesAssignation.getRequests().getLegateesTypes()
-					.getLgtCodigo().longValue() == ParametersUtil.LGT_OFS)
-				pAuxiliary = vehiclesAssignation.getRequests()
-						.getUsersByRqsUser().getUsrIdentificacion();
+			pAuxiliary = vehiclesAssignation.getRequests().getUsersByRqsUser().getUsrIdentificacion();
+			
+			/*if (vehiclesAssignation.getRequests().getLegateesTypes().getLgtCodigo().longValue() == ParametersUtil.LGT_OFS)
+				pAuxiliary = vehiclesAssignation.getRequests().getUsersByRqsUser().getUsrIdentificacion();
 			else
 				pAuxiliary = parameters.getAuxiliar().getAuxValor();
+			*/
 
 		} else if (parameters.getMovementType().getMvmId().longValue() == ParametersUtil.CREDITO) {
 			PEntCr = valor.floatValue();
 			pCcenter = parameters.getCostsCenters().getCocNumero();
-			pAttribute5 = parameters.getDocumentTwo().getDocumentTwoType()
-					.getDttName();
+			pAttribute5 = parameters.getDocumentTwo().getDocumentTwoType().getDttName();
 			pAttribute6 = pAttribute10;
 			
-			if (parameters.getAuxiliar().getAuxId().longValue() == ParametersUtil.TipoAuxAsignatario.longValue()){
-				pAuxiliary = vehiclesAssignation.getRequests()
-						.getUsersByRqsUser().getUsrIdentificacion();
+			pAuxiliary = vehiclesAssignation.getRequests().getUsersByRqsUser().getUsrIdentificacion();
+			
+			/*if (parameters.getAuxiliar().getAuxId().longValue() == ParametersUtil.TipoAuxAsignatario.longValue()){
+				pAuxiliary = vehiclesAssignation.getRequests().getUsersByRqsUser().getUsrIdentificacion();
 			}else{
 				pAuxiliary = parameters.getAuxiliar().getAuxValor();
-			}
+			}*/
 
 			PDescription = parameters.getDescriptionType().getDstValor() + ":"
 					+ " " + Util.loadMessageValue("PERIODO") + periodoDesc + " "+assignationProof.getPlaca();

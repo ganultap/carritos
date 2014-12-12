@@ -124,10 +124,10 @@ public class BudgetFuelProofServiceImpl implements BudgetFuelProofService {
 		// Period periodo =
 		// FlatFileFuelServiceImpl.consultarPeriodoByfecha(fecha);
 
-		if (vehiclesAssignation != null
-				&& vehiclesAssignation.getRequests().getLegateesTypes() != null)
-			tipoAsignacion = vehiclesAssignation.getRequests()
-					.getLegateesTypes().getLgtNombre();
+		if (vehiclesAssignation != null && 
+				vehiclesAssignation.getRequests().getLegateesTypes() != null)
+
+			tipoAsignacion = vehiclesAssignation.getRequests().getLegateesTypes().getLgtNombre();
 
 		if (tipoMovimiento.longValue() == ParametersUtil.DEBITO) {
 			String placaDec = null;
@@ -179,11 +179,15 @@ public class BudgetFuelProofServiceImpl implements BudgetFuelProofService {
 		// .consultarCabeceraCmprbntByGroupId(SearchParametersBilling
 		// .lastHeaderProof());
 
+		
+		pAuxiliary = carne;
+		/*
 		if (tipoMovimiento.longValue() == ParametersUtil.DEBITO
 				&& tipoCargo.longValue() == ParametersUtil.CARGO_TERCEROS)
 			pAuxiliary = carne;
 		else
 			pAuxiliary = Util.loadParametersValue("p.auxiliary");
+		 */
 
 		// Se construye el PBName
 		String pBname = null;

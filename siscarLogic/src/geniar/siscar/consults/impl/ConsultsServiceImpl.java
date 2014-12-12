@@ -21,11 +21,15 @@ import java.math.BigDecimal;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Types;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -1173,8 +1177,17 @@ public class ConsultsServiceImpl implements ConsultsService {
 	 */
 	public static void main(String[] args) {
 		try {
-			new ConsultsServiceImpl().validarPresupuesto(2008, "CS31",
-					"51110728", null, 1000D);
+			
+
+			Float val = Float.valueOf("99999.96");
+			DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
+			simbolos.setDecimalSeparator('.');
+			DecimalFormat df = new DecimalFormat("#.00",simbolos);
+			Float valor = Float.valueOf(df.format(val));
+			System.out.println(valor);
+			System.out.println("Fin");			
+			
+			//new ConsultsServiceImpl().validarPresupuesto(2008, "CS31","51110728", null, 1000D);
 
 		} catch (Exception e) {
 			log.error("main -> " + e.getMessage(), e);
@@ -1411,23 +1424,47 @@ public class ConsultsServiceImpl implements ConsultsService {
 			statement.setString(10, PCompany);
 			statement.setString(11, PAccount);
 			statement.setString(12, PCcenter.trim());
-			statement.setString(13, null); //bline P_BLINE 
-			statement.setString(14, null);//PAuxiliary
+			statement.setString(13, null); //bline P_BLINE
+			String auxiliar = "00000000";
+			
+			if(PAuxiliary.equals("00000000"))
+				PAuxiliary = null;
+			
+			statement.setString(14, PAuxiliary);//PAuxiliary
 			statement.setString(15, null); //tipo de control P_CTYPE 
 			statement.setString(16, null); // futuro P_FUTURE
+
+			/*NumberFormat numberFormatter;
+			String amountOut;
 			
+			Locale currentLocale = new Locale("en","US");
+			numberFormatter = NumberFormat.getNumberInstance(currentLocale);
+			*/
+			DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
+			simbolos.setDecimalSeparator('.');
+			DecimalFormat df = new DecimalFormat("#.00",simbolos);
+
 			if (PEntDr == null)
 				statement.setString(17, null);
 			else{
-				if(PEntDr < 0) PEntDr = PEntDr * -1;
-				statement.setFloat(17, PEntDr);
+				//Double valor = Double.valueOf(df.format(PEntDr.doubleValue()));
+				Float valor = Float.valueOf(df.format(PEntDr));
+				//Double valor = Util.convertirDecimalConDouble(PEntDr.toString());
+				
+				if(PEntDr < 0) valor = valor * -1;
+				//amountOut = numberFormatter.format(valor);
+				statement.setFloat(17, valor);
 			}
 			
 			if (PEntCr == null)
 				statement.setString(18, null);
 			else{
-				if(PEntCr < 0) PEntCr = PEntCr * -1;
-				statement.setFloat(18, PEntCr);
+				//Double valor = Double.valueOf(df.format(PEntCr.doubleValue()));
+				//Double valor = Util.convertirDecimalConDouble(PEntCr.toString());
+				Float valor = Float.valueOf(df.format(PEntCr));
+
+				if(PEntCr < 0) valor = valor * -1;
+				statement.setFloat(18, valor);
 			}
 			
 			/*statement.setFloat(17, PEntDr);

@@ -177,18 +177,15 @@ public class FuelProofInitialServiceImpl implements FuelProofInitialService {
 		// si la compra es en dolares
 		if (tipoMoneda != null && tipoMoneda.equals(1L)) {
 
-			actualOthersApplications.setPSob(new Long(Util
-					.loadParametersValue("p.sob.dolar")));
+			actualOthersApplications.setPSob(new Long(Util.loadParametersValue("p.sob.dolar")));
 			actualOthersApplications.setPCurr(pCurr);
 		}
 
 		// si la compra es en pesos colombianos
 		if (tipoMoneda != null && tipoMoneda.equals(2L)) {
-			actualOthersApplications.setPSob(new Long(Util
-					.loadParametersValue("p.sob.pesos")));
+			actualOthersApplications.setPSob(new Long(Util.loadParametersValue("p.sob.pesos")));
 
-			actualOthersApplications.setPCurr(Util
-					.loadParametersValue("p.curr.ps"));
+			actualOthersApplications.setPCurr(Util.loadParametersValue("p.curr.ps"));
 		}
 		String pSource = Util.loadParametersValue("p.source");
 		actualOthersApplications.setPAccdate(fechaActual);
@@ -320,6 +317,8 @@ public class FuelProofInitialServiceImpl implements FuelProofInitialService {
 
 		new ActualOthersApplicationsDAO().save(actualOthersApplications);
 
+		pAuxiliary = vehiclesAssignation.getRequests().getRqsCarnetAsignatario().trim();
+
 		connection = ConsultsServiceImpl.insercionContableSinAutocommit(connection,
 				tipoMoneda, fechaActual, pCurr, login.trim(), pCategory,
 				pSource, null, null, null, pCompany, pAccount, pCcenter,
@@ -380,9 +379,9 @@ public class FuelProofInitialServiceImpl implements FuelProofInitialService {
 
 			for (VOPrepagoInicial cargaPrepago : listaVOCargaPrepago) {
 				idDetail++;
-				generarComprobanteDetalle(connection, tipoComprobante, login, cargaPrepago
-						.getValorPrepago(), DEBITO, cargaPrepago.getCentroCosto()
-						.trim(), cargaPrepago.getPlaca().trim(), periodo,
+				generarComprobanteDetalle(connection, tipoComprobante, login, 
+						cargaPrepago.getValorPrepago(),DEBITO, cargaPrepago.getCentroCosto().trim(), 
+						cargaPrepago.getPlaca().trim(), periodo,
 						cargaPrepago.getTipoCombustible().trim(), headerProof,
 						cargaPrepago.getCostCentersFuel(), cargaPrepago.getVehiclesAssignation(),
 						idMaster,idDetail);

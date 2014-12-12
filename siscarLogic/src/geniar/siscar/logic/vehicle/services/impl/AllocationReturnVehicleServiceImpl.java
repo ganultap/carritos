@@ -1139,27 +1139,12 @@ public class AllocationReturnVehicleServiceImpl implements
 						float diferenciaTotal = 0;
 						
 						String idMaster = new ConsultsServiceImpl().getIdMaster();
-						Long idDetail = Long.valueOf(listCostsCentersVehicles.size());
+						Long idDetail = Long.valueOf(0);
 						listAccountingParametersCredito = searchAccountingParameters.consultarParametrizacionContableActivos(
 								asignacion.getRequests().getLegateesTypes().getLgtCodigo(),
 								ParametersUtil.COMPRANTE_ASIGNACION,
 								ParametersUtil.CREDITO,
 								codigoTipoLocalizacion);
-						
-						if(listAccountingParametersCredito != null && listAccountingParametersCredito.size() > 0){
-
-							for (AccountingParameters parameters : listAccountingParametersCredito) {
-								if (parameters.getChargeType().getCgtId().longValue() == ParametersUtil.CARGO_MANTENIMIENTO.longValue()) {
-									idDetail++;
-								} else if (parameters.getChargeType().getCgtId().longValue() == ParametersUtil.CARGO_DEPRECIACION.longValue()) {
-									idDetail++;
-								} else if (parameters.getChargeType().getCgtId().longValue() == ParametersUtil.CARGO_AUTOSEGURO.longValue()) {
-									idDetail++;
-								} else if (parameters.getChargeType().getCgtId().longValue() == ParametersUtil.CARGO_ESPACIO_FISICO.longValue()) {
-									idDetail++;
-								}
-							}
-						}
 
 						for (CostsCentersVehicles costsCentersVehicles : listCostsCentersVehicles) {
 							float porcentaje = Float.parseFloat(costsCentersVehicles
@@ -1200,7 +1185,7 @@ public class AllocationReturnVehicleServiceImpl implements
 					
 							if(listAccountingParameters != null && listAccountingParameters.size() > 0){
 								for (AccountingParameters accountingParameters : listAccountingParameters) {
-
+									idDetail++;
 									connection = servicioComprobante
 											.generarComprobanteDevolucionAsignacionDebito(
 													connection,
@@ -1219,7 +1204,7 @@ public class AllocationReturnVehicleServiceImpl implements
 							for (AccountingParameters accountingParameters : listAccountingParametersCredito) {
 								if (accountingParameters.getChargeType().getCgtId()
 										.longValue() == ParametersUtil.CARGO_MANTENIMIENTO.longValue()) {
-									
+									idDetail++;
 									connection = servicioComprobante
 											.generarComprobanteDevolucionAsignacionCredito(
 													connection,
@@ -1233,7 +1218,7 @@ public class AllocationReturnVehicleServiceImpl implements
 									
 								} else if (accountingParameters.getChargeType().getCgtId()
 										.longValue() == ParametersUtil.CARGO_DEPRECIACION.longValue()) {
-								
+									idDetail++;
 									connection = servicioComprobante
 											.generarComprobanteDevolucionAsignacionCredito(
 													connection,
@@ -1247,7 +1232,7 @@ public class AllocationReturnVehicleServiceImpl implements
 									
 								} else if (accountingParameters.getChargeType().getCgtId()
 										.longValue() == ParametersUtil.CARGO_AUTOSEGURO.longValue()) {
-									
+									idDetail++;
 									connection = servicioComprobante
 											.generarComprobanteDevolucionAsignacionCredito(
 													connection,
@@ -1260,7 +1245,7 @@ public class AllocationReturnVehicleServiceImpl implements
 
 								} else if (accountingParameters.getChargeType().getCgtId()
 										.longValue() == ParametersUtil.CARGO_ESPACIO_FISICO.longValue()) {
-
+									idDetail++;
 									connection = servicioComprobante
 											.generarComprobanteDevolucionAsignacionCredito(
 													connection,
@@ -1275,6 +1260,7 @@ public class AllocationReturnVehicleServiceImpl implements
 								}
 							}
 						}
+						connection = ConsultsServiceImpl.insertTMaster(connection, idMaster, "P", idDetail.intValue());
 					}
 				}
 

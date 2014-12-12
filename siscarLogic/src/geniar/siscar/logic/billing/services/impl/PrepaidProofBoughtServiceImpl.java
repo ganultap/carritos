@@ -59,7 +59,10 @@ public class PrepaidProofBoughtServiceImpl implements PrepaidProofBoughtService 
 		String pCompany = parameters.getCompany().getCmpNombre();
 		String pAccount = parameters.getAccount().getAccNumeroCuenta();
 		String pCcenter = null;
-		String pAuxiliary = Util.loadParametersValue("p.auxiliary");
+		
+		//String pAuxiliary = Util.loadParametersValue("p.auxiliary");
+		String pAuxiliary = vehiclesAssignation.getVhaNumeroCarne();
+		
 		Float PEntDr = null;
 		Float PEntCr = null;
 		String pBname = "";
@@ -89,8 +92,7 @@ public class PrepaidProofBoughtServiceImpl implements PrepaidProofBoughtService 
 		if (tipoMovimiento.longValue() == ParametersUtil.CREDITO) {
 
 			PEntCr = valor;
-			pAttribute5 = parameters.getDocumentOne().getDocumentOneType()
-					.getDotName();
+			pAttribute5 = parameters.getDocumentOne().getDocumentOneType().getDotName();
 			pAttribute6 = pAttribute10;
 			pCcenter = parameters.getCostsCenters().getCocNumero();
 			PDescription = Util.loadParametersValue("COMBU_PREPAGO")
@@ -120,9 +122,10 @@ public class PrepaidProofBoughtServiceImpl implements PrepaidProofBoughtService 
 
 		if (vehiclesAssignation != null
 				&& tipoMovimiento.longValue() == ParametersUtil.CREDITO)
-			new FuelProofInitialServiceImpl()
-					.generarAsignacionComprobantePrepago(headerProof,
-							vehiclesAssignation, period.getPerId());
+			new FuelProofInitialServiceImpl().generarAsignacionComprobantePrepago(
+					headerProof,
+					vehiclesAssignation, 
+					period.getPerId());
 
 		return connection;
 	}
