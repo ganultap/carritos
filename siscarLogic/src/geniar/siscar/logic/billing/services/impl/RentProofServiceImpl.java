@@ -50,7 +50,7 @@ public class RentProofServiceImpl implements RentProofService {
 			List<CostsCentersVehicles> listaCostCenters,
 			AccountingParameters parameters, String idMaster, Long idDetail) throws GWorkException {
 		
-		String validarPresupuesto = null;
+		boolean validarPresupuesto = true;
 		Long tipoMoneda = 1L;
 		
 		GenerateProofService generateProofService = new GenerateProofServiceImpl();
@@ -60,24 +60,20 @@ public class RentProofServiceImpl implements RentProofService {
 
 		if (listaCostCenters != null && listaCostCenters.size() > 0) {
 			for (CostsCentersVehicles costsCentersVehicles : listaCostCenters) {
-				Integer porcentaje = new Integer(costsCentersVehicles
-						.getCcrPorcentaje());
+				Integer porcentaje = new Integer(costsCentersVehicles.getCcrPorcentaje());
 				Double valor = (porcentaje / 100) * valorTarifa;
 				validarPresupuesto = consultsService.validarPresupuesto(anho,
 						costsCentersVehicles.getCostsCenters().getCocNumero()
 								.trim().toUpperCase(), "", null, valor);
 
-				if (validarPresupuesto.equalsIgnoreCase("N"))
-					throw new GWorkException(Util
-							.loadErrorMessageValue("DISPONIBILDADPRESUPUESTAL")
-							+ costsCentersVehicles.getCostsCenters()
-									.getCocNumero());
+				if (!validarPresupuesto)
+					throw new GWorkException(Util.loadErrorMessageValue("DISPONIBILDADPRESUPUESTAL")
+							+ costsCentersVehicles.getCostsCenters().getCocNumero());
 			}
 		}
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
-		String placa = vehiclesAssignation.getVehicles()
-				.getVhcPlacaDiplomatica();
+		String placa = vehiclesAssignation.getVehicles().getVhcPlacaDiplomatica();
 
 		String aoaState = ParametersUtil.ESTADO_ACTIVO;
 		Long pSob = tipoMoneda;
@@ -97,10 +93,8 @@ public class RentProofServiceImpl implements RentProofService {
 		String pAttribute5 = "";
 		String pAttribute6 = "";
 		String pAttribute7 = "";
-		String pAttribute9 = parameters.getDocumentTwo().getDocumentTwoType()
-				.getDttName();
-		String pAttribute10 = ManipulacionFechas.getMes(fecha)
-				+ ManipulacionFechas.getDia(fecha);
+		String pAttribute9 = parameters.getDocumentTwo().getDocumentTwoType().getDttName();
+		String pAttribute10 = ManipulacionFechas.getMes(fecha) + ManipulacionFechas.getDia(fecha);
 		String periodo = dateFormat.format(vehiclesAssignation.getRequests()
 				.getRqsFechaInicial())
 				+ "-"
@@ -112,8 +106,7 @@ public class RentProofServiceImpl implements RentProofService {
 			PDescription = parameters.getDescriptionType().getDstValor() + ":"
 					+ placa + " " + Util.loadMessageValue("PERIODO") + periodo
 					+ "-" + Util.loadMessageValue("ENTREGA");
-			pAttribute5 = parameters.getDocumentOne().getDocumentOneType()
-					.getDotName();
+			pAttribute5 = parameters.getDocumentOne().getDocumentOneType().getDotName();
 			pAttribute6 = placa;
 			pAuxiliary = vehiclesAssignation.getRequests().getRqsCarnetAsignatario();
 			if (vehiclesAssignation.getRequests().getRequestsClasses()

@@ -270,8 +270,8 @@ public interface ConsultsService {
 	 * @param valor the valor
 	 * @return the string
 	 */
-	public String validarPresupuesto(Integer anho, String codigoCentroCosto,
-			String cuenta, String auxiliar, Double valor);
+	public boolean validarPresupuesto(Integer anho, String codigoCentroCosto,
+			String cuenta, String auxiliar, Double valor) throws GWorkException;
 
 	/**
 	 * Consult cost center periodo.

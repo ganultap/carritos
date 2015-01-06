@@ -225,13 +225,11 @@ public class ServiceRegistryImp implements ServiceRegistryService {
 					if (idFuelTypeRequest.longValue() == TRACTOR_POOL
 							|| idFuelTypeRequest.longValue() == MOTO_CIAT
 							|| idFuelTypeRequest.longValue() == MEMO_CIAT) {
-						String validarPresupuesto = new ConsultsServiceImpl()
-								.validarPresupuesto(anho, NumeroCentroCosto,
-										cuenta, null, new Double(totalPagar));
+						boolean validarPresupuesto = new ConsultsServiceImpl().validarPresupuesto(
+								anho, NumeroCentroCosto,cuenta, null, new Double(totalPagar));
 
-						if (validarPresupuesto.trim().equalsIgnoreCase("N"))
-							throw new GWorkException(Util
-									.loadErrorMessageValue("ERROR.NODISPPPTO"));
+						if (validarPresupuesto)
+							throw new GWorkException(Util.loadErrorMessageValue("ERROR.NODISPPPTO"));
 					} else {
 
 						/*
@@ -243,21 +241,17 @@ public class ServiceRegistryImp implements ServiceRegistryService {
 								&& assignation.getRequests() != null
 								&& assignation.getRequests().getLegateesTypes() != null
 								&& assignation.getRequests().getLegateesTypes()
-										.getLgtCodigo() != ParametersUtil.LGT_CONVENIO
-										.longValue()
+										.getLgtCodigo() != ParametersUtil.LGT_CONVENIO.longValue()
 								&& assignation.getRequests().getLegateesTypes()
-										.getLgtCodigo() != ParametersUtil.LGT_PROYECTO
-										.longValue()
+										.getLgtCodigo() != ParametersUtil.LGT_PROYECTO.longValue()
 								&& NumeroCentroCosto != null) {
-							String validarPresupuesto = new ConsultsServiceImpl()
+							boolean validarPresupuesto = new ConsultsServiceImpl()
 									.validarPresupuesto(anho,
 											NumeroCentroCosto, cuenta, null,
 											new Double(totalPagar));
 
-							if (validarPresupuesto.trim().equalsIgnoreCase("N"))
-								throw new GWorkException(
-										Util
-												.loadErrorMessageValue("ERROR.NODISPPPTO"));
+							if (validarPresupuesto)
+								throw new GWorkException(Util.loadErrorMessageValue("ERROR.NODISPPPTO"));
 
 						} else {
 							/*

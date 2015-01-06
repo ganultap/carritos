@@ -58,14 +58,12 @@ public class CheckCostCenterForce {
 
 		cuenta = parameters.getAccount().getAccNumeroCuenta();
 
-		String disponible = new ConsultsServiceImpl().validarPresupuesto(anho,
+		boolean disponible = new ConsultsServiceImpl().validarPresupuesto(anho,
 				centroCosto, cuenta, null, new Double(valorCentroCosto));
 
-		if(disponible == null){
-			mensajeDisponible = "La validación Presupuestal para el " + centroCosto + " con valor igual a " + valorCentroCosto + " fue nula";
-		}else{
-			if (disponible.equalsIgnoreCase("N"))
-				mensajeDisponible = Util.loadErrorMessageValue("ERROR.NODISPPPTO");
+		if(!disponible){
+			mensajeDisponible = Util.loadErrorMessageValue("ERROR.NODISPPPTO") + 
+				" para el " + centroCosto + " con valor igual a " + valorCentroCosto;
 		}
 		return mensajeDisponible;
 	}
