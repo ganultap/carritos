@@ -1163,7 +1163,7 @@ public class ConsultsServiceImpl implements ConsultsService {
 			throw new GWorkException(Util.loadErrorMessageValue("DISPONIBILDADPRESUPUESTAL"), e);
 		}
 		if (result != null)
-			if (result.equalsIgnoreCase("Y"))
+			if (!result.equalsIgnoreCase("NO_DATA_FOUND"))
 				validaPresupuesto = true;
 
 		return validaPresupuesto;		
