@@ -59,31 +59,29 @@ public class PrepaymentServiceImpl implements PrepaymentService {
 			for (CostCentersFuel costCentersFuel : lstCCF) {
 				VehiclesAssignation vehiclesAssignation = null;
 				Prepaid prepaid = updatePrepaid(costCentersFuel,
-						carneAsignatario, fechaIni, prePlaca, costCentersFuel
-								.getCcfValor());
+						carneAsignatario, fechaIni, prePlaca, 
+						costCentersFuel.getCcfValor());
 
-				Period period = FlatFileFuelServiceImpl
-						.consultarPeriodoByNovedad(fechaIni,
-								ParametersUtil.NOVEDAD_COMB);
+				Period period = FlatFileFuelServiceImpl.consultarPeriodoByNovedad(
+						fechaIni,ParametersUtil.NOVEDAD_COMB);
+
 				HeaderProof headerProof = null;
 
 				vehiclesAssignation = SearchVehicles.consultarAsignacionVehiculo(prePlaca);
 
 				if (vehiclesAssignation == null)
-					throw new GWorkException(Util
-							.loadErrorMessageValue("SOLICITUD.ASIGNACION")
+					throw new GWorkException(Util.loadErrorMessageValue("SOLICITUD.ASIGNACION")
 							+ ": " + prePlaca);
 
-				CostsCenters costsCenters = new CostsCentersDAO()
-						.findById(costCentersFuel.getCostsCenters()
-								.getCocCodigo().longValue());
+				CostsCenters costsCenters = new CostsCentersDAO().findById(
+						costCentersFuel.getCostsCenters().getCocCodigo().longValue());
+
 				Float valorPrepago = 0F;
 
 				if (costsCenters.getValorPrepago() == null)
 					costsCenters.setValorPrepago(0F);
 
-				valorPrepago = costCentersFuel.getCcfValor()
-						+ costsCenters.getValorPrepago();
+				valorPrepago = costCentersFuel.getCcfValor() + costsCenters.getValorPrepago();
 
 				costsCenters.setValorPrepago(valorPrepago);
 				new CostsCentersDAO().update(costsCenters);
@@ -97,22 +95,23 @@ public class PrepaymentServiceImpl implements PrepaymentService {
 				String idMaster = new ConsultsServiceImpl().getIdMaster();
 				Long idDetail = Long.valueOf(1);
 
-				connection = new PrepaidProofBoughtServiceImpl().generarComprobanteDetalle(connection, 
-						ParametersUtil.TRASACCTION_TYPE, login, costCentersFuel
-								.getCcfValor(), ParametersUtil.DEBITO,
+				connection = new PrepaidProofBoughtServiceImpl().generarComprobanteDetalle(
+						connection, 
+						ParametersUtil.TRASACCTION_TYPE, login, 
+						costCentersFuel.getCcfValor(), ParametersUtil.DEBITO,
 						costCentersFuel.getCostsCenters().getCocNumero(),
 						prePlaca, fechaIni, vehiclesAssignation, period,
 						headerProof, idMaster, idDetail);
 
 				idDetail++;
-				connection = new PrepaidProofBoughtServiceImpl()
-						.generarComprobanteDetalle(connection, 
-								ParametersUtil.TRASACCTION_TYPE, login,
-								costCentersFuel.getCcfValor(),
-								ParametersUtil.CREDITO, costCentersFuel
-										.getCostsCenters().getCocNumero(),
-								prePlaca, fechaIni, vehiclesAssignation,
-								period, headerProof, idMaster, idDetail);
+				connection = new PrepaidProofBoughtServiceImpl().generarComprobanteDetalle(
+						connection, 
+						ParametersUtil.TRASACCTION_TYPE, login,
+						costCentersFuel.getCcfValor(),
+						ParametersUtil.CREDITO, 
+						costCentersFuel.getCostsCenters().getCocNumero(),
+						prePlaca, fechaIni, vehiclesAssignation,
+						period, headerProof, idMaster, idDetail);
 
 				connection = ConsultsServiceImpl.insertTMaster(connection, idMaster, "P", idDetail.intValue());
 
@@ -120,7 +119,6 @@ public class PrepaymentServiceImpl implements PrepaymentService {
 				new PrepaidDAO().update(prepaid);
 
 			}
-			// Se finaliza la transacción, si todo sale correcto se guarda
 			EntityManagerHelper.getEntityManager().getTransaction().commit();
 
 			if (connection != null)
@@ -130,8 +128,8 @@ public class PrepaymentServiceImpl implements PrepaymentService {
 			EntityManagerHelper.getEntityManager().close();
 			e.printStackTrace();
 			
-			throw new GWorkException(Util
-					.loadErrorMessageValue("ERROR.GUARDAR"), e);
+			throw new GWorkException(Util.loadErrorMessageValue("ERROR.GUARDAR") + 
+					" - " + e.getMessage().toString(), e);
 		} finally{
 			try{
 				if (connection!=null && !connection.isClosed()){

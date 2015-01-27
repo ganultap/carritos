@@ -52,6 +52,7 @@ public class ConsultsServiceImpl implements ConsultsService {
 
 	/**
 	 * Valida que la cuenta exista.
+	 * No se esta utilizando
 	 *
 	 * @param carneAuxiliar the carne auxiliar
 	 * @return the string
@@ -83,6 +84,7 @@ public class ConsultsServiceImpl implements ConsultsService {
 
 	/**
 	 * Consulta que la cuenta exista.
+	 * No se está utilizando
 	 *
 	 * @param codigoCuenta the codigo cuenta
 	 * @return the string
@@ -91,9 +93,8 @@ public class ConsultsServiceImpl implements ConsultsService {
 	public String consultAccount(String codigoCuenta) throws GWorkException {
 		String result = null;
 		Query query = null;
-		try {
-			result = "select ciatapps.f_valida_cuenta_of"
-					+ Util.loadMessageValue("DBLINK") + "(?) from dual";
+		try { 
+			result = "select FINANZAS_INTERFAZ.V_ABW_ACTIVE_ACCOUNT (?) from dual";
 			query = EntityManagerHelper.getEntityManager().createNativeQuery(
 					result);
 			query.setParameter(1, codigoCuenta);
@@ -213,7 +214,7 @@ public class ConsultsServiceImpl implements ConsultsService {
 	 */
 	public String consultCostCenterPeriodo(String costCenter, Date fechaIni,
 			Date fechaFin) throws GWorkException {
-		String result = null;
+		/*String result = null;
 		Query query = null;
 		try {
 			final String queryString = "select ciatapps.f_valida_ccosto_enabled_period"
@@ -234,7 +235,7 @@ public class ConsultsServiceImpl implements ConsultsService {
 					+ "\n" + e.getCause().getCause().getMessage(), e);
 		}finally{
 			EntityManagerHelper.getEntityManager().close();
-		}
+		}*/String result = "";
 		return result;
 	}
 
@@ -345,30 +346,18 @@ public class ConsultsServiceImpl implements ConsultsService {
 
 		try {
 
-			String sbQuery = "SELECT V.flex_value, v.description nombre_auxiliar , v.ENABLED_FLAG, v.START_DATE_ACTIVE, v.END_DATE_ACTIVE "
-					+ "                FROM apps.FND_FLEX_VALUE_SETS"
-					+ Util.loadMessageValue("DBLINK")
-					+ " VS,apps.FND_FLEX_VALUES_VL"
-					+ Util.loadMessageValue("DBLINK")
-					+ " V"
-					+ " WHERE VS.FLEX_VALUE_SET_NAME = 'CIAT_GL_AUXILIAR'"
-					+ " AND VS.FLEX_VALUE_SET_ID = V.FLEX_VALUE_SET_ID"
-					+ " AND v.flex_value <> '00000000' "
-					+ " AND (v.description LIKE '%"
-					+ nombreAuxiliar
-					+ "%' or V.flex_value like '%"
-					+ codigo
-					+ "%') "
-					+ " AND v.end_date_active is  null "
-					+ " ORDER BY v.description ";
-			Query query = EntityManagerHelper.getEntityManager()
-					.createNativeQuery(sbQuery);
+			String sbQuery = "select ATTR_VALUE, DESCRIPTION " +
+					" from FINANZAS_INTERFAZ.V_ABW_ACTIVE_CUSTOMER " +
+					" where description like '%" + nombreAuxiliar + "%' " +
+					" OR ATTR_VALUE LIKE '% " + codigo + "%' " +
+					" AND STATUS = 'N' " +
+					" ORDER BY DESCRIPTION";
+			Query query = EntityManagerHelper.getEntityManager().createNativeQuery(sbQuery);
 			arreglo = query.getResultList();
 
 		} catch (Exception e) {
 			log.error("auxiliaresCIAT", e);
-			throw new GWorkException(Util
-					.loadErrorMessageValue("ERRORCONEXION")
+			throw new GWorkException(Util.loadErrorMessageValue("ERRORCONEXION")
 					+ "\n" + e.getCause().getCause().getMessage(), e);
 
 		}
@@ -394,7 +383,6 @@ public class ConsultsServiceImpl implements ConsultsService {
 
 		EntityManagerHelper.closeEntityManager();
 		return listaUsersCIAT;
-
 	}
 
 	/**
@@ -421,8 +409,7 @@ public class ConsultsServiceImpl implements ConsultsService {
 					+ "%' OR emp_codigo LIKE '%" + carne + "%')");
 			buffer.append("ORDER BY emp_nombre ASC");
 
-			Query query = EntityManagerHelper.getEntityManager()
-					.createNativeQuery(buffer.toString());
+			Query query = EntityManagerHelper.getEntityManager().createNativeQuery(buffer.toString());
 			listaOrdenes = query.getResultList();
 
 		} catch (Exception e) {
@@ -483,18 +470,16 @@ public class ConsultsServiceImpl implements ConsultsService {
 	 * @throws GWorkException the g work exception
 	 */
 	@SuppressWarnings("unchecked")
-	public List<Object[]> ordenesTrabajo(String nombreOrden)
+	public List<Object[]> ordenesTrabajo(String placa)
 			throws GWorkException {
 
 		List<Object[]> listaOrdenes = null;
 
 		try {
 
-			String sbQuery = "select consec, desc_srv_ot , veh_placa_yt from mantenimiento01.ordenes@ciat3db.world"
-					+ " where o_pr_sv_codigo='MTO'  and ano=2008 and veh_placa_yt is not null and "
-					+ "(desc_srv_ot LIKE '%"
-					+ nombreOrden
-					+ "%' OR consec LIKE '%" + nombreOrden + "%')";
+			String sbQuery = "SELECT CODE, DESCRIPTION, VEHICLE_PLATE " +
+					"FROM MAINTENANCE01.T_OCA_PROJECT " +
+					"WHERE VEHICLE_PLATE ='" + placa.trim() + "'";
 			Query query = EntityManagerHelper.getEntityManager()
 					.createNativeQuery(sbQuery);
 			listaOrdenes = query.getResultList();
@@ -691,21 +676,17 @@ public class ConsultsServiceImpl implements ConsultsService {
 		Query query = null;
 
 		try {
-			// select ciatapps.F_RETURN_EMAIL_CARNET(?)from dual
-			String sbQuery = "select FINANZAS_INTERFAZ.F_RETURN_NOMBRE_AUXILIAR (?) from dual";
-			query = EntityManagerHelper.getEntityManager().createNativeQuery(
-					sbQuery);
+			String sbQuery = "select FINANZAS_INTERFAZ.F_ABW_RETURN_NOMBRE_AUXILIAR (?) from dual";
+			query = EntityManagerHelper.getEntityManager().createNativeQuery(sbQuery);
 			query.setParameter(1, carnet);
 			result = (String) query.getSingleResult();
 		} catch (Exception e) {
 			log.error("consultEmpleoyeeName", e);
-			throw new GWorkException(Util
-					.loadErrorMessageValue("ERRORCONEXION"), e);
+			throw new GWorkException(Util.loadErrorMessageValue("ERRORCONEXION"), e);
 		}
 
 		if (result == null || result.trim().length() == 0)
-			throw new GWorkException(Util
-					.loadErrorMessageValue("NOMBREEXISTEN"));
+			throw new GWorkException(Util.loadErrorMessageValue("NOMBREEXISTEN"));
 
 		return result;
 
@@ -771,10 +752,11 @@ public class ConsultsServiceImpl implements ConsultsService {
 
 		try {
 
-			String sbQuery = "select * from CIATAPPS.V_COST_CENTER_INFO"
-					+ Util.loadMessageValue("DBLINK");
-			Query query = EntityManagerHelper.getEntityManager()
-					.createNativeQuery(sbQuery);
+			String sbQuery = "select ATTR_VALUE " +
+					"from FINANZAS_INTERFAZ.V_ABW_ACTIVE_AEC " +
+					"where STATUS = 'N'";
+											 
+			Query query = EntityManagerHelper.getEntityManager().createNativeQuery(sbQuery);
 			arreglo = query.getResultList();
 
 		} catch (Exception e) {
@@ -803,11 +785,14 @@ public class ConsultsServiceImpl implements ConsultsService {
 	 * Función que permita traer el número de la orden de compra a través de la
 	 * placa del vehículo.
 	 *
+	 * Este dato no está contemplados en ABW por ahora. Estamos a la espera de confirmación.
+	 *
 	 * @param buyOrder the buy order
 	 * @return the string
 	 * @throws GWorkException the g work exception
 	 */
 	public String consultBuyOrder(String buyOrder) throws GWorkException {
+		/*
 		try {
 			String sbQuery = "select ciatapps.f_fa_numero_po"
 					+ Util.loadMessageValue("DBLINK") + "(?) from dual";
@@ -822,6 +807,7 @@ public class ConsultsServiceImpl implements ConsultsService {
 		} catch (Exception e) {
 			log.error("consultBuyOrder -> " + e.getMessage(), e);
 		}
+		*/
 		return null;
 	}
 
@@ -833,12 +819,13 @@ public class ConsultsServiceImpl implements ConsultsService {
 	 * @throws GWorkException the g work exception
 	 */
 	public String consultSupplier(String supplier) throws GWorkException {
+		/*
 		try {
 			String sbQuery = "select ciatapps.f_fa_proveedor_po"
 					+ Util.loadMessageValue("DBLINK") + "(?) from dual";
+					
 			Query query = null;
-			query = EntityManagerHelper.getEntityManager().createNativeQuery(
-					sbQuery);
+			query = EntityManagerHelper.getEntityManager().createNativeQuery(sbQuery);
 			query.setParameter(1, supplier);
 			String result = (String) query.getSingleResult();
 			if (result != null && result.trim().length() != 0)
@@ -847,6 +834,7 @@ public class ConsultsServiceImpl implements ConsultsService {
 		} catch (Exception e) {
 			log.error("consultSupplier -> " + e.getMessage(), e);
 		}
+		*/
 		return null;
 	}
 
@@ -860,7 +848,7 @@ public class ConsultsServiceImpl implements ConsultsService {
 	public String consultEmailResponsableCENCOS(String cencos)
 			throws GWorkException {
 		try {
-			String sbQuery = "select FINANZAS_INTERFAZ.F_OF_RETURN_EMAIL_RESP_CENCOS (?) from dual";
+			String sbQuery = "select FINANZAS_INTERFAZ.F_ABW_RETURN_EMAIL_RESP_CENCOS (?) from dual";
 			Query query = null;
 			query = EntityManagerHelper.getEntityManager().createNativeQuery(sbQuery);
 			query.setParameter(1, cencos);
@@ -885,14 +873,14 @@ public class ConsultsServiceImpl implements ConsultsService {
 	public BigDecimal consultFuntions(String placActivoFijo, int numero)
 			throws GWorkException {
 		String sbQuery = null;
-		String sbQueryCIF = "select ciatapps.f_fa_valor_CIF"
-				+ Util.loadMessageValue("DBLINK") + "(?) from dual";
+		String sbQueryCIF = "select FINANZAS_INTERFAZ.F_ABW_VALOR_ORIG_ACTIVO (?) from dual";
 		String sbQueryFOB = "select ciatapps.f_fa_valor_FOB"
 				+ Util.loadMessageValue("DBLINK") + "(?) from dual";
 		String sbQueryFLETES = "select ciatapps.f_fa_valor_FLETES"
 				+ Util.loadMessageValue("DBLINK") + "(?) from dual";
-		String sbQueryUtil = "select ciatapps.f_fa_vida_util"
-				+ Util.loadMessageValue("DBLINK") + "(?) from dual";
+		String sbQueryUtil = "select FINANZAS_INTERFAZ.F_ABW_FA_VIDA_UTIL (?) from dual";
+
+		BigDecimal result = new BigDecimal(0);
 
 		try {
 			if (numero == 1)
@@ -901,14 +889,14 @@ public class ConsultsServiceImpl implements ConsultsService {
 				sbQuery = sbQueryFOB;
 			else if (numero == 3)
 				sbQuery = sbQueryFLETES;
-			if (numero == 4)
+			if (numero == 4 || numero == 1){
 				sbQuery = sbQueryUtil;
 
-			Query query = null;
-			query = EntityManagerHelper.getEntityManager().createNativeQuery(
-					sbQuery);
-			query.setParameter(1, placActivoFijo);
-			BigDecimal result = (BigDecimal) query.getSingleResult();
+				Query query = null;
+				query = EntityManagerHelper.getEntityManager().createNativeQuery(sbQuery);
+				query.setParameter(1, placActivoFijo);
+				result = (BigDecimal) query.getSingleResult();
+			}
 			if (result != null && !result.equals(new BigDecimal(0)))
 				return result;
 
@@ -1040,10 +1028,8 @@ public class ConsultsServiceImpl implements ConsultsService {
 			String codigoCentroCosto, String cuenta, String auxiliar,
 			Double valor) throws GWorkException {
 
-		String queryString = "FINANZAS_INTERFAZ.F_ABW_AVAILABLE_BDG(':codigoCentroCosto,:valor) campo FROM DUAL";
+		String queryString = "select FINANZAS_INTERFAZ.F_ABW_AVAILABLE_BDG( '" + codigoCentroCosto + "'," + valor + ") campo FROM DUAL";
 		Query query = EntityManagerHelper.getEntityManager().createNativeQuery(queryString);
-		query.setParameter("codigoCentroCosto", codigoCentroCosto);
-		query.setParameter("valor", valor);
 
 		String result = "";
 
@@ -1055,9 +1041,9 @@ public class ConsultsServiceImpl implements ConsultsService {
 			throw new GWorkException(Util.loadErrorMessageValue("DISPONIBILDADPRESUPUESTAL"), e);
 		}
 		if (result != null)
-			if (!result.equalsIgnoreCase("NO_DATA_FOUND"))
+			if (!result.equalsIgnoreCase("NO_DATA_FOUND") && !result.equalsIgnoreCase("N"))
 				validaPresupuesto = true;
-
+		validaPresupuesto = true;
 		return validaPresupuesto;
 	}
 
@@ -1068,16 +1054,13 @@ public class ConsultsServiceImpl implements ConsultsService {
 			List<CostsCentersVehicles> listCostsCenters, Long idTipoVehiculo,
 			Long claseSoliicitud, Long legateesTypes) throws GWorkException {
 
-		if ((listCostsCenters != null && listCostsCenters.size() > 0 && !listCostsCenters
-				.isEmpty())
-				&& (idTipoVehiculo != null && idTipoVehiculo.longValue() != -1L && idTipoVehiculo != 0L)) {
+		if ((listCostsCenters != null && listCostsCenters.size() > 0 && !listCostsCenters.isEmpty()) && 
+				(idTipoVehiculo != null && idTipoVehiculo.longValue() != -1L && idTipoVehiculo != 0L)) {
 
 			for (CostsCentersVehicles centersRequests : listCostsCenters) {
 
-				Double valorCC = DisponibilidadPresupuestalAlquiler
-						.consultarDisponibilidadAlquiler(idTipoVehiculo);
-				Double porcentaje = new Double(centersRequests
-						.getCcrPorcentaje()) / new Double(100);
+				Double valorCC = DisponibilidadPresupuestalAlquiler.consultarDisponibilidadAlquiler(idTipoVehiculo);
+				Double porcentaje = new Double(centersRequests.getCcrPorcentaje()) / new Double(100);
 				valorCC = valorCC * porcentaje;
 				AccountingParameters parameters = null;
 				String cuenta = null;
@@ -1148,13 +1131,11 @@ public class ConsultsServiceImpl implements ConsultsService {
 	public boolean validarPresupuesto(Integer anho, String codigoCentroCosto,
 			String cuenta, String auxiliar, Double valor) throws GWorkException {
 
-		String queryString = "FINANZAS_INTERFAZ.F_ABW_AVAILABLE_BDG(':codigoCentroCosto,:valor) campo FROM DUAL";
+		String queryString = "select FINANZAS_INTERFAZ.F_ABW_AVAILABLE_BDG( '" + codigoCentroCosto + "'," + valor + ") campo FROM DUAL";
 		Query query = EntityManagerHelper.getEntityManager().createNativeQuery(queryString);
-		query.setParameter("codigoCentroCosto", codigoCentroCosto);
-		query.setParameter("valor", valor);
 
 		String result = "";
-
+		
 		try {
 			result = (String) query.getSingleResult();
 
@@ -1163,9 +1144,9 @@ public class ConsultsServiceImpl implements ConsultsService {
 			throw new GWorkException(Util.loadErrorMessageValue("DISPONIBILDADPRESUPUESTAL"), e);
 		}
 		if (result != null)
-			if (!result.equalsIgnoreCase("NO_DATA_FOUND"))
+			if (!result.equalsIgnoreCase("NO_DATA_FOUND") && !result.equalsIgnoreCase("N"))
 				validaPresupuesto = true;
-
+		validaPresupuesto = true;
 		return validaPresupuesto;		
 	}
 
@@ -1510,6 +1491,7 @@ public class ConsultsServiceImpl implements ConsultsService {
 	public String carnetVehiculoActivoFijo(String strPlacaActivoFijo)
 			throws GWorkException {
 		String result = null;
+		/*
 		Query query = null;
 		try {
 			final String queryString = "SELECT F_FA_carnet_asig"
@@ -1527,6 +1509,7 @@ public class ConsultsServiceImpl implements ConsultsService {
 					.loadErrorMessageValue("ERRORCONEXION")
 					+ "\n" + e.getCause().getCause().getMessage(), e);
 		}
+		*/
 		return result;
 	}
 
