@@ -261,7 +261,7 @@ public class RegistryNewnessCostCenterPage extends BaseBean {
 	        setPorcentaje(null);
 		}
 		else
-			throw new GWorkException("No se pueden agregar el mismo centro de costo");
+			throw new GWorkException("No se pueden agregar el mismo AEC");
 	}
 	
 	public void guardarListaCC(ActionEvent event) throws GWorkException {
@@ -323,13 +323,13 @@ public class RegistryNewnessCostCenterPage extends BaseBean {
 				
 			}
 			
-			/*Si no se ingresa por lo menos un nuevo centro de costo, debe deshacer los cambios*/
+			/*Si no se ingresa por lo menos un nuevo AEC, debe deshacer los cambios*/
 			if(conteo<=0){
 				registryNewnessCostCenterService.actualizarCentrosDeCostos(valoresCentroCostosOld, login, 
 												new Long(idVehiculo),fechaInicial, fechaFinal, 1);
 			}
 			else
-				mostrarMensaje("Cambios de los centros de costo realizado con éxito.", false);
+				mostrarMensaje("Cambios de los AEC realizado con éxito.", false);
 			
 			activarGuardado(false);
 			limpiarCamposGuardar();

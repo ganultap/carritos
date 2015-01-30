@@ -292,7 +292,7 @@ public class RegistryNewnessCostCenterPageFuel extends BaseBean {
 			setPorcentaje(null);
 		} else
 			throw new GWorkException(
-					"No se pueden agregar el mismo centro de costo");
+					"No se pueden agregar el mismo AEC");
 	}
 
 	public void guardarListaCC(ActionEvent event) throws GWorkException {
@@ -374,7 +374,7 @@ public class RegistryNewnessCostCenterPageFuel extends BaseBean {
 								1);
 			} else
 				mostrarMensaje(
-						"Cambios de los centros de costo realizado con éxito.",
+						"Cambios de los AEC realizado con éxito.",
 						false);
 
 			activarGuardado(false);

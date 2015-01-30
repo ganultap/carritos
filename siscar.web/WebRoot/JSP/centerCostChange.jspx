@@ -6,8 +6,8 @@
 	xmlns:gw="/gw_core.tld">
 
 	<!-- params for page titles-->
-	<ui:param name="pageTitle" value="Cambio Centro costos" />
-	<ui:param name="contentHeader" value="Cambio Centro costos" />
+	<ui:param name="pageTitle" value="Cambio AEC" />
+	<ui:param name="contentHeader" value="Cambio AEC" />
 	<ui:define name="content">
 		<ui:decorate template="../inc-templates/content-template.jspx">
 			<!-- insert content here -->
