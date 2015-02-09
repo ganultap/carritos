@@ -142,38 +142,10 @@ public class ConsultsServiceImpl implements ConsultsService {
 	 * @throws GWorkException the g work exception
 	 */
 	public boolean validateCostCenter(String costCenter) throws GWorkException {
-		String strQuery = "";
-		String result = null;
-		Query query = null;
-		/*try {
-			log.info("Inicia validateCostCenter con parámetro " + costCenter);
-			
-			strQuery = "select ciatapps.f_valida_ccosto_enabled_fechas"
-					+ Util.loadMessageValue("DBLINK") + "(?) from dual";
-			
-			log.info("Inicia consulta de validacion de centro de costos: \"" + strQuery + 
-					"\". Param1 = \"" + costCenter + "\"");
-			
-			query = EntityManagerHelper.getEntityManager().createNativeQuery(
-					strQuery);
-			query.setParameter(1, costCenter);
 
-			result = (String) query.getSingleResult();
-
-		} catch (Exception e) {
-			String mensaje = "validateCostCenter*****************: " + strQuery + "\nParametros del query: " + costCenter + ".\n" + e.getMessage();
-			log.error(mensaje, e);
-			log.info(mensaje, e);
-			throw new GWorkException(Util
-					.loadErrorMessageValue("ERRORCONEXION") + ". " + mensaje, e);
-		}
-
-		if (result != null && result.length() > 0){
-			log.debug("ValidateCostCenter retorna false con parametro " + costCenter);
+		if(consultCostCenter(costCenter) != null){
 			return false;
-		}*/
-
-		log.debug("ValidateCostCenter retorna true con parametro " + costCenter);
+		}
 		return true;
 	}
 
@@ -184,28 +156,29 @@ public class ConsultsServiceImpl implements ConsultsService {
 	 * @return the string
 	 * @throws GWorkException the g work exception
 	 */
+	@SuppressWarnings("unchecked")
 	public String consultCostCenter(String costCenter) throws GWorkException {
 		String result = null;
-		Query query = null;
-		/*try {
-			final String queryString = "select ciatapps.f_valida_ccosto_enabled_fechas"
-					+ Util.loadMessageValue("DBLINK")
-					+ "(:costCenter) from dual";
-			query = EntityManagerHelper.getEntityManager().createNativeQuery(
-					queryString);
-			query.setParameter("costCenter", costCenter.trim());
 
-			result = (String) query.getSingleResult();
-
-		} catch (Exception e) {
-			log.error("consultCostCenter", e);
-			throw new GWorkException(Util
-					.loadErrorMessageValue("ERRORCONEXION")
-					+ "\n" + e.getCause().getCause().getMessage(), e);
-		}finally{
-			EntityManagerHelper.getEntityManager().close();
-		}*/
+		List<Object> arreglo = null;
 		
+		try {
+			String sbQuery = "select ATTR_VALUE from FINANZAS_INTERFAZ.V_ABW_ACTIVE_AEC " +
+			"where ATTR_VALUE = '" + costCenter + "' AND STATUS = 'N'";
+											 
+			Query query = EntityManagerHelper.getEntityManager().createNativeQuery(sbQuery);
+			arreglo = query.getResultList();
+
+			if (arreglo == null || arreglo.isEmpty()) {
+				result = "El AEC " + costCenter + " no existe ó no está activo, por favor verificar";
+			}
+		} catch (Exception e) {
+			log.error("centrosCosto", e);
+			throw new GWorkException(Util.loadErrorMessageValue("ERRORCONEXION")
+					+ "\n" + e.getCause().getCause().getMessage(), e);
+		} finally{
+			EntityManagerHelper.getEntityManager().close();
+		}
 		return result;
 	}
 
@@ -214,28 +187,12 @@ public class ConsultsServiceImpl implements ConsultsService {
 	 */
 	public String consultCostCenterPeriodo(String costCenter, Date fechaIni,
 			Date fechaFin) throws GWorkException {
-		/*String result = null;
-		Query query = null;
-		try {
-			final String queryString = "select ciatapps.f_valida_ccosto_enabled_period"
-					+ Util.loadMessageValue("DBLINK")
-					+ "(:costCenter,:fechaIni,:fechaFin) from dual";
-			query = EntityManagerHelper.getEntityManager().createNativeQuery(
-					queryString);
-			query.setParameter("costCenter", costCenter.trim());
-			query.setParameter("fechaIni", fechaIni);
-			query.setParameter("fechaFin", fechaFin);
-
-			result = (String) query.getSingleResult();
-
-		} catch (Exception e) {
-			log.error("consultCostCenterPeriodo", e);
-			throw new GWorkException(Util
-					.loadErrorMessageValue("ERRORCONEXION")
-					+ "\n" + e.getCause().getCause().getMessage(), e);
-		}finally{
-			EntityManagerHelper.getEntityManager().close();
-		}*/String result = "";
+				
+		String result = consultCostCenter(costCenter);
+		if(result == null){
+			result = "";
+		}
+		
 		return result;
 	}
 
