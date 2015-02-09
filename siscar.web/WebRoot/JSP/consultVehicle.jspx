@@ -154,17 +154,15 @@
 								</ice:inputText>
 
 								<ice:outputText value="#{lbl['label.centrosCostosAsignacion']}" />
-								<ice:inputText maxlength="40" readonly="true"
-									style="width: 160px; "
+								<ice:inputText maxlength="100" readonly="true"
+									style="width: 260px; " 
 									value="#{consultVehiclePage.centrosCostos}">
-								</ice:inputText>
-
+								</ice:inputText>								
 								<ice:outputText value="#{lbl['label.centroCostoCombustible']}" />
-								<ice:inputText maxlength="40" readonly="true"
-									style="width: 160px; "
+								<ice:inputText maxlength="100" readonly="true"
+									style="width: 260px; " 
 									value="#{consultVehiclePage.centrosCostosCombustible}">
 								</ice:inputText>
-
 							</ice:panelGrid>
 						</ice:panelGrid>
 					</div>

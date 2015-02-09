@@ -81,7 +81,7 @@
 										<ice:outputText styleClass=""
 											value="#{lbl['label.centroCostos']}"></ice:outputText>
 									</f:facet>
-									<ice:panelGroup style="text-align:center; width: 80px;">
+									<ice:panelGroup style="text-align:center; width: 120px;">
 										<ice:outputText value="#{costCenter.costsCenters.cocNumero}"></ice:outputText>
 									</ice:panelGroup>
 								</ice:column>
@@ -164,7 +164,7 @@
 											<ice:outputText styleClass=""
 												value="#{lbl['label.centroCosto']}"></ice:outputText>
 										</f:facet>
-										<ice:panelGroup style="text-align:center; width: 80px;">
+										<ice:panelGroup style="text-align:center; width: 120px;">
 											<ice:outputText
 												value="#{costCenterNew.costsCenters.cocNumero}"></ice:outputText>
 										</ice:panelGroup>
