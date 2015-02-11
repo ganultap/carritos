@@ -1088,6 +1088,8 @@ public class ConsultsServiceImpl implements ConsultsService {
 	public boolean validarPresupuesto(Integer anho, String codigoCentroCosto,
 			String cuenta, String auxiliar, Double valor) throws GWorkException {
 
+		boolean presupuestoDisponible = false;
+
 		String queryString = "select FINANZAS_INTERFAZ.F_ABW_AVAILABLE_BDG( '" + codigoCentroCosto + "'," + valor + ") campo FROM DUAL";
 		Query query = EntityManagerHelper.getEntityManager().createNativeQuery(queryString);
 
@@ -1102,9 +1104,9 @@ public class ConsultsServiceImpl implements ConsultsService {
 		}
 		if (result != null)
 			if (!result.equalsIgnoreCase("NO_DATA_FOUND") && !result.equalsIgnoreCase("N"))
-				validaPresupuesto = true;
-		validaPresupuesto = true;
-		return validaPresupuesto;		
+				presupuestoDisponible = true;
+		
+		return presupuestoDisponible;		
 	}
 
 	/**

@@ -228,7 +228,7 @@ public class ServiceRegistryImp implements ServiceRegistryService {
 						boolean validarPresupuesto = new ConsultsServiceImpl().validarPresupuesto(
 								anho, NumeroCentroCosto,cuenta, null, new Double(totalPagar));
 
-						if (validarPresupuesto)
+						if (!validarPresupuesto)
 							throw new GWorkException(Util.loadErrorMessageValue("ERROR.NODISPPPTO"));
 					} else {
 
@@ -250,7 +250,7 @@ public class ServiceRegistryImp implements ServiceRegistryService {
 											NumeroCentroCosto, cuenta, null,
 											new Double(totalPagar));
 
-							if (validarPresupuesto)
+							if (!validarPresupuesto)
 								throw new GWorkException(Util.loadErrorMessageValue("ERROR.NODISPPPTO"));
 
 						} else {
