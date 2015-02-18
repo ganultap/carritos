@@ -238,20 +238,12 @@ public class ConsultsServiceImpl implements ConsultsService {
 		VOUser users = null;
 		try {
 
-			String sbQuery = "SELECT V.flex_value, v.description nombre_auxiliar , v.ENABLED_FLAG, v.START_DATE_ACTIVE, v.END_DATE_ACTIVE "
-					+ " FROM apps.FND_FLEX_VALUE_SETS"
-					+ Util.loadMessageValue("DBLINK")
-					+ " VS,apps.FND_FLEX_VALUES_VL"
-					+ Util.loadMessageValue("DBLINK")
-					+ " V"
-					+ " WHERE VS.FLEX_VALUE_SET_NAME = 'CIAT_GL_AUXILIAR'"
-					+ " AND VS.FLEX_VALUE_SET_ID = V.FLEX_VALUE_SET_ID"
-					+ " AND v.flex_value <> '00000000' "
-					+ " AND V.flex_value = '"
-					+ codigo
-					+ "'"
-					+ " AND v.end_date_active is  null "
-					+ " ORDER BY v.description ";
+			String sbQuery = "select ATTR_VALUE, DESCRIPTION " +
+			" from FINANZAS_INTERFAZ.V_ABW_ACTIVE_CUSTOMER " +
+			" where ATTR_VALUE LIKE '%" + codigo + "%' " +
+			" AND STATUS = 'N' " +
+			" ORDER BY DESCRIPTION";
+			
 			Query query = EntityManagerHelper.getEntityManager()
 					.createNativeQuery(sbQuery);
 			arreglo = query.getResultList();
@@ -1291,7 +1283,7 @@ public class ConsultsServiceImpl implements ConsultsService {
 			statement.setString(13, null); //bline P_BLINE
 			String auxiliar = "00000000";
 			
-			if(PAuxiliary.equals("00000000"))
+			if(PAuxiliary != null && PAuxiliary.equals("00000000"))
 				PAuxiliary = null;
 			
 			statement.setString(14, PAuxiliary);//PAuxiliary
