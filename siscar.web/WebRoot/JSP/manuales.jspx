@@ -29,7 +29,7 @@
 					<center>
 						<ice:panelGrid style="border:1px solid blue; text-align: left;"
 							columns="2">
-							<ice:outputText value="Manual de usuario"
+							<ice:outputText value="Manual de usuario Web"
 								style="font-size: 13px;"></ice:outputText>
 							<br />
 							<ice:outputLink target="_blank"
@@ -39,6 +39,18 @@
 						</ice:panelGrid>
 					</center>
 
+					<center>
+						<ice:panelGrid style="border:1px solid blue; text-align: left;"
+							columns="2">
+							<ice:outputText value="Manual de usuario Dispositivo Movil"
+								style="font-size: 13px;"></ice:outputText>
+							<br />
+							<ice:outputLink target="_blank"
+								value="../manuales/CIAT.Siscar.ManualUsuario.pdf"
+								style="font-size: 12px;">Descargar
+							</ice:outputLink>
+						</ice:panelGrid>
+					</center>
 
 
 
